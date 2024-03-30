@@ -39,7 +39,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/users', [AdminController::class, 'showAllUsers'])->name('admin.users');
-
+Route::get('/test',function(){
+    return view('welcome');
+});
 
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
