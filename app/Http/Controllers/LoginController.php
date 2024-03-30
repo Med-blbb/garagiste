@@ -25,7 +25,7 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
-        dd('Authenticated'); // Check if this message appears
+        
         return redirect()->route('admin.dashboard');
     }
 
