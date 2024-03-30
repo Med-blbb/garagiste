@@ -26,6 +26,8 @@ Route::prefix('admin')->group(function () {
     Route::post('/users/add', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
     Route::put('/users/{id}/update', [AdminController::class, 'updateUser'])->name('admin.users.update');
+    Route::get('/users/search', [AdminController::class, 'searchUser'])->name('admin.users.searchUser');
+
     // Remove user
     Route::delete('/users/{id}/remove', [AdminController::class, 'removeUser'])->name('admin.users.remove');
 
@@ -34,7 +36,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/vehicles/add', [AdminController::class, 'store'])->name('admin.vehicles.add');
     Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
-    Route::get('/vehicles/search', [AdminController::class, 'search'])->name('admin.vehicles.search');
+    Route::get('/vehicles/search', [AdminController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
 });
 
 Route::get('/verify-email/{token}', function ($token) {

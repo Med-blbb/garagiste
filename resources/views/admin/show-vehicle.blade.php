@@ -7,15 +7,18 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">All Vehicles</div>
+                <div class="mt-3">
+                    <form action="{{ route('admin.vehicles.search') }}" method="GET" class="form-inline">
+                        <input class="form-control  mr-2" type="search" placeholder="Search" aria-label="Search" style="width:500px" name="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
 
                 <div class="card-body">
                     <div class="mb-3">
                         <a href="{{ route('admin.vehicles.add') }}" class="btn btn-primary">Add Vehicle</a>
                     </div>
-                    <form action="{{ route('admin.vehicles.search') }}" method="GET" class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+
 
 
                     @if ($vehicles->isEmpty())

@@ -20,15 +20,15 @@
                     <!-- Add form fields for editing user details -->
                     <div class="form-group">
                         <label for="edit_name">Name</label>
-                        <input type="text" class="form-control" " id="edit_name" name="name" required>
+                        <input type="text" class="form-control" " id=" edit_name" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="edit_email">Email</label>
-                        <input type="email" class="form-control"  id="edit_email" name="email" required>
+                        <input type="email" class="form-control" id="edit_email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="edit_role">Role</label>
-                        <input type="text" class="form-control"  id="edit_role" name="role" required>
+                        <input type="text" class="form-control" id="edit_role" name="role" required>
                     </div>
                     <!-- Include user ID hidden input -->
                     <input type="hidden" id="edit_user_id" name="user_id">
@@ -52,7 +52,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="addUserForm"  action="{{ route('admin.users.add') }}" method="post">
+            <form id="addUserForm" action="{{ route('admin.users.add') }}" method="post">
                 @csrf
                 <div class="modal-body">
                     <!-- Add form fields for user details -->
@@ -94,6 +94,12 @@
     </div>
 </div>
 <!-- Include success and error messages -->
+<div class="row justify-content-center mt-3">
+    <form action="{{ route('admin.users.searchUser') }}" method="GET" class="form-inline">
+        <input class="form-control " style="width: 450px;" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ request()->input('search') }}">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+</div>
 
 <table class="table w-100 col-6 flex-end mt-3 mx-auto">
     <thead class="thead-dark">
@@ -111,20 +117,32 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->role }}</td>
             <td>
-                
-                    <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
-                    <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" title="Remove User" onclick="return confirm('Are you sure you want to delete this user?')">
-                            <i class="bi bi-trash h5"></i>
-                        </button>
-                    </form>
+
+                <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
+                <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm" title="Remove User" onclick="return confirm('Are you sure you want to delete this user?')">
+                        <i class="bi bi-trash h5"></i>
+                    </button>
+                </form>
             </td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+<!-- Pagination Links -->
+<!-- Pagination Links -->
+<div class="pagination justify-content-center">
+    <style>
+        .pagination .page-link {
+            font-size: 2px;
+            /* Adjust the font size as needed */
+        }
+    </style>
+    {{ $users->links() }}
+</div>
 
 <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
 <script>

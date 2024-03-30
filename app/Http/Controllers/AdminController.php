@@ -18,7 +18,7 @@ class AdminController extends Controller
     public function showAllUsers()
     {
         // Fetch all users
-        $users = User::all();
+        $users = User::simplepaginate(5);
 
         // Pass users data to the view
         return view('admin.users', compact('users'));
@@ -26,6 +26,22 @@ class AdminController extends Controller
     public function showAddUserForm()
     {
         return view('admin.add-user');
+    }
+    public function searchUser(Request $request){
+        $users = User::where(
+            'name',
+            'like',
+            '%' . request('search') . '%'
+        )
+            ->orwhere('name', 'like', '%' . request('search') . '%')
+            ->orwhere('email', 'like', '%' . request('search') . '%')
+            ->orwhere('role', 'like', '%' . request('search') . '%')
+            ->simplePaginate(5);
+
+        return view('admin.users', compact('users'))->with(
+            'i',
+            (request()->input('page', 1) - 1) * 5
+        );
     }
     public function addUser(Request $request)
     {
@@ -164,7 +180,7 @@ class AdminController extends Controller
         // Redirect back to the previous page
         return redirect()->back();
     }
-    public function search()
+    public function searchVehicle()
     {
         $vehicles = Vehicle::where(
             'model',
