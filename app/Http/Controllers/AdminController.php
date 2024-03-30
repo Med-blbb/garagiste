@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -97,4 +99,63 @@ class AdminController extends Controller
         // Redirect back with a success message
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
+    public function showAllVehicles()
+    {
+        // Fetch all vehicles
+        $vehicles = Vehicle::all();
+
+        // Pass vehicles data to the view
+        return view('admin.show-vehicle', compact('vehicles'));
+    }
+    public function showAddVehicleForm()
+    {
+        return view('admin.add-vehicle');
+    }
+
+
+
+    public function addVehicle(Request $request)
+    {
+        // Validate the request
+        $request->validate([
+            'make' => 'required|string|max:255',
+            'model' => 'required|string|max:255',
+            'fuel_type' => 'required|string|max:255',
+            'registration' => 'required|string',
+            'photos' => 'nullable|array',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        // Check for duplicate registration numbers
+        $existingVehicle = Vehicle::where('registration', $request->registration)->first();
+        if ($existingVehicle) {
+            return redirect()->back()->with('error', 'A vehicle with the same registration number already exists.');
+        }
+
+        // Handle file uploads
+        $photos = [];
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('photos') as $photo) {
+                $path = $photo->store('vehicle_photos');
+                $photos[] = asset('storage/' . $path);
+            }
+        }
+
+        // Create a new vehicle instance
+        $vehicle = new Vehicle;
+        $vehicle->make = $request->make;
+        $vehicle->model = $request->model;
+        $vehicle->fuel_type = $request->fuel_type;
+        $vehicle->registration = $request->registration;
+        $vehicle->photos = json_encode($photos); // Store photo URLs as JSON string
+        $vehicle->client_id = $request->user_id;
+        $vehicle->save();
+
+        // Flash success message to session
+        Session::flash('success', 'Vehicle added successfully.');
+
+        // Redirect back to the previous page
+        return redirect()->back();
+    }
+
 }

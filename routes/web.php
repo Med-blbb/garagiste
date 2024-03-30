@@ -44,13 +44,15 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/add', [AdminController::class, 'showAddUserForm'])->name('admin.users.add');
     Route::post('/users/add', [AdminController::class, 'addUser'])->name('admin.users.add');
     Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
-
-
     Route::put('/users/{id}/update', [AdminController::class, 'updateUser'])->name('admin.users.update');
-
-
     // Remove user
     Route::delete('/users/{id}/remove', [AdminController::class, 'removeUser'])->name('admin.users.remove');
+
+    //vehicules
+    Route::get('/vehicles/add', [AdminController::class, 'showAddVehicleForm'])->name('admin.vehicles.add');
+    Route::post('/vehicles/add', [AdminController::class, 'addVehicle'])->name('admin.vehicles.store');
+    Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
+
 });
 
 Route::get('/verify-email/{token}', function ($token) {
