@@ -21,7 +21,7 @@ class AdminController extends Controller
         $users = User::all();
 
         // Pass users data to the view
-        return view('admin.users', compact('users', 'vehicles'));
+        return view('admin.users', compact('users'));
     }
     public function showAddUserForm()
     {
