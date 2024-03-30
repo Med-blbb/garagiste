@@ -157,5 +157,15 @@ class AdminController extends Controller
         // Redirect back to the previous page
         return redirect()->back();
     }
+    public function deleteVehicle(Request $request, Vehicle $vehicle)
+    {
+        // Delete the vehicle
+        $vehicle->delete();
 
+        // Flash success message to session
+        Session::flash('success', 'Vehicle deleted successfully.');
+
+        // Redirect back to the previous page
+        return redirect()->back();
+    }
 }

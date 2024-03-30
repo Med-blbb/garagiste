@@ -10,7 +10,7 @@
                     Add Vehicle
                 </div>
                 <div class="mb-3">
-                    <a href="{{ route('admin.vehicles') }}" class="btn btn-primary">Add Vehicle</a>
+                    <a href="{{ route('admin.vehicles') }}" class="btn btn-primary">show Vehicle</a>
                 </div>
                 @if (Session::has('success'))
                 <div class="alert alert-success">

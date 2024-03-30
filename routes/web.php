@@ -51,6 +51,7 @@ Route::prefix('admin')->group(function () {
     //vehicules
     Route::get('/vehicles/add', [AdminController::class, 'showAddVehicleForm'])->name('admin.vehicles.add');
     Route::post('/vehicles/add', [AdminController::class, 'addVehicle'])->name('admin.vehicles.store');
+    Route::delete('/admin/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
 
 });

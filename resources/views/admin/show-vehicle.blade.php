@@ -20,12 +20,21 @@
                         @foreach ($vehicles as $vehicle)
                         <li>
                             <strong>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</strong>
+
                             <br>
                             @if (!empty($vehicle->photos))
+                            @foreach (json_decode($vehicle->photos) as $photo)
                             <div>
-                                <img src="{{ asset($vehicle->photos) }}" alt="Vehicle Photo">
+                                <img src="{{asset('$photo')}}" alt="{{ $photo }}">
                             </div>
+
+                            @endforeach
                             @endif
+                            <form action="{{ route('admin.vehicles.delete', $vehicle) }}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
                         </li>
                         <!-- Add more vehicle details as needed -->
                         @endforeach
