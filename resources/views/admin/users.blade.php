@@ -1,11 +1,11 @@
 <!-- resources/views/admin/users.blade.php -->
-@extends('layouts.main-headerbar')
-@include('layouts.head')
+@include('layouts.main-headerbar')
+@extends('layouts.head')
 @extends('layouts.main-sidebar')
 
 <h1>All Users</h1>
 
-<table class="table">
+<table class="table w-100 col-6 flex-end mx-auto">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Name</th>
