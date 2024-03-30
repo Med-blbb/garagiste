@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,15 +38,38 @@ use Illuminate\Support\Facades\Route;
 
 //     // Autres fonctionnalités d'administration...
 // });
+Route::prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/users', [AdminController::class, 'showAllUsers'])->name('admin.users');
+    Route::get('/users/add', [AdminController::class, 'showAddUserForm'])->name('admin.users.add');
+    Route::post('/users/add', [AdminController::class, 'addUser'])->name('admin.users.add');
+    Route::get('/admin/users/{id}/edit', [AdminController::class, 'editUser'])->name('admin.users.edit');
 
-Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-Route::get('/admin/users', [AdminController::class, 'showAllUsers'])->name('admin.users');
-Route::get('/admin/users/add', [AdminController::class, 'showAddUserForm'])->name('admin.users.add');
-Route::post('admin/users/add', [AdminController::class, 'addUser'])->name('admin.users.add');
-// Route::get('/test',function(){
-//     return view('welcome');
-// });
 
+    Route::put('/users/{id}/update', [AdminController::class, 'updateUser'])->name('admin.users.update');
+
+
+    // Remove user
+    Route::delete('/users/{id}/remove', [AdminController::class, 'removeUser'])->name('admin.users.remove');
+});
+
+Route::get('/verify-email/{token}', function ($token) {
+    // Find the user by email verification token
+    $user = User::where('email_verification_token', $token)->first();
+
+    if ($user) {
+        // If user found, mark email as verified and remove the verification token
+        $user->email_verified_at = now();
+        $user->email_verification_token = null;
+        $user->save();
+
+        // Redirect the user to a success page or display a success message
+        return redirect('/login')->with('success', 'Email verified successfully. You can now log in.');
+    } else {
+        // If user not found, redirect to an error page or display an error message
+        return redirect('/login')->with('error', 'Invalid or expired verification link.');
+    }
+})->name('verify.email');
 Route::group(['namespace' => 'App\Http\Controllers'], function () {
     /**
      * Home Routes

@@ -22,5 +22,11 @@
 <link rel="stylesheet" href="{{asset('assets/plugins/daterangepicker/daterangepicker.css')}}">
 <!-- summernote -->
 <link rel="stylesheet" href="{{asset('assets/plugins/summernote/summernote-bs4.min.css')}}">
+<!-- jQuery -->
+<script src="{{asset('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
+<!-- Bootstrap JavaScript -->
+<script src="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')}}"></script>
+<link href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')}}" rel="stylesheet">
+
 
 @yield('css')

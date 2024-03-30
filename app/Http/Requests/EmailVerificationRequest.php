@@ -11,34 +11,18 @@ class EmailVerificationRequest extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /**
-     * The user instance.
-     *
-     * @var \App\Models\User
-     */
     public $user;
+    public $verificationToken;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param  \App\Models\User  $user
-     * @return void
-     */
-    public function __construct(User $user)
+    public function __construct($user, $verificationToken)
     {
         $this->user = $user;
+        $this->verificationToken = $verificationToken;
     }
 
-    /**
-     * Build the message.
-     *
-     * @return $this
-     */
     public function build()
     {
-        return $this->view('emails.emailVerification')
-            ->with([
-                'token' => $this->user->email_verification_token,
-            ]);
+        return $this->view('emails.verify-email')
+        ->subject('Verify Your Email');
     }
 }
