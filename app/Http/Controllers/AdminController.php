@@ -164,4 +164,22 @@ class AdminController extends Controller
         // Redirect back to the previous page
         return redirect()->back();
     }
+    public function search()
+    {
+        $vehicles = Vehicle::where(
+            'model',
+            'like',
+            '%' . request('search') . '%'
+        )
+            ->orwhere('fuel_type', 'like', '%' . request('search') . '%')
+            ->orwhere('registration', 'like', '%' . request('search') . '%')
+            ->orwhere('make', 'like', '%' . request('search') . '%')
+            ->simplePaginate(5);
+
+        return view('admin.show-vehicle', compact('vehicles'))->with(
+            'i',
+            (request()->input('page', 1) - 1) * 5
+        );
+    }
+
 }

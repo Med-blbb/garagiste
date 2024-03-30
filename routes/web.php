@@ -34,7 +34,7 @@ Route::prefix('admin')->group(function () {
     Route::post('/vehicles/add', [AdminController::class, 'store'])->name('admin.vehicles.add');
     Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
-
+    Route::get('/vehicles/search', [AdminController::class, 'search'])->name('admin.vehicles.search');
 });
 
 Route::get('/verify-email/{token}', function ($token) {

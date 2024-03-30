@@ -12,6 +12,11 @@
                     <div class="mb-3">
                         <a href="{{ route('admin.vehicles.add') }}" class="btn btn-primary">Add Vehicle</a>
                     </div>
+                    <form action="{{ route('admin.vehicles.search') }}" method="GET" class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+
 
                     @if ($vehicles->isEmpty())
                     <p>No vehicles found.</p>
