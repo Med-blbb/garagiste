@@ -1,23 +1,20 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\SpairPart;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\SpairPart>
- */
 class SpairPartFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = SpairPart::class;
+
+    public function definition()
     {
         return [
-            //
+            'part_name' => $this->faker->word,
+            'part_reference' => $this->faker->unique()->regexify('[A-Z0-9]{10}'),
+            'supplier' => $this->faker->company,
+            'price' => $this->faker->randomFloat(2, 10, 1000),
         ];
     }
 }

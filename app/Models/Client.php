@@ -9,8 +9,8 @@ class Client extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'firstName',
-        'lastName',
+        'name',
+        'email',
         'address',
         'phoneNumber',
         'user_id', // Clé étrangère vers le modèle User
@@ -18,7 +18,7 @@ class Client extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class ,'UserID');
     }
 
     public function vehicles()

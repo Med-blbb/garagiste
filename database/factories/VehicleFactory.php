@@ -1,23 +1,26 @@
 <?php
 
 namespace Database\Factories;
-
+use App\Models\Client;
+use App\Models\Vehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Vehicle>
- */
 class VehicleFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    protected $model = Vehicle::class;
+
+    public function definition()
     {
         return [
-            //
+            'make' => $this->faker->word,
+            'model' => $this->faker->word,
+            'fuel_type' => $this->faker->randomElement(['Gasoline', 'Diesel', 'Electric']),
+            'registration' => $this->faker->unique()->regexify('[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}'),
+            'photos' => null,
+            'client_id' => function () {
+                return Client::factory()->create()->id;
+            },
         ];
     }
 }
+

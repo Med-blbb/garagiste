@@ -29,8 +29,9 @@ class Repair extends Model
     {
         return $this->hasOne(Invoice::class);
     }
-    public function sparePart()
+    public function spairParts()
     {
-        return $this->belongsToMany(spairPart::class)->withPivot('quantity');
+        return $this->belongsToMany(SpairPart::class, 'repair_spare_part', 'repair_id', 'spare_part_id')
+        ->withPivot('quantity', 'unit_price');
     }
 }
