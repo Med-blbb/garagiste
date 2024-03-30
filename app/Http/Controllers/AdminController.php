@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard', ['users' => User::all()]);
+        return view('admin.dashboard', ['users' => User::all(), 'vehicles' => Vehicle::all()]);
     }
     public function showAllUsers()
     {
@@ -21,7 +21,7 @@ class AdminController extends Controller
         $users = User::all();
 
         // Pass users data to the view
-        return view('admin.users', compact('users'));
+        return view('admin.users', compact('users', 'vehicles'));
     }
     public function showAddUserForm()
     {
@@ -108,6 +108,7 @@ class AdminController extends Controller
         // Pass vehicles data to the view
         return view('admin.show-vehicle', compact('vehicles'));
     }
+
     public function showAddVehicleForm()
     {
         return view('admin.add-vehicle');
