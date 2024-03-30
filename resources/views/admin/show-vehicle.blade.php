@@ -22,12 +22,10 @@
                             <strong>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</strong>
 
                             <br>
-                            @if (!empty($vehicle->photos))
-                            @foreach (json_decode($vehicle->photos) as $photo)
-                            <div>
-                                <img src="{{asset('$photo')}}" alt="{{ $photo }}">
-                            </div>
 
+                            @if ($vehicle->images)
+                            @foreach (json_decode($vehicle->images) as $image)
+                            <img src="{{ asset('storage/images/' . $image) }}" alt="{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}" width="200">
                             @endforeach
                             @endif
                             <form action="{{ route('admin.vehicles.delete', $vehicle) }}" method="post">
