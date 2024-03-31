@@ -8,7 +8,7 @@
             <div class="card">
                 <div class="card-header">All Vehicles</div>
                 <div class="mt-3">
-                    <form action="{{ route('admin.vehicles.search') }}" method="GET" class="form-inline">
+                    <form action="{{ route('admin.vehicles.searchVehicle') }}" method="GET" class="form-inline">
                         <input class="form-control  mr-2" type="search" placeholder="Search" aria-label="Search" style="width:500px" name="search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -46,7 +46,18 @@
                         @endforeach
                     </ul>
                     @endif
+                    <div class="pagination justify-content-center">
+                        <style>
+                            .pagination .page-link {
+                                font-size: 2px;
+                                /* Adjust the font size as needed */
+                            }
+                        </style>
+                        {{ $vehicles->links() }}
+                    </div>
                 </div>
+
+
             </div>
         </div>
     </div>
