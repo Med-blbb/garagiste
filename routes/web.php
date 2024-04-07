@@ -37,6 +37,10 @@ Route::prefix('admin')->group(function () {
     Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
     Route::get('/vehicles/search', [AdminController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
+
+    //import and export users  
+    Route::post('/users/import', [AdminController::class, 'import'])->name('admin.users.import');
+    Route::get('/users/export', [AdminController::class, 'export'])->name('admin.users.export');
 });
 
 Route::get('/verify-email/{token}', function ($token) {

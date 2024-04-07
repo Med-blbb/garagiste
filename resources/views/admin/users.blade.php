@@ -2,45 +2,9 @@
 @include('layouts.main-headerbar')
 @include('layouts.head')
 @include('layouts.main-sidebar')
+@include('layouts.show-user-modal')
+@include('layouts.edit-user-modal')
 
-<!-- Edit User Modal -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="editUserForm" action="{{ route('admin.users.update','$user->id') }}" method="post">
-                @csrf
-                @method('PUT')
-                <div class="modal-body">
-                    <!-- Add form fields for editing user details -->
-                    <div class="form-group">
-                        <label for="edit_name">Name</label>
-                        <input type="text" class="form-control" " id=" edit_name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_email">Email</label>
-                        <input type="email" class="form-control" id="edit_email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="edit_role">Role</label>
-                        <input type="text" class="form-control" id="edit_role" name="role" required>
-                    </div>
-                    <!-- Include user ID hidden input -->
-                    <input type="hidden" id="edit_user_id" name="user_id">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Update User</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Add User Modal -->
 <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
@@ -108,6 +72,7 @@
             <th scope="col">Email</th>
             <th scope="col">Role</th>
             <th scope="col">Actions</th>
+            <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
         </tr>
     </thead>
     <tbody>
@@ -117,8 +82,8 @@
             <td>{{ $user->email }}</td>
             <td>{{ $user->role }}</td>
             <td>
-
-                <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
+                <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#viewUserModal">Show</button>
+                <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
                 <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
                     @csrf
                     @method('DELETE')
@@ -126,6 +91,7 @@
                         <i class="bi bi-trash h5"></i>
                     </button>
                 </form>
+
             </td>
         </tr>
         @endforeach
@@ -150,15 +116,30 @@
         $('.edit-user').click(function(e) {
             e.preventDefault();
             var id = $(this).data('id');
-            var name = $(this).closest('tr').find('td:eq(0)').text();
-            var email = $(this).closest('tr').find('td:eq(1)').text();
-            var role = $(this).closest('tr').find('td:eq(2)').text();
+            var name = $(this).data('name');
+            var email = $(this).data('email');
+            var role = $(this).data('role')
 
             // Populate modal fields with current user details
+            $('#id').val(id);
             $('#edit_name').val(name);
             $('#edit_email').val(email);
             $('#edit_role').val(role);
             $('#edit_user_id').val(id);
         });
+        $('.show-user').click(function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var name = $(this).data('name');
+            var email = $(this).data('email');
+            var role = $(this).data('role');
+
+            // Populate modal fields with current user details for viewing
+            $('#user_name').text(name);
+            $('#user_email').text(email);
+            $('#user_role').text(role);
+            $('#user_id').text(id);
+        });
+
     });
 </script>

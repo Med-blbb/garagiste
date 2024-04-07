@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
+use App\Imports\UsersImport;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -27,7 +30,8 @@ class AdminController extends Controller
     {
         return view('admin.add-user');
     }
-    public function searchUser(Request $request){
+    public function searchUser(Request $request)
+    {
         $users = User::where(
             'name',
             'like',
@@ -79,28 +83,33 @@ class AdminController extends Controller
     }
 
 
-    public function updateUser(Request $request, $id)
+    public function updateUser(Request $request)
     {
-        // Find the user by ID
-        $user = User::find($id);
+        // Check if the user exists
+        // if (!$user) {
+        //     return redirect()->back()->with('error', 'User not found.');
+        // }
+
+        $user = User::find($request->id);
 
         // Check if the user exists
         if (!$user) {
             return redirect()->back()->with('error', 'User not found.');
         }
-
         // Validate the request data
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:255',
             'role' => 'required|string|max:255',
         ]);
 
-        // Update the user data
         $user->name = $request->name;
-        $user->email = $request->email;
-        $user->role = $request->role;
+        $user->email =  $request->email;
+        $user->role =   $request->role;
         $user->save();
+
+        // Update the user data
+        // $user->update($request->all());
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'User updated successfully.');
@@ -166,7 +175,7 @@ class AdminController extends Controller
         }
 
         return redirect()->route('admin.vehicles')
-        ->with('success', 'Vehicle created successfully');
+            ->with('success', 'Vehicle created successfully');
     }
 
     public function deleteVehicle(Request $request, Vehicle $vehicle)
@@ -197,5 +206,18 @@ class AdminController extends Controller
             (request()->input('page', 1) - 1) * 5
         );
     }
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function import()
+    {
+        Excel::import(new UsersImport, request()->file('file'));
+
+        return back();
+    }
 }
