@@ -65,7 +65,7 @@
     </form>
 </div>
 
-<table class="table w-100 col-6 flex-end mt-3 mx-auto">
+<!-- <table class="table w-100 col-6 flex-end mt-3 mx-auto">
     <thead class="thead-dark">
         <tr>
             <th scope="col">Name</th>
@@ -96,11 +96,63 @@
         </tr>
         @endforeach
     </tbody>
-</table>
+</table> -->
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example2" class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Role</th>
+                                        <th scope="col">Actions</th>
+                                        <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
 
-<!-- Pagination Links -->
-<!-- Pagination Links -->
-<div class="pagination justify-content-center">
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $user)
+                                    <tr>
+                                        <td>{{ $user->name }}</td>
+                                        <td>{{ $user->email }}</td>
+                                        <td>{{ $user->role }}</td>
+                                        <td>
+                                            <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#viewUserModal">Show</button>
+                                            <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
+                                            <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Remove User" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                    <i class="bi bi-trash h5"></i>
+                                                </button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+
+        <div class="pagination justify-content-center">
     <style>
         .pagination .page-link {
             font-size: 2px;
@@ -109,6 +161,12 @@
     </style>
     {{ $users->links() }}
 </div>
+        <!-- /.container-fluid -->
+    </section>
+</div>
+
+<!-- Pagination Links -->
+
 
 <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
 <script>
@@ -129,9 +187,9 @@
             $('#edit_email').val(email);
             $('#edit_role').val(role);
             $('#edit_user_id').val(id);
-            $('#edit_is_admin').val($('#edit_is_admin').is(':checked') ? 0: 1);
-            $('#edit_is_client').val($('#edit_is_client').is(':checked') ? 0: 1);
-            $('#edit_is_mechanic').val($('#edit_is_mechanic').is(':checked') ? 0: 1);
+            $('#edit_is_admin').val($('#edit_is_admin').is(':checked') ? 0 : 1);
+            $('#edit_is_client').val($('#edit_is_client').is(':checked') ? 0 : 1);
+            $('#edit_is_mechanic').val($('#edit_is_mechanic').is(':checked') ? 0 : 1);
         });
         $('.show-user').click(function(e) {
             e.preventDefault();
@@ -146,6 +204,14 @@
             $('#user_role').text(role);
             $('#user_id').text(id);
         });
-
+        $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
     });
 </script>

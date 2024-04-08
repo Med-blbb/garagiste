@@ -26,6 +26,22 @@
 <script src="{{asset('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>
 <!-- Bootstrap JavaScript -->
 <script src="{{asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')}}"></script>
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{asset('assets/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
+<script src="{{asset('assets/plugins/jszip/jszip.min.js')}}"></script>
+<script src="{{asset('assets/plugins/pdfmake/pdfmake.min.js')}}"></script>
+<script src="{{asset('assets/plugins/pdfmake/vfs_fonts.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.html5.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.print.min.js')}}"></script>
+<script src="{{asset('assets/plugins/datatables-buttons/js/buttons.colVis.min.js')}}"></script>
 <link href="{{asset('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css')}}" rel="stylesheet">
 
 <link href="{{asset('assets/css/logincss.css')}}" rel="stylesheet">

@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/users', [AdminController::class, 'showAllUsers'])->name('admin.users');
     Route::get('/users/add', [AdminController::class, 'showAddUserForm'])->name('admin.users.add');
@@ -75,6 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Login Routes
          */
+        Route::get('/','LoginController@show')->name('login.show');
         Route::get('/login', 'LoginController@show')->name('login.show');
         Route::post('/login', 'LoginController@login')->name('login.perform');
     });
