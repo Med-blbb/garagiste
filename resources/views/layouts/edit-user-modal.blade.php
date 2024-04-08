@@ -24,7 +24,11 @@
                     </div>
                     <div class="form-group">
                         <label for="edit_role">Role</label>
-                        <input type="text" class="form-control" id="edit_role" name="role" required>
+                        <select class="form-control" id="edit_role" name="role" required>
+                            <option value="admin">Admin</option>
+                            <option value="client">Client</option>
+                            <option value="mechanic">Mechanic</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="edit_is_admin">Is Admin</label>
