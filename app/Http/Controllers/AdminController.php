@@ -30,6 +30,31 @@ class AdminController extends Controller
     {
         return view('admin.add-user');
     }
+    public function perform(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'role' => 'required|string|in:admin,editor,user', // Ensure valid role values
+        ]);
+        // Validate and create user...
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'is_admin' => ($validatedData['role'] === 'admin'),
+            'is_mechanic' => ($validatedData['role'] === 'editor'), // Assuming 'editor' represents mechanic
+            'is_client' => ($validatedData['role'] === 'user'),
+        ]);
+
+        // Check if user role is 'admin'
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');  // Redirect to admin dashboard route
+        } else {
+            return redirect()->route('user.dashboard');  // Redirect to user dashboard route (if different)
+        }
+    }
     public function searchUser(Request $request)
     {
         $users = User::where(
@@ -106,6 +131,9 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->email =  $request->email;
         $user->role =   $request->role;
+        $user->is_admin = $request->input('is_admin');
+        $user->is_client =$request->input('is_client');
+        $user->is_mechanic = $request->input('is_mechanic');
         $user->save();
 
         // Update the user data

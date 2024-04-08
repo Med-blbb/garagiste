@@ -42,7 +42,6 @@ Route::prefix('admin')->group(function () {
     Route::post('/users/import', [AdminController::class, 'import'])->name('admin.users.import');
     Route::get('/users/export', [AdminController::class, 'export'])->name('admin.users.export');
 });
-
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
     $user = User::where('email_verification_token', $token)->first();

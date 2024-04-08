@@ -26,6 +26,18 @@
                         <label for="edit_role">Role</label>
                         <input type="text" class="form-control" id="edit_role" name="role" required>
                     </div>
+                    <div class="form-group">
+                        <label for="edit_is_admin">Is Admin</label>
+                        <input type="checkbox" class="form-control" id="edit_is_admin" name="is_admin" >
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_is_user">Is Client</label>
+                        <input type="checkbox" class="form-control" id="edit_is_client" name="is_client" >
+                    </div>
+                    <div class="form-group">
+                        <label for="edit_is_mechanic">Is Mechanician</label>
+                        <input type="checkbox" class="form-control" id="edit_is_mechanic" name="is_mechanic" >
+                    </div>
                     <!-- Include user ID hidden input -->
                     <input type="hidden" id="edit_user_id" name="user_id">
                 </div>

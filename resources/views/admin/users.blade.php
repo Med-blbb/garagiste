@@ -119,6 +119,9 @@
             var name = $(this).data('name');
             var email = $(this).data('email');
             var role = $(this).data('role')
+            var is_admin = $(this).data('is_admin');
+            var is_client = $(this).data('is_client');
+            var is_mechanic = $(this).data('is_mechanic');
 
             // Populate modal fields with current user details
             $('#id').val(id);
@@ -126,6 +129,9 @@
             $('#edit_email').val(email);
             $('#edit_role').val(role);
             $('#edit_user_id').val(id);
+            $('#edit_is_admin').val($('#edit_is_admin').is(':checked') ? 0: 1);
+            $('#edit_is_client').val($('#edit_is_client').is(':checked') ? 0: 1);
+            $('#edit_is_mechanic').val($('#edit_is_mechanic').is(':checked') ? 0: 1);
         });
         $('.show-user').click(function(e) {
             e.preventDefault();

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('role')->nullable();
             $table->string('avatar')->nullable();
+            $table->boolean('is_admin')->default(false)->nullable();
+            $table->boolean('is_mechanic')->default(false)->nullable();
+            $table->boolean('is_client')->default(false)->nullable();
             $table->string('password');
             $table->string('email_verification_token')->nullable();
             $table->rememberToken();
