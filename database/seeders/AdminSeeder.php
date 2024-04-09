@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(1)->create([
+        User::create([
             'name' => 'Mohamed Bl',
             'email' => 'mohamedboulkhaima2@gmail.com',
             'password' => bcrypt('mohamed123'),

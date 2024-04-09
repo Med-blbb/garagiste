@@ -37,7 +37,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
     Route::get('/vehicles/search', [AdminController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
-
+    //add client
+    Route::get('/add/client', [AdminController::class, 'showAddClientForm'])->name('admin.add-client');
+    Route::post('/add/client', [AdminController::class, 'add_client'])->name('admin.add-client');
     //import and export users  
     Route::post('/users/import', [AdminController::class, 'import'])->name('admin.users.import');
     Route::get('/users/export', [AdminController::class, 'export'])->name('admin.users.export');

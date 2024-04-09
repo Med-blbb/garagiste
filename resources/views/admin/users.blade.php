@@ -28,10 +28,19 @@
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
-                    <div class="form-group">
-                        <label for="role">Role</label>
-                        <input type="text" class="form-control" id="role" name="role" required>
-                    </div>
+                    <div class="form-group form-floating mb-3">
+                    <label for="floatingRole">Role</label>
+                    <select class="form-control" name="role" id="floatingRole" required autofocus>
+                        <option value="">Select Role</option>
+                        <option value="admin">Administrator</option>
+                        <option value="mechanic">Mechanician</option>
+                        <option value="client">Client</option>
+                    </select>
+                    
+                    @if ($errors->has('role'))
+                        <span class="text-danger text-left">{{ $errors->first('role') }}</span>
+                    @endif
+                </div>
                     <div class="mb-3">
                         <label for="role">Password</label>
                         <input type="password" class="form-control" name="password" required>

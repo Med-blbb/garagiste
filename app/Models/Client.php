@@ -12,6 +12,7 @@ class Client extends Model
         'name',
         'email',
         'address',
+        'role',
         'phoneNumber',
         'user_id', // Clé étrangère vers le modèle User
     ];

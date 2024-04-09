@@ -37,7 +37,7 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:admin,editor,user', // Ensure valid role values
+            'role' => 'required|string|in:admin,mechanic,user', // Ensure valid role values
         ]);
         // Validate and create user...
         $user = User::create([
@@ -45,15 +45,25 @@ class AdminController extends Controller
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
             'is_admin' => ($validatedData['role'] === 'admin'),
-            'is_mechanic' => ($validatedData['role'] === 'editor'), // Assuming 'editor' represents mechanic
-            'is_client' => ($validatedData['role'] === 'user'),
+            'is_mechanic' => ($validatedData['role'] === 'mechanic'), 
+            'is_client' => ($validatedData['role'] === 'client'),
         ]);
-
-        // Check if user role is 'admin'
-        if ($user->hasRole('admin')) {
-            return redirect()->route('admin.dashboard');  // Redirect to admin dashboard route
-        } else {
-            return redirect()->route('user.dashboard');  // Redirect to user dashboard route (if different)
+        if ($user->is_client) {
+            $client = new Client();
+            $client->name = $user->name;
+            $client->email = $user->email;
+            $client->phoneNumber = ''; // Set default value for phoneNumber
+            $client->address = ''; // Set default value for address
+            $client->userID = $user->id;
+            $client->save();
+        }
+        
+        if ($user->is_admin) {
+            return redirect()->route('admin.dashboard'); 
+        } elseif ($user->is_mechanic) {
+            return redirect()->route('mechanic.dashboard');  
+        } elseif ($user->is_client) {
+            return redirect()->route('client.dashboard');  
         }
     }
     public function searchUser(Request $request)
@@ -90,6 +100,18 @@ class AdminController extends Controller
         $user->role = $request->role;
         $user->password = Hash::make($request->password);
         $user->save();
+
+        if ($user->role === 'client') {
+            $client = new Client();
+            $client->name = $user->name;
+            $client->email = $user->email;
+            $client->phoneNumber = ''; // Set default value for phoneNumber
+            $client->address = ''; // Set default value for address
+            $client->userID = $user->id;
+            $client->save();
+        }
+
+        
 
         // Redirect back to the admin dashboard
         return redirect()->route('admin.users')->with('success', 'User added successfully');
@@ -136,6 +158,15 @@ class AdminController extends Controller
         $user->is_client =$request->input('is_client');
         $user->is_mechanic = $request->input('is_mechanic');
         $user->save();
+        if ($user->is_client) {
+            $client = new Client();
+            $client->name = $user->name;
+            $client->email = $user->email;
+            $client->phoneNumber = ''; // Set default value for phoneNumber
+            $client->address = ''; // Set default value for address
+            $client->userID = $user->id;
+            $client->save();
+        }
 
         // Update the user data
         // $user->update($request->all());
@@ -149,6 +180,11 @@ class AdminController extends Controller
     {
         // Find the user by ID and delete it
         $user = User::find($id);
+        $client = Client::where('userID', $id)->first();
+        
+        if ($client) {
+            $client->delete();
+        }
         $user->delete();
 
         // Redirect back with a success message
@@ -253,4 +289,32 @@ class AdminController extends Controller
 
         return back();
     }
+    public function add_client(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|numeric',
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phoneNumber' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'password' => 'required|string|min:8',
+            'role'=> 'default:client',
+
+        ]);
+
+        $client = new Client();
+        $client->name = $request->name;
+        $client->email = $request->email;
+        $client->phoneNumber = $request->phone;
+        $client->address = $request->address;
+        $client->role = $request->role;
+        $client->save();
+
+        return redirect()->back()->with('success', 'Client added successfully');
+    }
+    public function showAddClientForm()
+    {
+        return view('admin.add-client');
+    }
+    
 }

@@ -1,9 +1,9 @@
 @include('layouts.main-headerbar')
-@extends('layouts.head')
-@extends('layouts.main-sidebar')
+@include('layouts.head')
+@include('layouts.main-sidebar')
 
 
-<form method="post" class="container col-md-6 mx-auto mt-5" action="{{ route('admin.users.add') }}">
+<form method="post" class="container col-md-6 mx-auto mt-5" action="{{ route('admin.add-client') }}">
     @csrf <!-- Add CSRF token for security -->
     <div class="mb-3">
         <input type="text" class="form-control" name="name" placeholder="Name" required>
@@ -12,7 +12,7 @@
         <input type="email" class="form-control" name="email" placeholder="Email" required>
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" name="role" placeholder="Role">
+        <input type="text" class="form-control" value="client" name="role" placeholder="Role">
     </div>
     <div class="mb-3">
         <input type="text" class="form-control" name="address" placeholder="Address">
@@ -21,12 +21,9 @@
         <input type="text" class="form-control" name="phoneNumber" placeholder="Phone Number">
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" name="userID" placeholder="UserID">
+        <input type="text" class="form-control" name="id" placeholder="id">
     </div>
     
-    <div class="mb-3">
-        <input type="password" class="form-control" name="password" placeholder="Password" required>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Add User</button>
+    <button type="submit" class="btn btn-primary">Add Client</button>
 </form>
