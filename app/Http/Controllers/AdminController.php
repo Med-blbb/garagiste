@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
+use App\Models\Client;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -170,41 +171,45 @@ class AdminController extends Controller
 
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'make' => 'required|string',
-            'model' => 'required|string',
-            'fuel_type' => 'required|string',
-            'registration' => 'required|string|unique:vehicles,registration',
-            'client_id' => 'required|numeric',
-            'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+{
+    $request->validate([
+        'make' => 'required|string',
+        'model' => 'required|string',
+        'fuel_type' => 'required|string',
+        'registration' => 'required|string|unique:vehicles,registration',
+        'client_id' => 'required|numeric',
+        'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
 
+    $client = Client::find($request->client_id);
 
-
-        $vehicle = new Vehicle();
-        $vehicle->make = $request->make;
-        $vehicle->model = $request->model;
-        $vehicle->fuel_type = $request->fuel_type;
-        $vehicle->registration = $request->registration;
-        $vehicle->client_id = $request->client_id;
-        $vehicle->save();
-
-        $images = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $image) {
-                $name = Str::random(30) . time();
-                $imageName = $name . '_' . $image->getClientOriginalName();
-                $image->move(public_path('storage/images'), $imageName);
-                $images[] = $imageName;
-            }
-            $vehicle->images = json_encode($images);
-            $vehicle->save();
-        }
-
-        return redirect()->route('admin.vehicles')
-            ->with('success', 'Vehicle created successfully');
+    if (!$client) {
+        return redirect()->route('admin.add-client')->with('error', 'Client not found. Please add the client first.');
     }
+
+    $vehicle = new Vehicle();
+    $vehicle->make = $request->make;
+    $vehicle->model = $request->model;
+    $vehicle->fuel_type = $request->fuel_type;
+    $vehicle->registration = $request->registration;
+    $vehicle->client_id = $request->client_id;
+    $vehicle->save();
+
+    $images = [];
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $name = Str::random(30) . time();
+            $imageName = $name . '_' . $image->getClientOriginalName();
+            $image->move(public_path('storage/images'), $imageName);
+            $images[] = $imageName;
+        }
+        $vehicle->images = json_encode($images);
+        $vehicle->save();
+    }
+
+    return redirect()->route('admin.vehicles')->with('success', 'Vehicle created successfully');
+}
+
 
     public function deleteVehicle(Request $request, Vehicle $vehicle)
     {

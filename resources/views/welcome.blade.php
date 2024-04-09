@@ -3,3 +3,4 @@
 @section('title')
     Admin Mohamed
 @endsection
+@yield('content')
