@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard', ['users' => User::all(), 'vehicles' => Vehicle::all()]);
+        return view('admin.dashboard', ['users' => User::all(), 'vehicles' => Vehicle::all(), 'clients' => Client::all()]);
     }
     public function showAllUsers()
     {
@@ -315,6 +315,11 @@ class AdminController extends Controller
     public function showAddClientForm()
     {
         return view('admin.add-client');
+    }
+    public function showClient()
+    {
+        $clients = Client::latest()->simplepaginate(4);
+        return view('admin.show-clients', compact('clients'));
     }
     
 }

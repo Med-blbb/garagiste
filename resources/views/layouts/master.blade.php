@@ -69,12 +69,26 @@
                                     <p>Vehicules</p>
                                 </div>
                                 <div class="icon">
-                                    <i class="ion ion-pie-graph"></i>
+                                <i class="bi bi-car-front-fill"></i>
                                 </div>
                                 <a href="{{ route('admin.vehicles') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-primary">
+                                <div class="inner">
+                                    <h3> {{ $clients->count() }} </h3>
+
+                                    <p>Clients</p>
+                                </div>
+                                <div class="icon">
+                                <i class="bi bi-person-square"></i>
+                                </div>
+                                <a href="{{ route('admin.show-clients') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.row -->
                     <!-- Main row -->
