@@ -79,7 +79,7 @@
                             <!-- small box -->
                             <div class="small-box bg-primary">
                                 <div class="inner">
-                                    <h3> {{ $clients->count() }} </h3>
+                                    <h3>{{ $clients->count() }}</h3>
 
                                     <p>Clients</p>
                                 </div>

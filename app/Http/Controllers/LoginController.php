@@ -25,11 +25,11 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
     {
-        if ($user->is_admin) {
+        if ($user->role=='admin') {
             return redirect()->route('admin.dashboard');
-        } elseif ($user->is_mechanic) {
+        } elseif ($user->role=='mechanic') {
             return redirect()->route('mechanic.dashboard');
-        } elseif ($user->is_client) {
+        } elseif ($user->role=='client') {
             // Redirect to a different dashboard for non-admin users
             return redirect()->route('client.dashboard');
         }

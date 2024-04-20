@@ -20,10 +20,9 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'role'=>fake()->randomElement(['admin', 'mechanic', 'client']),
-            'is_admin' => fake()->boolean(),
-            'is_mechanic' => fake()->boolean(),
-            'is_client' => fake()->boolean(),
+            'role'=>fake()->randomElement([ 'mechanic', 'client']),
+            'address' => $this->faker->address,
+            'phoneNumber' => $this->faker->phoneNumber,
             'password' => fake()->password(), // password
             'remember_token' => Str::random(10),
         ];

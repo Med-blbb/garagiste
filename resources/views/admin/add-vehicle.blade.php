@@ -54,7 +54,7 @@
                         </div>
                         <div class="form-group">
                             <label for="client_id">User ID</label>
-                            <input type="text" class="form-control" id="client_id" name="client_id">
+                            <input type="text" class="form-control" id="user_id" name="user_id">
 
                         </div>
 

@@ -22,6 +22,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email',
         'password',
         'role',
+        'address',
+        'phoneNumber',
     ];
 
     /**
@@ -42,13 +44,13 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    public function client()
-    {
-        return $this->hasOne(Client::class);
-    }
-
+   
     public function repairs()
     {
         return $this->hasMany(Repair::class, 'mechanic_id');
+    }
+    public function vehicles()
+    {
+        return $this->hasMany(Vehicle::class, 'client_id');
     }
 }

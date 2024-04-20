@@ -17,9 +17,9 @@ class Vehicle extends Model
         'client_id', // Clé étrangère vers le modèle Client
     ];
 
-    public function client()
+    public function users()
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(User::class);
     }
 
     public function repairs()

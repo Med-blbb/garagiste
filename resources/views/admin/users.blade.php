@@ -41,6 +41,14 @@
                         <span class="text-danger text-left">{{ $errors->first('role') }}</span>
                     @endif
                 </div>
+                <div class ="form-group">
+                    <label for="phoneNumber">Phone Number</label>
+                    <input type="text" class="form-control" name="phoneNumber" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" name="address" required>
+                </div>
                     <div class="mb-3">
                         <label for="role">Password</label>
                         <input type="password" class="form-control" name="password" required>
@@ -120,9 +128,11 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
+                                        <th scope="col">Address</th>
                                         <th scope="col">Actions</th>
                                         <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
 
@@ -131,9 +141,11 @@
                                 <tbody>
                                     @foreach($users as $user)
                                     <tr>
+                                        <td>{{ $user->id }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
+                                        <td>{{ $user->address }}</td>
                                         <td>
                                             <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#viewUserModal">Show</button>
                                             <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
@@ -186,9 +198,9 @@
             var name = $(this).data('name');
             var email = $(this).data('email');
             var role = $(this).data('role')
-            var is_admin = $(this).data('is_admin');
-            var is_client = $(this).data('is_client');
-            var is_mechanic = $(this).data('is_mechanic');
+            var address = $(this).data('address');
+            var phoneNumber = $(this).data('phonenumber');
+            
 
             // Populate modal fields with current user details
             $('#id').val(id);
@@ -196,23 +208,31 @@
             $('#edit_email').val(email);
             $('#edit_role').val(role);
             $('#edit_user_id').val(id);
-            $('#edit_is_admin').val($('#edit_is_admin').is(':checked') ? 0 : 1);
-            $('#edit_is_client').val($('#edit_is_client').is(':checked') ? 0 : 1);
-            $('#edit_is_mechanic').val($('#edit_is_mechanic').is(':checked') ? 0 : 1);
+            $('#edit_address').val(address);
+            $('#edit_phone_number').val(phoneNumber);
         });
-        $('.show-user').click(function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            var name = $(this).data('name');
-            var email = $(this).data('email');
-            var role = $(this).data('role');
+        $(document).ready(function() {
+    $('.show-user').click(function(e) {
+        e.preventDefault();
+        var id = $(this).data('id');
+        var name = $(this).data('name');
+        var email = $(this).data('email');
+        var role = $(this).data('role');
+        var address = $(this).data('address');
+        var phoneNumber = $(this).data('phonenumber');
 
-            // Populate modal fields with current user details for viewing
-            $('#user_name').text(name);
-            $('#user_email').text(email);
-            $('#user_role').text(role);
-            $('#user_id').text(id);
-        });
+        // Populate modal fields with current user details for viewing
+        $('#user_name').text(name);
+        $('#user_email').text(email);
+        $('#user_role').text(role);
+        $('#user_id').text(id);
+        $('#user_address').text(address);
+        $('#user_phoneNumber').text(phoneNumber);
+        console.log(phoneNumber);
+        console.log(role)
+    });
+});
+
         $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,

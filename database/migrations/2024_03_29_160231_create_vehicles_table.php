@@ -15,7 +15,7 @@ class CreateVehiclesTable extends Migration
             $table->string('fuel_type');
             $table->string('registration')->unique();
             $table->json('images')->nullable();
-            $table->foreignId('client_id')->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }

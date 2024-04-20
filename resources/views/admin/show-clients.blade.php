@@ -12,8 +12,9 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
+                            <a href="{{ route('admin.add-client') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Client</a>
                         </div>
+                       
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -24,6 +25,7 @@
                                         <th scope="col">Role</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Address</th>
+                                        <th scope="col">Vehicule</th>
                                         <th scope="col">Actions</th>
                                         <!-- <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th> -->
 
@@ -38,9 +40,13 @@
                                         <td>{{ $client->phoneNumber }}</td>
                                         <td>{{ $client->address }}</td>
                                         
-                                        
+                                        @foreach($vehicle as $vehicle)
+                                    
+                                        <td>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</td>
+                                    @endforeach
                                     </tr>
                                     @endforeach
+                                    
                                 </tbody>
 
                             </table>

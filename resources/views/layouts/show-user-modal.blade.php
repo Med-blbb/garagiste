@@ -11,13 +11,16 @@
             <div class="modal-body">
                 <h2>User ID</h2>
                 <p id="user_id"></p>
-
                 <h2>User Name</h2>
                 <p id="user_name"></p>
                 <h2>User Email</h2>
                 <p id="user_email"></p>
                 <h2>User Role</h2>
                 <p id="user_role"></p>
+                <h2>User Address</h2>
+                <p id="user_address"></p>
+                <h2>User Phone Number</h2>
+                <p id="user_phoneNumber"></p>
             </div>
         </div>
     </div>

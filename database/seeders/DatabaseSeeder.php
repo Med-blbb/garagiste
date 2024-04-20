@@ -22,9 +22,6 @@ class DatabaseSeeder extends Seeder
         // Create 10 users
         User::factory(10)->create();
 
-        // Create clients
-        Client::factory()->count(10)->create();
-
         // Create vehicles
         Vehicle::factory()->count(20)->create();
 

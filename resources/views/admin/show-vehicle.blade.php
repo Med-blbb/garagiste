@@ -28,6 +28,7 @@
                         @foreach ($vehicles as $vehicle)
                         <li>
                             <strong>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</strong>
+                            <h2>The Owner : {{ $vehicle->user_id }}</h2>
 
                             <br>
 

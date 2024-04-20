@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -17,7 +18,8 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        return view('admin.dashboard', ['users' => User::all(), 'vehicles' => Vehicle::all(), 'clients' => Client::all()]);
+        $clients = User::where('role', 'client');
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all()]);
     }
     public function showAllUsers()
     {
@@ -48,21 +50,13 @@ class AdminController extends Controller
             'is_mechanic' => ($validatedData['role'] === 'mechanic'), 
             'is_client' => ($validatedData['role'] === 'client'),
         ]);
-        if ($user->is_client) {
-            $client = new Client();
-            $client->name = $user->name;
-            $client->email = $user->email;
-            $client->phoneNumber = ''; // Set default value for phoneNumber
-            $client->address = ''; // Set default value for address
-            $client->userID = $user->id;
-            $client->save();
-        }
         
-        if ($user->is_admin) {
+        
+        if ($user->role=='admin') {
             return redirect()->route('admin.dashboard'); 
-        } elseif ($user->is_mechanic) {
+        } elseif ($user->role=='mechanic') {
             return redirect()->route('mechanic.dashboard');  
-        } elseif ($user->is_client) {
+        } elseif ($user->role=='client') {
             return redirect()->route('client.dashboard');  
         }
     }
@@ -91,6 +85,7 @@ class AdminController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'role' => 'required|string|max:255',
             'password' => 'required|string|min:8',
+            'phoneNumber' => 'required|string|max:255',
         ]);
 
         // Create a new user instance
@@ -99,18 +94,11 @@ class AdminController extends Controller
         $user->email = $request->email;
         $user->role = $request->role;
         $user->password = Hash::make($request->password);
+        $user->address = $request->address;
+        $user->phoneNumber = $request->phoneNumber;
         $user->save();
 
-        if ($user->role === 'client') {
-            $client = new Client();
-            $client->name = $user->name;
-            $client->email = $user->email;
-            $client->phoneNumber = ''; // Set default value for phoneNumber
-            $client->address = ''; // Set default value for address
-            $client->userID = $user->id;
-            $client->save();
-        }
-
+       
         
 
         // Redirect back to the admin dashboard
@@ -154,19 +142,9 @@ class AdminController extends Controller
         $user->name = $request->name;
         $user->email =  $request->email;
         $user->role =   $request->role;
-        $user->is_admin = $request->input('is_admin');
-        $user->is_client =$request->input('is_client');
-        $user->is_mechanic = $request->input('is_mechanic');
+        $user->address = $request->address;
+        $user->phoneNumber = $request->phoneNumber;
         $user->save();
-        if ($user->is_client) {
-            $client = new Client();
-            $client->name = $user->name;
-            $client->email = $user->email;
-            $client->phoneNumber = ''; // Set default value for phoneNumber
-            $client->address = ''; // Set default value for address
-            $client->userID = $user->id;
-            $client->save();
-        }
 
         // Update the user data
         // $user->update($request->all());
@@ -180,23 +158,40 @@ class AdminController extends Controller
     {
         // Find the user by ID and delete it
         $user = User::find($id);
-        $client = Client::where('userID', $id)->first();
         
-        if ($client) {
-            $client->delete();
+        $vehicle = Vehicle::where('user_id', $id)->first();
+        if ($vehicle) {
+            $vehicle->delete();
         }
+      
+
         $user->delete();
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
+    public function showClient()
+    {
+        // Fetch all clients
+        $clients = User::where('role', 'client')->get();
+        
+
+        //Vehicule of clients
+        $vehicle = DB::table('vehicles')
+        ->join('users', 'vehicles.user_id', '=', 'users.id')
+        ->select('vehicles.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email')
+        ->get();
+        
+        return view('admin.show-clients', compact(['clients', 'vehicle']));
+    }
     public function showAllVehicles()
     {
         // Fetch all vehicles
         $vehicles = Vehicle::latest()->simplepaginate(2);
-
+        $vehicle = Vehicle::all();
+        
         // Pass vehicles data to the view
-        return view('admin.show-vehicle', compact('vehicles'));
+        return view('admin.show-vehicle', compact(['vehicles']));
     }
 
     public function showAddVehicleForm()
@@ -213,22 +208,17 @@ class AdminController extends Controller
         'model' => 'required|string',
         'fuel_type' => 'required|string',
         'registration' => 'required|string|unique:vehicles,registration',
-        'client_id' => 'required|numeric',
+        'user_id' => 'required|numeric',
         'photos.*' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
-    $client = Client::find($request->client_id);
-
-    if (!$client) {
-        return redirect()->route('admin.add-client')->with('error', 'Client not found. Please add the client first.');
-    }
-
+   
     $vehicle = new Vehicle();
     $vehicle->make = $request->make;
     $vehicle->model = $request->model;
     $vehicle->fuel_type = $request->fuel_type;
     $vehicle->registration = $request->registration;
-    $vehicle->client_id = $request->client_id;
+    $vehicle->user_id = $request->user_id;
     $vehicle->save();
 
     $images = [];
@@ -289,37 +279,10 @@ class AdminController extends Controller
 
         return back();
     }
-    public function add_client(Request $request)
-    {
-        $request->validate([
-            'id' => 'required|numeric',
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phoneNumber' => 'required|string|max:255',
-            'address' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-            'role'=> 'default:client',
-
-        ]);
-
-        $client = new Client();
-        $client->name = $request->name;
-        $client->email = $request->email;
-        $client->phoneNumber = $request->phone;
-        $client->address = $request->address;
-        $client->role = $request->role;
-        $client->save();
-
-        return redirect()->back()->with('success', 'Client added successfully');
-    }
+    
     public function showAddClientForm()
     {
         return view('admin.add-client');
-    }
-    public function showClient()
-    {
-        $clients = Client::latest()->simplepaginate(4);
-        return view('admin.show-clients', compact('clients'));
     }
     
 }
