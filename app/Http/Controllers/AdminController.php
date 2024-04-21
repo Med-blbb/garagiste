@@ -187,11 +187,14 @@ class AdminController extends Controller
     public function showAllVehicles()
     {
         // Fetch all vehicles
-        $vehicles = Vehicle::latest()->simplepaginate(2);
-        $vehicle = Vehicle::all();
+        $vehicles = Vehicle::latest()
+                            ->join('users', 'vehicles.user_id', '=', 'users.id')
+                            ->select('vehicles.*','users.name', 'users.email')
+                            ->simplepaginate(2);
+
         
         // Pass vehicles data to the view
-        return view('admin.show-vehicle', compact(['vehicles']));
+        return view('admin.show-vehicle', compact('vehicles'));
     }
 
     public function showAddVehicleForm()

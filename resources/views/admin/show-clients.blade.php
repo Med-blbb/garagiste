@@ -39,11 +39,12 @@
                                         <td>{{ $client->role }}</td>
                                         <td>{{ $client->phoneNumber }}</td>
                                         <td>{{ $client->address }}</td>
-                                        
-                                        @foreach($vehicle as $vehicle)
+                                        <td>
+                                            @foreach($vehicle as $vehicle)
+                                            <p>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</p>
+                                            @endforeach
+                                        </td>
                                     
-                                        <td>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</td>
-                                    @endforeach
                                     </tr>
                                     @endforeach
                                     

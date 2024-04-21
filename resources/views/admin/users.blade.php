@@ -132,7 +132,6 @@
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
-                                        <th scope="col">Address</th>
                                         <th scope="col">Actions</th>
                                         <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
 
@@ -145,7 +144,6 @@
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->role }}</td>
-                                        <td>{{ $user->address }}</td>
                                         <td>
                                             <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-address="{{ $user->address }}" data-phonenumber="{{ $user->phoneNumber }}"  data-toggle="modal" data-target="#viewUserModal">Show</button>
                                             <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-address="{{ $user->address }}" data-phonenumber="{{ $user->phoneNumber }}"  data-toggle="modal" data-target="#editUserModal">Edit</button>
