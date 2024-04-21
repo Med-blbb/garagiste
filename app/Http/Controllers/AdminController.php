@@ -287,5 +287,44 @@ class AdminController extends Controller
     {
         return view('admin.add-client');
     }
+    public function editClient($id)
+    {
+        $client = User::findOrFail($id);
+        return view('admin.edit-client', compact('client'));
+    }
+    public function updateClient(Request $request)
+    {
+        $client = User::find($request->id);
+        if (!$client){
+            return redirect()->back()->with('error', 'Client not found.');
+        }
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|string',
+            'address' => 'required|string',
+            'phoneNumber' => 'required|string',
+        ]);
+        $client->name = $request->name;
+        $client->email = $request->email;
+        $client->role = $request->role;
+        $client->address = $request->address;
+        $client->phoneNumber = $request->phoneNumber;
+        $client->save();
+        return redirect()->back()->with('success', 'Client updated successfully.');
+    }
+    public function deleteClient($id)
+    {
+        $client = User::find($id);
+        if(!$client){
+            return redirect()->back()->whith('error','Client not found');
+        }
+        $vehicle = Vehicle::where('user_id','=',$id);
+        if($vehicle){
+            $vehicle->delete();
+        }
+        $client->delete();
+        return redirect()->back()->with('success',"Client deleted successfully");
+    }
     
 }

@@ -14,7 +14,7 @@
                         <div class="card-header">
                             <a href="{{ route('admin.add-client') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Client</a>
                         </div>
-                       
+
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -40,14 +40,27 @@
                                         <td>{{ $client->phoneNumber }}</td>
                                         <td>{{ $client->address }}</td>
                                         <td>
-                                            @foreach($vehicle as $vehicle)
-                                            <p>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</p>
+                                            @foreach($vehicle->where('user_id', $client->id) as $userVehicle)
+                                            <p>{{ $userVehicle->make }} - {{ $userVehicle->model }} - {{ $userVehicle->registration }}</p>
                                             @endforeach
+                                            @if(count($vehicle->where('user_id', $client->id)) == 0)
+                                            <p>No vehicle</p>
+                                            @endif
                                         </td>
-                                    
+                                        <td>
+                                            <a href="{{route('admin.edit-client', ['id' => $client->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                                            <form action="{{route('admin.delete-client', ['id' => $client->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Client" >
+                                                <i class="bi bi-trash h5"></i>
+                                            </button>
+                                            </form>
+                                        </td>
+
                                     </tr>
                                     @endforeach
-                                    
+
                                 </tbody>
 
                             </table>
@@ -62,11 +75,11 @@
         </div>
 
         <div class="pagination justify-content-center">
-    <style>
-        .pagination .page-link {
-            font-size: 2px;
-            /* Adjust the font size as needed */
-        }
-    </style>
-    
-</div>
+            <style>
+                .pagination .page-link {
+                    font-size: 2px;
+                    /* Adjust the font size as needed */
+                }
+            </style>
+
+        </div>

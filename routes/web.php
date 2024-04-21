@@ -44,6 +44,11 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     //add client
     Route::get('/add/client', [AdminController::class, 'showAddClientForm'])->name('admin.add-client');
     Route::post('/add/client', [AdminController::class, 'add_client'])->name('admin.add-client');
+    //edit client
+    Route::get('/edit/client/{id}', [AdminController::class, 'editClient'])->name('admin.edit-client');
+    Route::put('/edit/client/{id}', [AdminController::class, 'updateClient'])->name('admin.edit-client');
+    //delete client
+    Route::delete('/delete/client/{id}',[AdminController::class, 'deleteClient'])->name('admin.delete-client');
     //allclients
     Route::get('/clients', [AdminController::class, 'showClient'])->name('admin.show-clients');
 
