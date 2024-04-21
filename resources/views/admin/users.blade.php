@@ -147,8 +147,8 @@
                                         <td>{{ $user->role }}</td>
                                         <td>{{ $user->address }}</td>
                                         <td>
-                                            <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#viewUserModal">Show</button>
-                                            <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
+                                            <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-address="{{ $user->address }}" data-phonenumber="{{ $user->phoneNumber }}"  data-toggle="modal" data-target="#viewUserModal">Show</button>
+                                            <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-address="{{ $user->address }}" data-phonenumber="{{ $user->phoneNumber }}"  data-toggle="modal" data-target="#editUserModal">Edit</button>
                                             <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
                                                 @csrf
                                                 @method('DELETE')
@@ -209,7 +209,7 @@
             $('#edit_role').val(role);
             $('#edit_user_id').val(id);
             $('#edit_address').val(address);
-            $('#edit_phone_number').val(phoneNumber);
+            $('#edit_phoneNumber').val(phoneNumber);
         });
         $(document).ready(function() {
     $('.show-user').click(function(e) {
@@ -228,8 +228,6 @@
         $('#user_id').text(id);
         $('#user_address').text(address);
         $('#user_phoneNumber').text(phoneNumber);
-        console.log(phoneNumber);
-        console.log(role)
     });
 });
 
