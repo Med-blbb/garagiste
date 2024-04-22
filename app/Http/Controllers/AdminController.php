@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use App\Models\Client;
+use App\Models\Repair;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -20,7 +21,8 @@ class AdminController extends Controller
     {
         $clients = User::where('role', 'client');
         $mechanics = User::where('role', 'mechanic');
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics]);
+        $repairs =Repair::all();
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs]);
     }
     public function showAllUsers()
     {
@@ -350,7 +352,71 @@ class AdminController extends Controller
     public function showAllMechanics()
     {
         $mechanics = User::where('role', 'mechanic')->get();
-        return view('admin.show-mechanics', compact('mechanics'));
+        $vehicles = DB::table('repairs')
+            ->join('vehicles', 'repairs.vehicle_id', '=', 'vehicles.id')
+            ->join('users', 'repairs.mechanic_id', '=', 'users.id')
+            ->select('repairs.*', 'vehicles.*')
+            ->get();
+
+        return view('admin.show-mechanics', compact(['mechanics', 'vehicles']));
+    }
+    public function showAllRepairs()
+    {
+        $repairs = Repair::all();
+        return view('admin.show-repair', ['repairs' => $repairs]);
+    }
+    public function addRepair(Request $request)
+    {
+        $request->validate([
+            'vehicle_id' => 'required',
+            'mechanic_id' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+        ]);
+        $repair = new Repair();
+
+        $repair->description = $request->description;
+        $repair->status = $request->status;
+        $repair->start_date = $request->start_date;
+        $repair->end_date = $request->end_date;
+        $repair->mechanic_notes = $request->mechanic_notes;
+        $repair->client_notes = $request->client_notes;
+        $repair->vehicle_id = $request->vehicle_id;
+        $repair->mechanic_id = $request->mechanic_id;
+        $repair->save();
+        return redirect()->back()->with('success', 'Repair added successfully.');
+    }
+    public function ShowAddRepairForm()
+    {
+        return view('admin.add-repair');
+    }
+    public function editRepair($id)
+    {
+        $repair = Repair::findOrFail($id);
+        return view('admin.edit-repair', compact('repair'));
+    }
+    public function updateRepair(Request $request)
+    {
+        $repair = Repair::find($request->id);
+        if (!$repair){
+            return redirect()->back()->with('error', 'Repair not found.');
+        }
+        $request->validate([
+            'vehicle_id' => 'required',
+            'mechanic_id' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+        ]);
+        $repair->description = $request->description;
+        $repair->status = $request->status;
+        $repair->start_date = $request->start_date;
+        $repair->end_date = $request->end_date;
+        $repair->mechanic_notes = $request->mechanic_notes;
+        $repair->client_notes = $request->client_notes;
+        $repair->vehicle_id = $request->vehicle_id;
+        $repair->mechanic_id = $request->mechanic_id;
+        $repair->save();
+        return redirect()->back()->with('success', 'Repair updated successfully.');
     }
     
 }

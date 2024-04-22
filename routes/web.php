@@ -56,7 +56,17 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     //add mechanic
     Route::get('/add/mechanic', [AdminController::class, 'showAddMechanicForm'])->name('admin.add-mechanic');
     Route::post('/add/mechanic', [AdminController::class, 'addMechanic'])->name('admin.add-mechanic');
-
+    //edit mechanic
+    //delete mechanic
+    //show repairs
+    Route::get('/repairs',[AdminController::class,'ShowAllRepairs'])->name('admin.show-repair');
+    //add repair
+    Route::get('/add/repair',[AdminController::class,'showAddRepairForm'])->name('admin.add-repair');
+    Route::post('/add/repair',[AdminController::class,'addRepair'])->name('admin.add-repair');
+    //edit repair
+    Route::get('/edit/repair/{id}',[AdminController::class,'editRepair'])->name('admin.edit-repair');
+    Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.edit-repair');
+    //delete repair
 
 });
 Route::get('/verify-email/{token}', function ($token) {

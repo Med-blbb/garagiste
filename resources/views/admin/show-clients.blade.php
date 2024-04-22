@@ -82,4 +82,7 @@
             </style>
 
         </div>
-        @endsection
+
+    </section>
+</div>
+@endsection

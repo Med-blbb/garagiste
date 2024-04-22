@@ -99,9 +99,25 @@
                         </div>
                     </div>
                     <!-- /.row -->
-                    <!-- Main row -->
+                    <!-- row -->
+                    <div class="row">
+                        <!-- ./col -->
+                            <div class="col-lg-3 col-6">
+                                <!-- small box -->
+                                <div class="small-box bg-info">
+                                    <div class="inner">
+                                        <h3>{{ $repairs->count() }}</h3>
 
-                    <!-- /.row (main row) -->
+                                        <p>Repairs</p>
+                                    </div>
+                                    <div class="icon">
+                                    <i class="bi bi-tools"></i>
+                                    </div>
+                                    <a href="{{ route('admin.show-repair') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        <!-- ./col -->
+                    </div>
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
