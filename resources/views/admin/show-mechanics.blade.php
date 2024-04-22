@@ -1,9 +1,5 @@
 @extends('layouts.app')
 @section('content')
-@include('layouts.show-user-modal')
-@include('layouts.edit-user-modal')
-
-
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -11,7 +7,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('admin.add-client') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Client</a>
+                            <a href="{{ route('admin.add-mechanic') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Mechanic</a>
                         </div>
 
                         <!-- /.card-header -->
@@ -31,31 +27,15 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($clients as $client)
+                                    @foreach($mechanics as $mechanic)
                                     <tr>
-                                        <td>{{ $client->name }}</td>
-                                        <td>{{ $client->email }}</td>
-                                        <td>{{ $client->role }}</td>
-                                        <td>{{ $client->phoneNumber }}</td>
-                                        <td>{{ $client->address }}</td>
-                                        <td>
-                                            @foreach($vehicle->where('user_id', $client->id) as $userVehicle)
-                                            <p>{{ $userVehicle->make }} - {{ $userVehicle->model }} - {{ $userVehicle->registration }}</p>
-                                            @endforeach
-                                            @if(count($vehicle->where('user_id', $client->id)) == 0)
-                                            <p>No vehicle</p>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a href="{{route('admin.edit-client', ['id' => $client->id])}}" class="btn btn-primary btn-sm">Edit</a>
-                                            <form action="{{route('admin.delete-client', ['id' => $client->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Client" >
-                                                <i class="bi bi-trash h5"></i>
-                                            </button>
-                                            </form>
-                                        </td>
+                                        <td>{{ $mechanic->name }}</td>
+                                        <td>{{ $mechanic->email }}</td>
+                                        <td>{{ $mechanic->role }}</td>
+                                        <td>{{ $mechanic->phoneNumber }}</td>
+                                        <td>{{ $mechanic->address }}</td>
+                                        
+                                        
 
                                     </tr>
                                     @endforeach

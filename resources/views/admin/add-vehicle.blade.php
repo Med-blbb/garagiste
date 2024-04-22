@@ -1,6 +1,5 @@
-@include('layouts.main-headerbar')
-@include('layouts.head')
-@include('layouts.main-sidebar')
+@extends('layouts.app')
+@section('content')
 
 <div class="container mt-5">
     <div class="row justify-content-center">
@@ -17,7 +16,11 @@
                     {{ Session::get('success') }}
                 </div>
                 @endif
-
+                @if (Session::has('error'))
+                <div class="alert alert-danger">
+                    {{ Session::get('error') }}
+                </div>
+                @endif
                 <div class="card-body">
                     <form action="{{ route('admin.vehicles.add') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -67,3 +70,4 @@
         </div>
     </div>
 </div>
+@endsection

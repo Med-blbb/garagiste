@@ -1,7 +1,6 @@
 <!-- resources/views/admin/users.blade.php -->
-@include('layouts.main-headerbar')
-@include('layouts.head')
-@include('layouts.main-sidebar')
+@extends('layouts.app')
+@section('content')
 @include('layouts.show-user-modal')
 @include('layouts.edit-user-modal')
 
@@ -32,7 +31,6 @@
                     <label for="floatingRole">Role</label>
                     <select class="form-control" name="role" id="floatingRole" required autofocus>
                         <option value="">Select Role</option>
-                        <option value="admin">Administrator</option>
                         <option value="mechanic">Mechanician</option>
                         <option value="client">Client</option>
                     </select>
@@ -120,9 +118,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">DataTable with minimal features & hover style</h3>
-                        </div>
+                        
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="example2" class="table table-bordered table-hover">
@@ -240,3 +236,4 @@
     });
     });
 </script>
+@endsection

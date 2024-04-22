@@ -19,7 +19,8 @@ class AdminController extends Controller
     public function dashboard()
     {
         $clients = User::where('role', 'client');
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all()]);
+        $mechanics = User::where('role', 'mechanic');
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics]);
     }
     public function showAllUsers()
     {
@@ -39,16 +40,14 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'required|string|in:admin,mechanic,user', // Ensure valid role values
+            'role' => 'required|string|in:admin,mechanic,client', // Ensure valid role values
         ]);
         // Validate and create user...
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'is_admin' => ($validatedData['role'] === 'admin'),
-            'is_mechanic' => ($validatedData['role'] === 'mechanic'), 
-            'is_client' => ($validatedData['role'] === 'client'),
+            'role' => $validatedData['role'],
         ]);
         
         
@@ -325,6 +324,33 @@ class AdminController extends Controller
         }
         $client->delete();
         return redirect()->back()->with('success',"Client deleted successfully");
+    }
+    public function showAddMechanicForm()
+    {
+        return view('admin.add-mechanic');
+    }
+    public function addMechanic(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|string',
+            'address' => 'required|string',
+            'phoneNumber' => 'required|string',
+        ]);
+        $mechanic = new User();
+        $mechanic->name = $request->name;
+        $mechanic->email = $request->email;
+        $mechanic->role = $request->role;
+        $mechanic->address = $request->address;
+        $mechanic->phoneNumber = $request->phoneNumber;
+        $mechanic->save();
+        return redirect()->back()->with('success', 'Mechanic added successfully.');
+    }
+    public function showAllMechanics()
+    {
+        $mechanics = User::where('role', 'mechanic')->get();
+        return view('admin.show-mechanics', compact('mechanics'));
     }
     
 }

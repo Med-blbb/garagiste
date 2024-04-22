@@ -1,7 +1,5 @@
-@include('layouts.main-headerbar')
-@include('layouts.head')
-@include('layouts.main-sidebar')
-
+@extends('layouts.app')
+@section('content')
 @if (session('success'))
 <div class="alert alert-success container col-md-6 mx-auto mt-5">
     {{ session('success') }}
@@ -47,3 +45,4 @@
     <button type="submit" class="btn btn-primary">Edit Client</button>
     <a href="{{ route('admin.show-clients') }}" class="btn btn-secondary">Clients list</a>
 </form>
+@endsection

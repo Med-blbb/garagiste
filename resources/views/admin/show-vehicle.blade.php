@@ -1,7 +1,5 @@
-@include('layouts.main-headerbar')
-@include('layouts.head')
-@include('layouts.main-sidebar')
-
+@extends('layouts.app')
+@section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -65,3 +63,4 @@
         </div>
     </div>
 </div>
+@endsection

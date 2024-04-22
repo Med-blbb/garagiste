@@ -51,6 +51,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/delete/client/{id}',[AdminController::class, 'deleteClient'])->name('admin.delete-client');
     //allclients
     Route::get('/clients', [AdminController::class, 'showClient'])->name('admin.show-clients');
+    //show mechanics
+    Route::get('/mechanics', [AdminController::class, 'showAllMechanics'])->name('admin.show-mechanics');
+    //add mechanic
+    Route::get('/add/mechanic', [AdminController::class, 'showAddMechanicForm'])->name('admin.add-mechanic');
+    Route::post('/add/mechanic', [AdminController::class, 'addMechanic'])->name('admin.add-mechanic');
+
 
 });
 Route::get('/verify-email/{token}', function ($token) {
