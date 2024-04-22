@@ -34,7 +34,24 @@
                                         <td>{{ $mechanic->role }}</td>
                                         <td>{{ $mechanic->phoneNumber }}</td>
                                         <td>{{ $mechanic->address }}</td>
-                                        
+                                        <td>
+                                            {{-- @foreach($vehicle->where('user_id', $client->id) as $userVehicle)
+                                            <p>{{ $userVehicle->make }} - {{ $userVehicle->model }} - {{ $userVehicle->registration }}</p>
+                                            @endforeach
+                                            @if(count($vehicle->where('user_id', $client->id)) == 0)
+                                            <p>No vehicle</p>
+                                            @endif --}}
+                                        </td>
+                                        <td>
+                                            {{-- <a href="{{route('admin.edit-client', ['id' => $client->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                                            <form action="{{route('admin.delete-client', ['id' => $client->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Client" >
+                                                <i class="bi bi-trash h5"></i>
+                                            </button>
+                                            </form> --}}
+                                        </td>
                                         
 
                                     </tr>

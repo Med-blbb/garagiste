@@ -101,7 +101,7 @@ class AdminController extends Controller
         
 
         // Redirect back to the admin dashboard
-        return redirect()->route('admin.users')->with('success', 'User added successfully');
+        return redirect()->back()->with('success', 'User added successfully');
     }
     public function editUser($id)
     {

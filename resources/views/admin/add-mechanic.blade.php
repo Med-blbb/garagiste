@@ -20,7 +20,7 @@
 </div>
 @endif
 
-<h1 class="container col-md-6 mx-auto mt-5">Add Client</h1>
+<h1 class="container col-md-6 mx-auto mt-5">Add Mechanician</h1>
 <div class="container col-md-6 mx-auto mt-5">
 <form class="form-group" action="{{ route('admin.users.add') }}" method="post">
     @csrf
@@ -36,7 +36,7 @@
         </div>
         <div class="form-group form-floating mb-3">
         <label for="floatingRole">Role</label>
-        <input type="text" class="form-control" name="role" id="role" value="client" readonly >
+        <input type="text" class="form-control" name="role" id="role" value="mechanic" readonly >
         
         
     </div>
@@ -54,8 +54,8 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a href="{{ route('admin.show-clients') }}" class="btn btn-secondary">Clients list</a>
-        <button type="submit" class="btn btn-primary">Add Client</button>
+        <a href="{{ route('admin.show-mechanics') }}" class="btn btn-secondary">Mechanicians list</a>
+        <button type="submit" class="btn btn-primary">Add Mechanician</button>
     </div>
 </form>
 </div>
