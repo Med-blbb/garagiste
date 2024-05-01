@@ -65,9 +65,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::post('/add/repair',[AdminController::class,'addRepair'])->name('admin.add-repair');
     //edit repair
     Route::get('/edit/repair/{id}',[AdminController::class,'editRepair'])->name('admin.edit-repair');
-    Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.edit-repair');
+    Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.update-repair');
     //delete repair
-
+    Route::delete('/delete/repair/{id}',[AdminController::class,'deleteRepair'])->name('admin.delete-repair');
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token

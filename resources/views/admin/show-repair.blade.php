@@ -36,7 +36,14 @@
                                     <tr>
                                         <td>{{ $repair->id }}</td>
                                         <td>{{ $repair->description }}</td>
-                                        <td>{{ $repair->status }}</td>
+                                        <td>
+                                            <select name="status" id="status">
+                                                <option value="{{ $repair->status }}">{{ $repair->status }}</option>
+                                                <option value="Pending">Pending</option>
+                                                <option value="In_progress">In progress</option>
+                                                <option value="Completed">Completed</option>
+                                            </select>
+                                        </td>
                                         <td>{{ $repair->start_date }}</td>
                                         <td>{{ $repair->end_date }}</td>
                                         <td>{{ $repair->mechanic_notes }}</td>
@@ -45,14 +52,14 @@
                                         <td>{{ $repair->vehicle_id }}</td>
                                         
                                         <td>
-                                            {{-- <a href="{{route('admin.edit-client', ['id' => $client->id])}}" class="btn btn-primary btn-sm">Edit</a>
-                                            <form action="{{route('admin.delete-client', ['id' => $client->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                                            <a href="{{route('admin.update-repair', ['id' => $repair->id])}}" data-id="{{ $repair->id }}" data-status="{{ $repair->status }}" class="btn btn-primary edit-repair btn-sm">Edit</a>
+                                            <form action="{{route('admin.delete-repair', ['id' => $repair->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this repair?')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Client" >
+                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Repair" >
                                                 <i class="bi bi-trash h5"></i>
                                             </button>
-                                            </form> --}}
+                                            </form>
                                         </td>
 
                                     </tr>
@@ -83,5 +90,22 @@
 
     </section>
 </div>
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.edit-repair', function(e) {
+            e.preventDefault();
+            var id = $(this).data('id');
+            var status = $(this).data('status');
+
+            // Populate modal fields with current repair details
+            $('#id').val(id);
+            $('#status').val(status);
+
+            // Show the modal if needed
+            // $('#editRepairModal').modal('show');
+        });
+    });
+</script>
+
 
 @endsection

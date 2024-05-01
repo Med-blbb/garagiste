@@ -401,12 +401,12 @@ class AdminController extends Controller
         if (!$repair){
             return redirect()->back()->with('error', 'Repair not found.');
         }
-        $request->validate([
-            'vehicle_id' => 'required',
-            'mechanic_id' => 'required',
-            'description' => 'required',
-            'start_date' => 'required',
-        ]);
+        // $request->validate([
+        //     'vehicle_id' => 'required',
+        //     'mechanic_id' => 'required',
+        //     'description' => 'required',
+        //     'start_date' => 'required',
+        // ]);
         $repair->description = $request->description;
         $repair->status = $request->status;
         $repair->start_date = $request->start_date;
@@ -417,6 +417,15 @@ class AdminController extends Controller
         $repair->mechanic_id = $request->mechanic_id;
         $repair->save();
         return redirect()->back()->with('success', 'Repair updated successfully.');
+    }
+    public function deleteRepair($id)
+    {
+        $repair = Repair::find($id);
+        if(!$repair){
+            return redirect()->back()->whith('error','Repair not found');
+        }
+        $repair->delete();
+        return redirect()->back()->with('success',"Repair deleted successfully");
     }
     
 }

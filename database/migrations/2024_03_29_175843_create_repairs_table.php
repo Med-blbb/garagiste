@@ -11,7 +11,7 @@ class CreateRepairsTable extends Migration
         Schema::create('repairs', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->enum('status', ['pending', 'in_progress', 'completed'])->default('pending');
+            $table->enum('status', ['Pending', 'In_progress', 'Completed'])->default('Pending');
             $table->dateTime('start_date');
             $table->dateTime('end_date')->nullable();
             $table->text('mechanic_notes')->nullable();
