@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <form action="{{ route('admin.vehicles.add') }}" method="post" enctype="multipart/form-data">
                         @csrf
-
+                       
                         <div class="form-group">
                             @if ($errors->any())
                             <div class=" alert alert-danger">

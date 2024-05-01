@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-@include('layouts.show-user-modal')
-@include('layouts.edit-user-modal')
+@include('layouts.modals.show-user-modal')
+@include('layouts.modals.edit-user-modal')
 
 
 <div class="content-wrapper">
