@@ -29,10 +29,10 @@
                         <div class="form-group row">
                             <label for="status" class="col-md-4 col-form-label text-md-right">{{ __('Status (*)') }}</label>
                             <div class="col-md-6">
-                                <select class="form-control" name="status" id="status">
-                                    <option value="Pending">Pending</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Completed">Completed</option>
+                                <select class="form-control" name="status" >
+                                    <option class="status" value="Pending">Pending</option>
+                                    <option class="status" value="In_progress">In Progress</option>
+                                    <option class="status" value="Completed">Completed</option>
                                 </select>
                             </div>
                         </div>
@@ -86,4 +86,5 @@
         </div>
     </div>
 </div>
+
 @endsection

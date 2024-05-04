@@ -32,17 +32,20 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                     @php
+                                       $statusList = ['Pending', 'In_progress', 'Completed'];
+                                    @endphp
                                     @foreach($repairs as $repair)
                                     <tr>
                                         <td>{{ $repair->id }}</td>
                                         <td>{{ $repair->description }}</td>
                                         <td>
                                             <select name="status" id="status">
-                                                <option value="{{ $repair->status }}">{{ $repair->status }}</option>
-                                                <option value="Pending">Pending</option>
-                                                <option value="In_progress">In progress</option>
-                                                <option value="Completed">Completed</option>
-                                            </select>
+                                            @foreach($statusList as $status)
+                                                <option value="{{ $status }}" {{ $repair->status == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                            @endforeach
+                                        </select>
+                                    
                                         </td>
                                         <td>{{ $repair->start_date }}</td>
                                         <td>{{ $repair->end_date }}</td>
@@ -91,20 +94,43 @@
     </section>
 </div>
 <script>
-    $(document).ready(function() {
-        $(document).on('click', '.edit-repair', function(e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            var status = $(this).data('status');
+    // $(document).ready(function() {
+    //     $(document).on('click', '.edit-repair', function(e) {
+    //         e.preventDefault();
+    //         var id = $(this).data('id');
+    //         var status = $(this).data('status');
 
-            // Populate modal fields with current repair details
-            $('#id').val(id);
-            $('#status').val(status);
+    //         // Populate modal fields with current repair details
+    //         $('#id').val(id);
+    //         $('#status').val(status);
 
-            // Show the modal if needed
-            // $('#editRepairModal').modal('show');
+    //         // Show the modal if needed
+    //         // $('#editRepairModal').modal('show');
+    //     });
+    // });
+    
+    $(document).ready(function(){
+    $('#status').on('change', function(){
+        var selectedValue = $(this).val();
+        var repairId = {{ $repair->id }};
+        var token = $('meta[name="csrf-token"]').attr('content')
+        $.ajax({
+            type: 'PUT',
+            url: '/admin/edit/repair/' + repairId,
+            data: { status: selectedValue
+             },
+            headers: {'X-CSRF-TOKEN': token},
+            success: function(response){
+                console.log('Status updated successfully.');
+                // You can handle success response here
+            },
+            error: function(xhr, status, error) {
+                console.error('Error occurred while updating status:', error);
+                // You can handle error response here
+            }
         });
     });
+});
 </script>
 
 

@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     @include('layouts.head')
+    
    
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">

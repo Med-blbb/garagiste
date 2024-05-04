@@ -17,14 +17,8 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
-                        </div><!-- /.col -->
+                            <h1 class="m-0">{{ __('Dashboard') }}</h1>
+                        </div>
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
@@ -43,12 +37,12 @@
                                 <div class="inner">
                                     <h3>{{ $users->count() }}</h3>
 
-                                    <p>User Registrations</p>
+                                    <p>{{__('User Registrations')}}</p>
                                 </div>
                                 <div class="icon">
                                     <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="{{ route('admin.users') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.users') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -58,12 +52,12 @@
                                 <div class="inner">
                                     <h3> {{ $vehicles->count() }} </h3>
 
-                                    <p>Vehicules</p>
+                                    <p>{{__('Vehicles')}}</p>
                                 </div>
                                 <div class="icon">
                                 <i class="bi bi-car-front-fill"></i>
                                 </div>
-                                <a href="{{ route('admin.vehicles') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.vehicles') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -73,12 +67,12 @@
                                 <div class="inner">
                                     <h3>{{ $clients->count() }}</h3>
 
-                                    <p>Clients</p>
+                                    <p>{{__('Clients')}}</p>
                                 </div>
                                 <div class="icon">
                                 <i class="bi bi-person-square"></i>
                                 </div>
-                                <a href="{{ route('admin.show-clients') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.show-clients') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-3 col-6">
@@ -87,12 +81,12 @@
                                 <div class="inner">
                                     <h3>{{ $mechanics->count() }}</h3>
 
-                                    <p>Mechanics</p>
+                                    <p>{{__('Mechanics')}}</p>
                                 </div>
                                 <div class="icon">
                                 <i class="bi bi-tools"></i>
                                 </div>
-                                <a href="{{ route('admin.show-mechanics') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                <a href="{{ route('admin.show-mechanics') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                         <!-- ./col -->
@@ -108,16 +102,34 @@
                                     <div class="inner">
                                         <h3>{{ $repairs->count() }}</h3>
 
-                                        <p>Repairs</p>
+                                        <p>{{__('Repairs')}}</p>
                                     </div>
                                     <div class="icon">
                                     <i class="bi bi-tools"></i>
                                     </div>
-                                    <a href="{{ route('admin.show-repair') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                                    <a href="{{ route('admin.show-repair') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         <!-- ./col -->
+                        <!-- ./col -->
+                            
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-primary">
+                                <div class="inner">
+                                    <h3>{{ $parts->count() }}</h3>
+
+                                    <p>{{__('Parts')}}</p>
+                                </div>
+                                <div class="icon">
+                                <i class="bi bi-tools"></i>
+                                </div>
+                                <a href="{{ route('admin.show-parts') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
+                        <!-- ./col -->
                     </div>
+                    
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->

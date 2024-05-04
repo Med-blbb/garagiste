@@ -6,15 +6,29 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{route('admin.dashboard')}}" class="nav-link">Home</a>
+            <a href="{{route('admin.dashboard')}}" class="nav-link">{{__('Home')}}</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">{{__('Contact')}}</a>
         </li>
     </ul>
 
+
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <img src="{{ asset('assets/flags/' . app()->getLocale() . '.png') }}" alt="{{ app()->getLocale() }}"> <!-- Default language flag -->
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
+                @foreach(['en', 'fr', 'es', 'ar'] as $locale)
+                    <a class="dropdown-item" href="{{ route('pages.changeLocale', ['locale' => $locale]) }}">
+                        <img src="{{ asset('assets/flags/' . $locale . '.png') }}" alt="{{ $locale }}"> {{ ucfirst($locale) }}
+                    </a>
+                @endforeach
+            </div>
+        </li>
+        
         <!-- Navbar Search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -28,6 +42,7 @@
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
                             </button>
+                            
                             <button class="btn btn-navbar" type="button" data-widget="navbar-search">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -42,8 +57,8 @@
 
             @guest
             <div class="text-end">
-                <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">Login</a>
-                <a href="{{ route('register.perform') }}" class="btn btn-warning">Sign-up</a>
+                <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">{{__('Login')}}</a>
+                <a href="{{ route('register.perform') }}" class="btn btn-warning">{{__('Sign-up')}}</a>
             </div>
             @endguest
 
@@ -52,10 +67,11 @@
             @auth
             {{auth()->user()->name}}
             <div class="nav-link text-end">
-            <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">Logout</a>
+            <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">{{__('Logout')}}</a>
             </div>
             @endauth
         </li>
+        
         <!-- Notifications Dropdown Menu -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
@@ -93,6 +109,9 @@
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
+    </ul>
+    <ul>
+
     </ul>
 </nav>
 <!-- /.navbar -->

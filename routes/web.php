@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\LocalizationController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -68,6 +69,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.update-repair');
     //delete repair
     Route::delete('/delete/repair/{id}',[AdminController::class,'deleteRepair'])->name('admin.delete-repair');
+    //show spairs Parts
+    Route::get('/repair-parts/',[AdminController::class,'showAllSpairParts'])->name('admin.show-parts');
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
@@ -118,3 +121,7 @@ Route::get('forget-password', [ForgotPasswordController::class, 'showForgetPassw
 Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::get('/changeLocale/{locale}',function($locale){
+    session()->put('locale',$locale);
+    return redirect()->back();
+})->name('pages.changeLocale');

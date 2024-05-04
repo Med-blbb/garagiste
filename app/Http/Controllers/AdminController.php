@@ -6,6 +6,7 @@ use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use App\Models\Client;
 use App\Models\Repair;
+use App\Models\SpairPart;
 use Illuminate\Support\Str;
 use App\Models\User;
 use App\Models\Vehicle;
@@ -22,7 +23,8 @@ class AdminController extends Controller
         $clients = User::where('role', 'client');
         $mechanics = User::where('role', 'mechanic');
         $repairs =Repair::all();
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs]);
+        $parts = SpairPart::all();
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs, 'parts' => $parts]);
     }
     public function showAllUsers()
     {
@@ -395,11 +397,12 @@ class AdminController extends Controller
         $repair = Repair::findOrFail($id);
         return view('admin.edit-repair', compact('repair'));
     }
-    public function updateRepair(Request $request)
+    public function updateRepair(Request $request , $id)
     {
-        $repair = Repair::find($request->id);
+        
+        $repair = Repair::find($id);
         if (!$repair){
-            return redirect()->back()->with('error', 'Repair not found.');
+            return response()->json(['error' => 'Repair not found.']);
         }
         // $request->validate([
         //     'vehicle_id' => 'required',
@@ -407,16 +410,12 @@ class AdminController extends Controller
         //     'description' => 'required',
         //     'start_date' => 'required',
         // ]);
-        $repair->description = $request->description;
+       
         $repair->status = $request->status;
-        $repair->start_date = $request->start_date;
-        $repair->end_date = $request->end_date;
-        $repair->mechanic_notes = $request->mechanic_notes;
-        $repair->client_notes = $request->client_notes;
-        $repair->vehicle_id = $request->vehicle_id;
-        $repair->mechanic_id = $request->mechanic_id;
+        
+        
         $repair->save();
-        return redirect()->back()->with('success', 'Repair updated successfully.');
+        return response()->json(['success' => 'Repair updated successfully.', 'repair' => $repair]);
     }
     public function deleteRepair($id)
     {
@@ -427,5 +426,10 @@ class AdminController extends Controller
         $repair->delete();
         return redirect()->back()->with('success',"Repair deleted successfully");
     }
-    
+    public function showAllSpairParts()
+    {
+        
+        $spairParts = SpairPart::all();
+        return view('admin.show-parts', compact([ 'spairParts']));
+    }
 }
