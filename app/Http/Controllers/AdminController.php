@@ -426,10 +426,5 @@ class AdminController extends Controller
         $repair->delete();
         return redirect()->back()->with('success',"Repair deleted successfully");
     }
-    public function showAllSpairParts()
-    {
-        
-        $spairParts = SpairPart::all();
-        return view('admin.part.show-parts', compact([ 'spairParts']));
-    }
+    
 }

@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\admin\SpairPartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LocalizationController;
+use App\Models\SpairPart;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SpairPartsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -70,7 +73,15 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     //delete repair
     Route::delete('/delete/repair/{id}',[AdminController::class,'deleteRepair'])->name('admin.delete-repair');
     //show spairs Parts
-    Route::get('/repair-parts/',[AdminController::class,'showAllSpairParts'])->name('admin.show-parts');
+    Route::get('/spair-parts/',[SpairPartController::class,'index'])->name('admin.show-parts');
+    //add spair part
+    Route::get('/add/spair-parts',[SpairPartController::class,'create'])->name('admin.add-parts');
+    Route::post('/add/spair-parts',[SpairPartController::class,'store'])->name('admin.add-parts');
+    //edit spair part
+    Route::get('/edit/spair-parts/{id}',[SpairPartController::class,'edit'])->name('admin.edit-parts');
+    Route::put('/edit/spair-parts/{id}',[SpairPartController::class,'update'])->name('admin.edit-parts');
+    //delete spair part
+    Route::delete('/delete/spair-parts/{id}',[SpairPartController::class,'destroy'])->name('admin.delete-parts');
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token

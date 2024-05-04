@@ -12,46 +12,60 @@ class SpairPartController extends Controller
     public function index()
     {
         $spairParts = SpairPart::all();
-        return view('admin.spare_parts.index', compact('spareParts'));
+        return view('admin.part.show-parts', compact('spairParts'));
     }
 
     public function create()
     {
-        return view('admin.spare_parts.create');
+        return view('admin.part.add-parts');
     }
 
     public function store(Request $request)
     {
         // Validation
 
+        $request->validate([
+            'part_name' => 'required',
+            'part_reference' => 'required',
+            'supplier' => 'required',
+            'price' => 'required|numeric',
+        ]);
+
         $sparePart = new SpairPart ();
-        $sparePart->partName = $request->input('partName');
-        $sparePart->partReference = $request->input('partReference');
+        $sparePart->part_name = $request->input('part_name');
+        $sparePart->part_reference = $request->input('part_reference');
         $sparePart->supplier = $request->input('supplier');
         $sparePart->price = $request->input('price');
         $sparePart->save();
 
-        return redirect()->route('spare_parts.index')->with('success', 'Spare part created successfully.');
+        return redirect()->route('admin.show-parts')->with('success', 'Spare part created successfully.');
     }
 
     public function edit($id)
     {
         $sparePart = SpairPart::findOrFail($id);
-        return view('admin.spare_parts.edit', compact('sparePart'));
+        return view('admin.part.edit-parts', compact('sparePart'));
     }
 
     public function update(Request $request, $id)
     {
         // Validation
 
+        $request->validate([
+            'part_name' => 'required',
+            'part_reference' => 'required',
+            'supplier' => 'required',
+            'price' => 'required|numeric',
+        ]);
+
         $sparePart = SpairPart::findOrFail($id);
-        $sparePart->partName = $request->input('partName');
-        $sparePart->partReference = $request->input('partReference');
+        $sparePart->part_name = $request->input('part_name');
+        $sparePart->part_reference = $request->input('part_reference');
         $sparePart->supplier = $request->input('supplier');
         $sparePart->price = $request->input('price');
         $sparePart->save();
 
-        return redirect()->route('spare_parts.index')->with('success', 'Spare part updated successfully.');
+        return redirect()->route('admin.show-parts')->with('success', 'Spare part updated successfully.');
     }
 
     public function destroy($id)
@@ -59,6 +73,6 @@ class SpairPartController extends Controller
         $sparePart = SpairPart::findOrFail($id);
         $sparePart->delete();
 
-        return redirect()->route('spare_parts.index')->with('success', 'Spare part deleted successfully.');
+        return redirect()->route('admin.show-parts')->with('success', 'Spare part deleted successfully.');
     }
 }

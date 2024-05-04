@@ -9,7 +9,7 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <a href="{{ route('admin.add-repair') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Repairs</a>
+                            <a href="{{ route('admin.add-parts') }}" class="text-white mb-3 btn btn-primary" style="text-decoration: none">Add Spair Parts</a>
                         </div>
 
                         <!-- /.card-header -->
@@ -18,21 +18,34 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Start Date</th>
-                                        <th scope="col">End Date</th>
-                                        <th scope="col">Mechanic Notes</th>
-                                        <th scope="col">Client Notes</th>
-                                        <th scope="col">Mechanic ID</th>
-                                        <th scope="col">Vehicle ID</th>
+                                        <th scope="col">Part Name</th>
+                                        <th scope="col">Part Reference</th>
+                                        <th scope="col">Supplier</th>
+                                        <th scope="col">Price</th>
                                         <th scope="col">Actions</th>
-                                        <!-- <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th> -->
-
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+                                    <tr>
+                                        @foreach($spairParts as $part)
+                                        <td>{{ $part->id }}</td>
+                                        <td>{{ $part->part_name }}</td>
+                                        <td>{{ $part->part_reference }}</td>
+                                        <td>{{ $part->supplier }}</td>
+                                        <td>{{ $part->price }} DH</td>
+                                        <td>
+                                            <a href="{{route('admin.edit-parts', ['id' => $part->id])}}" class="btn btn-primary btn-sm">Edit</a>
+                                            <form action="{{route('admin.delete-parts', ['id' => $part->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this spair part?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Remove Spair Part" >
+                                                    <i class="bi bi-trash h5"></i>
+                                                </button>
+                                                </form>
+                                        </td>
+                            
+                                        @endforeach
+                                    </tr>
                                   
 
                                 </tbody>
