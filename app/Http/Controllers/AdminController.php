@@ -185,7 +185,7 @@ class AdminController extends Controller
         ->select('vehicles.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email')
         ->get();
         
-        return view('admin.show-clients', compact(['clients', 'vehicle']));
+        return view('admin.client.show-clients', compact(['clients', 'vehicle']));
     }
     public function showAllVehicles()
     {
@@ -197,12 +197,12 @@ class AdminController extends Controller
 
         
         // Pass vehicles data to the view
-        return view('admin.show-vehicle', compact('vehicles'));
+        return view('admin.vehicle.show-vehicle', compact('vehicles'));
     }
 
     public function showAddVehicleForm()
     {
-        return view('admin.add-vehicle');
+        return view('admin.vehicle.add-vehicle');
     }
 
 
@@ -266,7 +266,7 @@ class AdminController extends Controller
             ->orwhere('make', 'like', '%' . request('search') . '%')
             ->simplePaginate(5);
 
-        return view('admin.show-vehicle', compact('vehicles'))->with(
+        return view('admin.vehicle.show-vehicle', compact('vehicles'))->with(
             'i',
             (request()->input('page', 1) - 1) * 5
         );
@@ -288,12 +288,12 @@ class AdminController extends Controller
     
     public function showAddClientForm()
     {
-        return view('admin.add-client');
+        return view('admin.client.add-client');
     }
     public function editClient($id)
     {
         $client = User::findOrFail($id);
-        return view('admin.edit-client', compact('client'));
+        return view('admin.client.edit-client', compact('client'));
     }
     public function updateClient(Request $request)
     {
@@ -331,7 +331,7 @@ class AdminController extends Controller
     }
     public function showAddMechanicForm()
     {
-        return view('admin.add-mechanic');
+        return view('admin.mechanic.add-mechanic');
     }
     public function addMechanic(Request $request)
     {
@@ -360,12 +360,12 @@ class AdminController extends Controller
             ->select('repairs.*', 'vehicles.*')
             ->get();
 
-        return view('admin.show-mechanics', compact(['mechanics', 'vehicles']));
+        return view('admin.mechanic.show-mechanics', compact(['mechanics', 'vehicles']));
     }
     public function showAllRepairs()
     {
         $repairs = Repair::all();
-        return view('admin.show-repair', ['repairs' => $repairs]);
+        return view('admin.repair.show-repair', ['repairs' => $repairs]);
     }
     public function addRepair(Request $request)
     {
@@ -390,7 +390,7 @@ class AdminController extends Controller
     }
     public function ShowAddRepairForm()
     {
-        return view('admin.add-repair');
+        return view('admin.repair.add-repair');
     }
     public function editRepair($id)
     {
@@ -430,6 +430,6 @@ class AdminController extends Controller
     {
         
         $spairParts = SpairPart::all();
-        return view('admin.show-parts', compact([ 'spairParts']));
+        return view('admin.part.show-parts', compact([ 'spairParts']));
     }
 }
