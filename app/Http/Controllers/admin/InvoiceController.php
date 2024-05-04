@@ -11,46 +11,58 @@ class InvoiceController extends Controller
     public function index()
     {
         $invoices = Invoice::all();
-        return view('admin.invoices.index', compact('invoices'));
+        return view('admin.invoice.show-invoices', compact('invoices'));
     }
 
     public function create()
     {
-        return view('admin.invoices.create');
+        return view('admin.invoice.add-invoices');
     }
 
     public function store(Request $request)
     {
         // Validation
 
+        $request->validate([
+            'repair_id' => 'required',
+            'additional_charges' => 'required|numeric',
+            'total_amount' => 'required|numeric',
+        ]);
+
         $invoice = new Invoice();
-        $invoice->repairID = $request->input('repairID');
-        $invoice->additionalCharges = $request->input('additionalCharges');
+        $invoice->repair_id = $request->input('repair_id');
+        $invoice->additional_charges = $request->input('additional_charges');
         // Calculate total amount based on repair cost and additional charges
-        $invoice->totalAmount = $request->input('totalAmount');
+        $invoice->total_amount = $request->input('total_amount');
         $invoice->save();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
+        return redirect()->route('admin.show-invoices')->with('success', 'Invoice created successfully.');
     }
 
     public function edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('admin.invoices.edit', compact('invoice'));
+        return view('admin.invoice.edit-invoices', compact('invoice'));
     }
 
     public function update(Request $request, $id)
     {
         // Validation
 
+        $request->validate([
+            'repair_id' => 'required',
+            'additional_charges' => 'required|numeric',
+            'total_amount' => 'required|numeric',
+        ]);
+
         $invoice = Invoice::findOrFail($id);
-        $invoice->repairID = $request->input('repairID');
-        $invoice->additionalCharges = $request->input('additionalCharges');
+        $invoice->repair_id = $request->input('repair_id');
+        $invoice->additional_charges = $request->input('additional_charges');
         // Calculate total amount based on repair cost and additional charges
-        $invoice->totalAmount = $request->input('totalAmount');
+        $invoice->total_amount = $request->input('total_amount');
         $invoice->save();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
+        return redirect()->route('admin.show-invoices')->with('success', 'Invoice updated successfully.');
     }
 
     public function destroy($id)
@@ -58,6 +70,6 @@ class InvoiceController extends Controller
         $invoice = Invoice::findOrFail($id);
         $invoice->delete();
 
-        return redirect()->route('invoices.index')->with('success', 'Invoice deleted successfully.');
+        return redirect()->route('admin.show-invoices')->with('success', 'Invoice deleted successfully.');
     }
 }

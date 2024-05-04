@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\admin\SpairPartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
@@ -82,6 +83,16 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/edit/spair-parts/{id}',[SpairPartController::class,'update'])->name('admin.edit-parts');
     //delete spair part
     Route::delete('/delete/spair-parts/{id}',[SpairPartController::class,'destroy'])->name('admin.delete-parts');
+    //show invoices
+    Route::get('/invoices',[InvoiceController::class,'index'])->name('admin.show-invoices');
+    //add invoice
+    Route::get('/add/invoice',[InvoiceController::class,'create'])->name('admin.add-invoice');
+    Route::post('/add/invoice',[InvoiceController::class,'store'])->name('admin.add-invoice');
+    //edit invoice
+    Route::get('/edit/invoice/{id}',[InvoiceController::class,'edit'])->name('admin.edit-invoice');
+    Route::put('/edit/invoice/{id}',[InvoiceController::class,'update'])->name('admin.edit-invoice');
+    //delete invoice
+    Route::delete('/delete/invoice/{id}',[InvoiceController::class,'destroy'])->name('admin.delete-invoice');
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token

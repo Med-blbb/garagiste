@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
 use App\Models\Client;
+use App\Models\Invoice;
 use App\Models\Repair;
 use App\Models\SpairPart;
 use Illuminate\Support\Str;
@@ -24,7 +25,8 @@ class AdminController extends Controller
         $mechanics = User::where('role', 'mechanic');
         $repairs =Repair::all();
         $parts = SpairPart::all();
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs, 'parts' => $parts]);
+        $invoices = Invoice::all();
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices]);
     }
     public function showAllUsers()
     {

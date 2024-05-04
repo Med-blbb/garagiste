@@ -121,7 +121,23 @@
                                 <a href="{{ route('admin.show-parts') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
+
                         <!-- ./col -->
+                        <!-- ./col -->
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3>{{ $invoices->count() }}</h3>
+
+                                    <p>{{__('Invoices')}}</p>
+                                </div>
+                                <div class="icon">
+                                <i class="bi bi-tools"></i>
+                                </div>
+                                <a href="{{ route('admin.show-invoices') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
+                            </div>
+                        </div>
                     </div>
                     
                 </div><!-- /.container-fluid -->
