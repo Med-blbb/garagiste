@@ -21,6 +21,7 @@
                                         <th scope="col">Additional Charges</th>
                                         <th scope="col">Total Amount</th>
                                         <th scope="col">Repair ID</th>
+                                        <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +40,9 @@
                                                     <i class="bi bi-trash h5"></i>
                                                 </button>
                                                 </form>
+                                                <a href="{{route('admin.pdf-invoice', ['id' => $invoice->id])}}" 
+                                                    class="btn btn-success btn-sm" title="Download Invoice" style="margin-left: 5px;" target="_blank" download="{{ $invoice->repair_id }}">
+                                                    <i class="bi bi-filetype-pdf"></i></a>
                                         </td>
                             
                                         @endforeach

@@ -37,16 +37,17 @@
                                     @endphp
                                     @foreach($repairs as $repair)
                                     <tr>
-                                        <td>{{ $repair->id }}</td>
+                                        <td class="repair-id">{{ $repair->id }}</td>
                                         <td>{{ $repair->description }}</td>
                                         <td>
-                                            <select name="status" id="status">
-                                            @foreach($statusList as $status)
-                                                <option value="{{ $status }}" {{ $repair->status == $status ? 'selected' : '' }}>{{ $status }}</option>
-                                            @endforeach
-                                        </select>
-                                    
+                                            <select class="status" name="status"> <!-- Change ID to class -->
+                                                @foreach($statusList as $status)
+                                                    <option value="{{ $status }}" {{ $repair->status == $status ? 'selected' : '' }}>{{ $status }}</option>
+                                                @endforeach
+                                            </select>
                                         </td>
+                                        
+                                        
                                         <td>{{ $repair->start_date }}</td>
                                         <td>{{ $repair->end_date }}</td>
                                         <td>{{ $repair->mechanic_notes }}</td>
@@ -110,27 +111,26 @@
     // });
     
     $(document).ready(function(){
-    $('#status').on('change', function(){
+    $('.status').on('change', function(){
         var selectedValue = $(this).val();
-        var repairId = {{ $repair->id }};
-        var token = $('meta[name="csrf-token"]').attr('content')
+        var repairId = $(this).closest('tr').find('.repair-id').text(); // Retrieve repair ID from the closest row
+        var token = $('meta[name="csrf-token"]').attr('content');
+
         $.ajax({
             type: 'PUT',
             url: '/admin/edit/repair/' + repairId,
-            data: { status: selectedValue
-             },
+            data: { status: selectedValue },
             headers: {'X-CSRF-TOKEN': token},
             success: function(response){
                 console.log('Status updated successfully.');
-                // You can handle success response here
             },
             error: function(xhr, status, error) {
                 console.error('Error occurred while updating status:', error);
-                // You can handle error response here
             }
         });
     });
 });
+
 </script>
 
 

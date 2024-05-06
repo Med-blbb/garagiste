@@ -13,11 +13,11 @@ class Repair extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['description', 'status', 'startDate', 'endDate', 'mechanicNotes', 'clientNotes', 'mechanicID', 'vehicleID'];
+    protected $fillable = ['description', 'status', 'startDate', 'endDate', 'mechanicNotes', 'clientNotes', 'mechanic_id', 'vehicle_id'];
 
     public function mechanic()
     {
-        return $this->belongsTo(User::class, 'mechanicID');
+        return $this->belongsTo(User::class, 'mechanic_id');
     }
 
     public function vehicle()
@@ -34,4 +34,6 @@ class Repair extends Model
         return $this->belongsToMany(SpairPart::class, 'repair_spare_part', 'repair_id', 'spare_part_id')
         ->withPivot('quantity', 'unit_price');
     }
+    
 }
+

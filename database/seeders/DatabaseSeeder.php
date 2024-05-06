@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
         User::factory(10)->create();
 
         // Create vehicles
-        Vehicle::factory()->count(20)->create();
+        Vehicle::factory()->count(1)->create();
 
         // Create repairs
         Repair::factory()->count(30)->create();
@@ -33,5 +33,18 @@ class DatabaseSeeder extends Seeder
 
         // Create invoices
         Invoice::factory()->count(15)->create();
+
+        User::create([
+            'name' => 'Mohamed Bl',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin123'),
+            'role' => 'admin'],
+            ['name' => 'test Bl',
+            'email' => 'test@test.com',
+            'password' => bcrypt('test123'),
+            'role' => 'client'
+
+        ]);
+
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\SpairPartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\PDFController;
 use App\Models\SpairPart;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -93,6 +94,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/edit/invoice/{id}',[InvoiceController::class,'update'])->name('admin.edit-invoice');
     //delete invoice
     Route::delete('/delete/invoice/{id}',[InvoiceController::class,'destroy'])->name('admin.delete-invoice');
+    //pdf invoice
+    Route::get('/pdf/invoice/{id}',[PDFController::class,'generatePDF'])->name('admin.pdf-invoice');
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token

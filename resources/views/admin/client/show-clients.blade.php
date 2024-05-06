@@ -19,6 +19,7 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
+                                        <th scope="col">ID</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
@@ -33,6 +34,7 @@
                                 <tbody>
                                     @foreach($clients as $client)
                                     <tr>
+                                        <td>{{ $client->id }}</td>
                                         <td>{{ $client->name }}</td>
                                         <td>{{ $client->email }}</td>
                                         <td>{{ $client->role }}</td>
@@ -79,8 +81,9 @@
                     font-size: 2px;
                     /* Adjust the font size as needed */
                 }
+                
             </style>
-
+            {{ $clients->links() }}
         </div>
 
     </section>

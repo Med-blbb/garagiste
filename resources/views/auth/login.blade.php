@@ -1,5 +1,5 @@
 @extends('layouts.auth-master')
-@include('layouts.head')
+@include('layouts.partials.head')
 @section('content')
 <div class="container h-100 d-flex justify-content-center align-items-center">
 

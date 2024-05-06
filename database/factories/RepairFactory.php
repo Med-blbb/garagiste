@@ -25,6 +25,7 @@ class RepairFactory extends Factory
             'vehicle_id' => function () {
                 return Vehicle::factory()->create()->id;
             },
+            
         ];
     }
 }

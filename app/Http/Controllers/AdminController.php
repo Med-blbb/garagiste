@@ -178,14 +178,14 @@ class AdminController extends Controller
     public function showClient()
     {
         // Fetch all clients
-        $clients = User::where('role', 'client')->get();
+        $clients = User::where('role', 'client')->simplePaginate(5);
         
 
         //Vehicule of clients
         $vehicle = DB::table('vehicles')
         ->join('users', 'vehicles.user_id', '=', 'users.id')
         ->select('vehicles.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email')
-        ->get();
+        ->simplePaginate(5);
         
         return view('admin.client.show-clients', compact(['clients', 'vehicle']));
     }
@@ -324,10 +324,16 @@ class AdminController extends Controller
         if(!$client){
             return redirect()->back()->whith('error','Client not found');
         }
+
+        $repair = Repair::where('client_id','=',$id);
+        if($repair){
+            $repair->delete();
+        }
         $vehicle = Vehicle::where('user_id','=',$id);
         if($vehicle){
             $vehicle->delete();
         }
+        
         $client->delete();
         return redirect()->back()->with('success',"Client deleted successfully");
     }
@@ -355,12 +361,12 @@ class AdminController extends Controller
     }
     public function showAllMechanics()
     {
-        $mechanics = User::where('role', 'mechanic')->get();
+        $mechanics = User::where('role', 'mechanic')->simplepaginate(5);
         $vehicles = DB::table('repairs')
             ->join('vehicles', 'repairs.vehicle_id', '=', 'vehicles.id')
             ->join('users', 'repairs.mechanic_id', '=', 'users.id')
             ->select('repairs.*', 'vehicles.*')
-            ->get();
+            ->simplepaginate(5);
 
         return view('admin.mechanic.show-mechanics', compact(['mechanics', 'vehicles']));
     }
@@ -397,7 +403,7 @@ class AdminController extends Controller
     public function editRepair($id)
     {
         $repair = Repair::findOrFail($id);
-        return view('admin.edit-repair', compact('repair'));
+        return view('admin.repair.edit-repair', compact('repair'));
     }
     public function updateRepair(Request $request , $id)
     {
@@ -414,10 +420,16 @@ class AdminController extends Controller
         // ]);
        
         $repair->status = $request->status;
+        $repair->start_date = $request->start_date;
+        $repair->end_date = $request->end_date;
+        $repair->mechanic_notes = $request->mechanic_notes;
+        $repair->client_notes = $request->client_notes;
+        $repair->vehicle_id = $request->vehicle_id;
+        $repair->mechanic_id = $request->mechanic_id;
         
         
         $repair->save();
-        return response()->json(['success' => 'Repair updated successfully.', 'repair' => $repair]);
+        return redirect()->back()->with('success', 'Repair updated successfully.');
     }
     public function deleteRepair($id)
     {
