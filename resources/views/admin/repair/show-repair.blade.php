@@ -40,7 +40,7 @@
                                         <td class="repair-id">{{ $repair->id }}</td>
                                         <td>{{ $repair->description }}</td>
                                         <td>
-                                            <select class="status" name="status"> <!-- Change ID to class -->
+                                            <select class="status form-control" name="status"> <!-- Change ID to class -->
                                                 @foreach($statusList as $status)
                                                     <option value="{{ $status }}" {{ $repair->status == $status ? 'selected' : '' }}>{{ $status }}</option>
                                                 @endforeach
@@ -95,30 +95,17 @@
     </section>
 </div>
 <script>
-    // $(document).ready(function() {
-    //     $(document).on('click', '.edit-repair', function(e) {
-    //         e.preventDefault();
-    //         var id = $(this).data('id');
-    //         var status = $(this).data('status');
-
-    //         // Populate modal fields with current repair details
-    //         $('#id').val(id);
-    //         $('#status').val(status);
-
-    //         // Show the modal if needed
-    //         // $('#editRepairModal').modal('show');
-    //     });
-    // });
+    
     
     $(document).ready(function(){
     $('.status').on('change', function(){
         var selectedValue = $(this).val();
         var repairId = $(this).closest('tr').find('.repair-id').text(); // Retrieve repair ID from the closest row
         var token = $('meta[name="csrf-token"]').attr('content');
-
+        console.log(repairId + ' ' + selectedValue);
         $.ajax({
             type: 'PUT',
-            url: '/admin/edit/repair/' + repairId,
+            url: '/admin/edit/repair/status/' + repairId,
             data: { status: selectedValue },
             headers: {'X-CSRF-TOKEN': token},
             success: function(response){

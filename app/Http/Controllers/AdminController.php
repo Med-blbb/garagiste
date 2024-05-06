@@ -370,6 +370,32 @@ class AdminController extends Controller
 
         return view('admin.mechanic.show-mechanics', compact(['mechanics', 'vehicles']));
     }
+    public function editMechanic($id)
+    {
+        $mechanic = User::findOrFail($id);
+        return view('admin.mechanic.edit-mechanic', compact('mechanic'));
+    }
+    public function updateMechanic(Request $request)
+    {
+        $mechanic = User::find($request->id);
+        if (!$mechanic){
+            return redirect()->back()->with('error', 'Mechanic not found.');
+        }
+        $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'role' => 'required|string',
+            'address' => 'required|string',
+            'phoneNumber' => 'required|string',
+        ]);
+        $mechanic->name = $request->name;
+        $mechanic->email = $request->email;
+        $mechanic->role = $request->role;
+        $mechanic->address = $request->address;
+        $mechanic->phoneNumber = $request->phoneNumber;
+        $mechanic->save();
+        return redirect()->back()->with('success', 'Mechanic updated successfully.');
+    }
     public function showAllRepairs()
     {
         $repairs = Repair::all();
@@ -430,6 +456,16 @@ class AdminController extends Controller
         
         $repair->save();
         return redirect()->back()->with('success', 'Repair updated successfully.');
+    }
+    public function statusUpdateRepair(Request $request,$id)
+    {
+        $repair = Repair::find($id);
+        if(!$repair){
+            return response()->json(['error' => 'Repair not found.']);
+        }
+        $repair->status = $request->status;
+        $repair->save();
+        return response()->json(['success' => 'Repair status updated successfully.']);
     }
     public function deleteRepair($id)
     {

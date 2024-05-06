@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <div class="content-wrapper">
     <section class="content">
@@ -23,7 +24,6 @@
                                         <th scope="col">Vehicule</th>
                                         <th scope="col">Actions</th>
                                         <!-- <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th> -->
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,23 +41,19 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        
-                                            {{-- <a href="{{route('admin.edit-client', ['id' => $client->id])}}" class="btn btn-primary btn-sm">Edit</a>
-                                            <form action="{{route('admin.delete-client', ['id' => $client->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" title="Remove Client" >
-                                                <i class="bi bi-trash h5"></i>
-                                            </button>
-                                            </form> --}}
+                                        <td>
+                                            <a href="{{ route('admin.edit-mechanic', ['id' => $mechanic->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                                            <form action="{{route('admin.delete-mechanic', ['id' => $mechanic->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this client?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm" title="Remove Mechanic" >
+                                                    <i class="bi bi-trash h5"></i>
+                                                </button>
+                                                </form>
                                         </td>
-                                        
-
                                     </tr>
                                     @endforeach
-
                                 </tbody>
-
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -67,8 +63,10 @@
                 <!-- /.col -->
             </div>
             <!-- /.row -->
-           
         </div>
-
-        
-        @endsection
+        <!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@endsection

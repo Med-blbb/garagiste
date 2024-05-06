@@ -14,7 +14,7 @@ class Invoice extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['repairID', 'additionalCharges', 'totalAmount'];
+    protected $fillable = ['repair_id', 'client_id', 'additionalCharges', 'totalAmount'];
 
     public function repair()
     {
@@ -22,6 +22,6 @@ class Invoice extends Model
     }
     public function client()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class , 'client_id');
     }
 }

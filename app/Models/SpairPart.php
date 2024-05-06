@@ -13,7 +13,7 @@ class SpairPart extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['partName', 'partReference', 'supplier', 'price'];
+    protected $fillable = ['part_name', 'part_reference', 'supplier', 'price'];
     public function repairs()
     {
         return $this->belongsToMany(Repair::class, 'repair_spare_part', 'spare_part_id', 'repair_id')

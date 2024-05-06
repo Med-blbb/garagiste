@@ -13,7 +13,7 @@ class Repair extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['description', 'status', 'startDate', 'endDate', 'mechanicNotes', 'clientNotes', 'mechanic_id', 'vehicle_id'];
+    protected $fillable = ['description', 'status', 'start_date', 'end_date', 'mechanic_notes', 'client_notes', 'mechanic_id', 'vehicle_id'];
 
     public function mechanic()
     {

@@ -21,16 +21,19 @@
                                         <th scope="col">Additional Charges</th>
                                         <th scope="col">Total Amount</th>
                                         <th scope="col">Repair ID</th>
+                                        <th scope="col">Client ID</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
                                         @foreach($invoices as $invoice)
+                                        <tr>
                                         <td>{{ $invoice->id }}</td>
                                         <td>{{ $invoice->additional_charges }}</td>
                                         <td>{{ $invoice->total_amount }}</td>
                                         <td>{{ $invoice->repair_id }}</td>
+                                        <td>{{ $invoice->client_id }}</td>
                                         <td>
                                             <a href="{{route('admin.edit-invoice', ['id' => $invoice->id])}}" class="btn btn-primary btn-sm">Edit</a>
                                             <form action="{{route('admin.delete-invoice', ['id' => $invoice->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this invoice?')">
@@ -44,9 +47,9 @@
                                                     class="btn btn-success btn-sm" title="Download Invoice" style="margin-left: 5px;" target="_blank" download="{{ $invoice->repair_id }}">
                                                     <i class="bi bi-filetype-pdf"></i></a>
                                         </td>
-                            
+                                        </tr>
                                         @endforeach
-                                    </tr>
+                                    
                                   
 
                                 </tbody>

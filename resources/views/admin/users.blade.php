@@ -25,38 +25,6 @@
     </form>
 </div>
 
-<!-- <table class="table w-100 col-6 flex-end mt-3 mx-auto">
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Role</th>
-            <th scope="col">Actions</th>
-            <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach($users as $user)
-        <tr>
-            <td>{{ $user->name }}</td>
-            <td>{{ $user->email }}</td>
-            <td>{{ $user->role }}</td>
-            <td>
-                <button class="btn btn-success btn-sm show-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#viewUserModal">Show</button>
-                <button class="btn btn-primary btn-sm edit-user" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-email="{{ $user->email }}" data-role="{{ $user->role }}" data-toggle="modal" data-target="#editUserModal">Edit</button>
-                <form action="{{ route('admin.users.remove', ['id' => $user->id]) }}" method="POST" style="display: inline;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn btn-danger btn-sm" title="Remove User" onclick="return confirm('Are you sure you want to delete this user?')">
-                        <i class="bi bi-trash h5"></i>
-                    </button>
-                </form>
-
-            </td>
-        </tr>
-        @endforeach
-    </tbody>
-</table> -->
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -113,14 +81,14 @@
         </div>
 
         <div class="pagination justify-content-center">
-    <style>
+        <style>
         .pagination .page-link {
             font-size: 2px;
             /* Adjust the font size as needed */
         }
-    </style>
-    {{ $users->links() }}
-</div>
+        </style>
+        {{ $users->links() }}
+        </div>
         <!-- /.container-fluid -->
     </section>
 </div>

@@ -9,8 +9,9 @@ use Illuminate\Http\Request;
 class PDFController extends Controller
 {
     public function generatePDF($id)
-    {
-        $data = ['invoice' => Invoice::findOrFail($id)];
+    { 
+        $invoice = Invoice::with('client')->findOrFail($id);
+        $data = ['invoice' => $invoice];
         $pdf = PDF::loadView('admin.pdf.invoice-pdf', $data);
         return $pdf->download('invoice.pdf');
     }

@@ -37,6 +37,11 @@
         <div class="form-group form-floating mb-3">
         <label for="repair_id">Repair ID</label>
         <input type="text" class="form-control" name="repair_id" id="repair_id" required >
+        </div>
+        <div class="form-group form-floating mb-3">
+        <label for="client_id">Client ID</label>
+        <input type="text" class="form-control" name="client_id" id="client_id" required >
+        </div>
         
         
     </div>    

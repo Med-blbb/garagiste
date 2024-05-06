@@ -18,6 +18,7 @@ class CreateRepairsTable extends Migration
             $table->text('client_notes')->nullable();
             $table->foreignId('mechanic_id')->constrained('users');
             $table->foreignId('vehicle_id')->constrained();
+            
             $table->timestamps();
         });
     }

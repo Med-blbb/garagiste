@@ -27,6 +27,7 @@ class InvoiceController extends Controller
             'repair_id' => 'required',
             'additional_charges' => 'required|numeric',
             'total_amount' => 'required|numeric',
+            'client_id' => 'required',
         ]);
 
         $invoice = new Invoice();
@@ -34,6 +35,7 @@ class InvoiceController extends Controller
         $invoice->additional_charges = $request->input('additional_charges');
         // Calculate total amount based on repair cost and additional charges
         $invoice->total_amount = $request->input('total_amount');
+        $invoice->client_id = $request->input('client_id');
         $invoice->save();
 
         return redirect()->route('admin.show-invoices')->with('success', 'Invoice created successfully.');
@@ -53,10 +55,12 @@ class InvoiceController extends Controller
             'repair_id' => 'required',
             'additional_charges' => 'required|numeric',
             'total_amount' => 'required|numeric',
+            'client_id' => 'required',
         ]);
 
         $invoice = Invoice::findOrFail($id);
         $invoice->repair_id = $request->input('repair_id');
+        $invoice->client_id = $request->input('client_id');
         $invoice->additional_charges = $request->input('additional_charges');
         // Calculate total amount based on repair cost and additional charges
         $invoice->total_amount = $request->input('total_amount');

@@ -63,7 +63,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/add/mechanic', [AdminController::class, 'showAddMechanicForm'])->name('admin.add-mechanic');
     Route::post('/add/mechanic', [AdminController::class, 'addMechanic'])->name('admin.add-mechanic');
     //edit mechanic
+    Route::get('/edit/mechanic/{id}', [AdminController::class, 'editMechanic'])->name('admin.edit-mechanic');
+    Route::put('/edit/mechanic/{id}', [AdminController::class, 'updateMechanic'])->name('admin.edit-mechanic');
     //delete mechanic
+    Route::delete('/delete/mechanic/{id}',[AdminController::class,'deleteMechanic'])->name('admin.delete-mechanic');
     //show repairs
     Route::get('/repairs',[AdminController::class,'ShowAllRepairs'])->name('admin.show-repair');
     //add repair
@@ -72,6 +75,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     //edit repair
     Route::get('/edit/repair/{id}',[AdminController::class,'editRepair'])->name('admin.edit-repair');
     Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.update-repair');
+    Route::put('/edit/repair/status/{id}',[AdminController::class,'statusUpdateRepair'])->name('admin.update-repair-status');
     //delete repair
     Route::delete('/delete/repair/{id}',[AdminController::class,'deleteRepair'])->name('admin.delete-repair');
     //show spairs Parts
