@@ -67,7 +67,7 @@
             @auth
             {{auth()->user()->name}}
             <div class="nav-link text-end">
-            <a href="{{ route('logout.perform') }}" class="btn btn-outline-light me-2">{{__('Logout')}}</a>
+            <a href="{{ route('logout.perform') }}" class="btn btn-outline-dark me-2">{{__('Logout')}}</a>
             </div>
             @endauth
         </li>
