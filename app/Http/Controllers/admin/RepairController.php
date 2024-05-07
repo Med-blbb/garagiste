@@ -11,53 +11,83 @@ class RepairController extends Controller
     public function index()
     {
         $repairs = Repair::all();
-        return view('admin.repairs.index', compact('repairs'));
+        return view('admin.repair.show-repair', ['repairs' => $repairs]);
     }
-
-    public function create()
-    {
-        return view('admin.repairs.create');
-    }
-
     public function store(Request $request)
     {
-        // Validation
-
+        $request->validate([
+            'vehicle_id' => 'required',
+            'mechanic_id' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+        ]);
         $repair = new Repair();
-        $repair->description = $request->input('description');
-        $repair->status = $request->input('status');
-        // Set mechanic ID
-        // Set vehicle ID
+
+        $repair->description = $request->description;
+        $repair->status = $request->status;
+        $repair->start_date = $request->start_date;
+        $repair->end_date = $request->end_date;
+        $repair->mechanic_notes = $request->mechanic_notes;
+        $repair->client_notes = $request->client_notes;
+        $repair->vehicle_id = $request->vehicle_id;
+        $repair->mechanic_id = $request->mechanic_id;
         $repair->save();
-
-        return redirect()->route('repairs.index')->with('success', 'Repair created successfully.');
+        return redirect()->back()->with('success', 'Repair added successfully.');
     }
-
+    public function create()
+    {
+        return view('admin.repair.add-repair');
+    }
     public function edit($id)
     {
         $repair = Repair::findOrFail($id);
-        return view('admin.repairs.edit', compact('repair'));
+        return view('admin.repair.edit-repair', compact('repair'));
     }
-
-    public function update(Request $request, $id)
+    public function update(Request $request , $id)
     {
-        // Validation
-
-        $repair = Repair::findOrFail($id);
-        $repair->description = $request->input('description');
-        $repair->status = $request->input('status');
-        // Update mechanic ID if changed
-        // Update vehicle ID if changed
+        
+        $repair = Repair::find($id);
+        if (!$repair){
+            return response()->json(['error' => 'Repair not found.']);
+        }
+        $request->validate([
+            'vehicle_id' => 'required',
+            'mechanic_id' => 'required',
+            'description' => 'required',
+            'start_date' => 'required',
+        ]);
+       
+        $repair->status = $request->status;
+        $repair->start_date = $request->start_date;
+        $repair->end_date = $request->end_date;
+        $repair->mechanic_notes = $request->mechanic_notes;
+        $repair->client_notes = $request->client_notes;
+        $repair->vehicle_id = $request->vehicle_id;
+        $repair->mechanic_id = $request->mechanic_id;
+        
+        
         $repair->save();
-
-        return redirect()->route('repairs.index')->with('success', 'Repair updated successfully.');
+        return redirect()->back()->with('success', 'Repair updated successfully.');
     }
-
+    public function statusUpdateRepair(Request $request,$id)
+    {
+        $repair = Repair::find($id);
+        if(!$repair){
+            return response()->json(['error' => 'Repair not found.']);
+        }
+        $repair->status = $request->status;
+        $repair->save();
+        return response()->json(['success' => 'Repair status updated successfully.']);
+    }
     public function destroy($id)
     {
-        $repair = Repair::findOrFail($id);
+        $repair = Repair::find($id);
+        if(!$repair){
+            return redirect()->back()->whith('error','Repair not found');
+        }
         $repair->delete();
-
-        return redirect()->route('repairs.index')->with('success', 'Repair deleted successfully.');
+        return redirect()->back()->with('success',"Repair deleted successfully");
     }
+    
+    
 }

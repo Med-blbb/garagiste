@@ -135,7 +135,7 @@
                                 <div class="col invoice-details">
                                     <h1 class="invoice-id">INVOICE {{ $invoice->id }}</h1>
                                     <div class="date">Date of Invoice: {{ $invoice->created_at }}</div>
-                                    <div class="date">Due Date: {{ $invoice->dueDate }}</div>
+                                    
                                 </div>
                             </div>
                             <table>
@@ -149,40 +149,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    console.log({{ $invoice->repair }});
-                                    
-                                    @if ($invoice->repair)
-                                    @foreach ($invoice->repair as $repair)
-                                        <tr>
-                                            <td>{{ $repair->id }}</td>
-                                            <td>{{ $repair->description }}</td>
-                                            <td>{{ $repair->hourPrice }}</td>
-                                            <td>{{ $repair->hours }}</td>
-                                            <td>{{ $repair->total }}</td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="5">No repairs found</td>
-                                    </tr>
-                                @endif
+                                  
 
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td colspan="2"></td>
                                         <td colspan="2">SUBTOTAL</td>
-                                        <td>{{ $invoice->totalAmount }}</td>
+                                        <td>{{ $invoice->total_amount }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"></td>
                                         <td colspan="2">TAX 25%</td>
-                                        <td>{{ $invoice->additionalCharges }}</td>
+                                        <td>{{ $invoice->additional_charges }}</td>
                                     </tr>
                                     <tr>
                                         <td colspan="2"></td>
                                         <td colspan="2">GRAND TOTAL</td>
-                                        <td>{{ $invoice->additionalCharges + $invoice->totalAmount }}</td>
+                                        <td>{{ $invoice->additional_charges + $invoice->total_amount }}</td>
                                     </tr>
                                 </tfoot>
                             </table>

@@ -1,10 +1,14 @@
 <?php
 
+use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\admin\SpairPartController;
+use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\admin\MechanicController;
+use App\Http\Controllers\admin\RepairController;
 use App\Http\Controllers\PDFController;
 use App\Models\SpairPart;
 use App\Models\User;
@@ -38,46 +42,46 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/users/{id}/remove', [AdminController::class, 'removeUser'])->name('admin.users.remove');
 
     //vehicules
-    Route::get('/vehicles/add', [AdminController::class, 'showAddVehicleForm'])->name('admin.vehicles.add');
-    Route::post('/vehicles/add', [AdminController::class, 'store'])->name('admin.vehicles.add');
-    Route::delete('/vehicles/{vehicle}', [AdminController::class, 'deleteVehicle'])->name('admin.vehicles.delete');
-    Route::get('/vehicles', [AdminController::class, 'showAllVehicles'])->name('admin.vehicles');
-    Route::get('/vehicles/search', [AdminController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
+    Route::get('/vehicles/add', [VehicleController::class, 'create'])->name('admin.vehicles.add');
+    Route::post('/vehicles/add', [VehicleController::class, 'store'])->name('admin.vehicles.add');
+    Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('admin.vehicles.delete');
+    Route::get('/vehicles', [VehicleController::class, 'index'])->name('admin.vehicles');
+    Route::get('/vehicles/search', [VehicleController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
     
     //import and export users  
     Route::post('/users/import', [AdminController::class, 'import'])->name('admin.users.import');
     Route::get('/users/export', [AdminController::class, 'export'])->name('admin.users.export');
-    //add client
-    Route::get('/add/client', [AdminController::class, 'showAddClientForm'])->name('admin.add-client');
-    Route::post('/add/client', [AdminController::class, 'add_client'])->name('admin.add-client');
-    //edit client
-    Route::get('/edit/client/{id}', [AdminController::class, 'editClient'])->name('admin.edit-client');
-    Route::put('/edit/client/{id}', [AdminController::class, 'updateClient'])->name('admin.edit-client');
-    //delete client
-    Route::delete('/delete/client/{id}',[AdminController::class, 'deleteClient'])->name('admin.delete-client');
     //allclients
-    Route::get('/clients', [AdminController::class, 'showClient'])->name('admin.show-clients');
+    Route::get('/clients', [ClientController::class, 'index'])->name('admin.show-clients');
+    //add client
+    Route::get('/add/client', [ClientController::class, 'create'])->name('admin.add-client');
+    Route::post('/add/client', [ClientController::class, 'store'])->name('admin.add-client');
+    //edit client
+    Route::get('/edit/client/{id}', [ClientController::class, 'edit'])->name('admin.edit-client');
+    Route::put('/edit/client/{id}', [ClientController::class, 'update'])->name('admin.edit-client');
+    //delete client
+    Route::delete('/delete/client/{id}',[ClientController::class, 'destroy'])->name('admin.delete-client');
     //show mechanics
-    Route::get('/mechanics', [AdminController::class, 'showAllMechanics'])->name('admin.show-mechanics');
+    Route::get('/mechanics', [MechanicController::class, 'index'])->name('admin.show-mechanics');
     //add mechanic
-    Route::get('/add/mechanic', [AdminController::class, 'showAddMechanicForm'])->name('admin.add-mechanic');
-    Route::post('/add/mechanic', [AdminController::class, 'addMechanic'])->name('admin.add-mechanic');
+    Route::get('/add/mechanic', [MechanicController::class, 'create'])->name('admin.add-mechanic');
+    Route::post('/add/mechanic', [MechanicController::class, 'store'])->name('admin.add-mechanic');
     //edit mechanic
-    Route::get('/edit/mechanic/{id}', [AdminController::class, 'editMechanic'])->name('admin.edit-mechanic');
-    Route::put('/edit/mechanic/{id}', [AdminController::class, 'updateMechanic'])->name('admin.edit-mechanic');
+    Route::get('/edit/mechanic/{id}', [MechanicController::class, 'edit'])->name('admin.edit-mechanic');
+    Route::put('/edit/mechanic/{id}', [MechanicController::class, 'update'])->name('admin.edit-mechanic');
     //delete mechanic
-    Route::delete('/delete/mechanic/{id}',[AdminController::class,'deleteMechanic'])->name('admin.delete-mechanic');
+    Route::delete('/delete/mechanic/{id}',[MechanicController::class,'deleteMechanic'])->name('admin.delete-mechanic');
     //show repairs
-    Route::get('/repairs',[AdminController::class,'ShowAllRepairs'])->name('admin.show-repair');
+    Route::get('/repairs',[RepairController::class,'index'])->name('admin.show-repair');
     //add repair
-    Route::get('/add/repair',[AdminController::class,'showAddRepairForm'])->name('admin.add-repair');
-    Route::post('/add/repair',[AdminController::class,'addRepair'])->name('admin.add-repair');
+    Route::get('/add/repair',[RepairController::class,'create'])->name('admin.add-repair');
+    Route::post('/add/repair',[RepairController::class,'store'])->name('admin.add-repair');
     //edit repair
-    Route::get('/edit/repair/{id}',[AdminController::class,'editRepair'])->name('admin.edit-repair');
-    Route::put('/edit/repair/{id}',[AdminController::class,'updateRepair'])->name('admin.update-repair');
-    Route::put('/edit/repair/status/{id}',[AdminController::class,'statusUpdateRepair'])->name('admin.update-repair-status');
+    Route::get('/edit/repair/{id}',[RepairController::class,'edit'])->name('admin.edit-repair');
+    Route::put('/edit/repair/{id}',[RepairController::class,'update'])->name('admin.update-repair');
+    Route::put('/edit/repair/status/{id}',[RepairController::class,'statusUpdateRepair'])->name('admin.update-repair-status');
     //delete repair
-    Route::delete('/delete/repair/{id}',[AdminController::class,'deleteRepair'])->name('admin.delete-repair');
+    Route::delete('/delete/repair/{id}',[RepairController::class,'deleteRepair'])->name('admin.delete-repair');
     //show spairs Parts
     Route::get('/spair-parts/',[SpairPartController::class,'index'])->name('admin.show-parts');
     //add spair part
