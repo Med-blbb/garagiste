@@ -56,12 +56,10 @@
                             <input type="file" min=0 class="form-control-file" id="images" name="images[]" multiple aria-describedby="images">
                         </div>
                         <div class="form-group">
-                            <label for="client_id">User ID</label>
+                            <label for="user_id">User ID</label>
                             <input type="text" class="form-control" id="user_id" name="user_id">
-
+                            <div id="user_name" class="mt-2 text-primary"class="mt-2 text-primary"></div> 
                         </div>
-
-
 
                         <button type=" submit" class="btn btn-primary">Add Vehicle</button>
                     </form>
@@ -70,4 +68,24 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        $('#user_id').on('change', function() {
+            var userId = $(this).val();
+            $.ajax({
+                url: "{{ route('admin.vehicles.getOwner') }}",
+                type: "GET",
+                data: {
+                    user_id: userId
+                },
+                success: function(response) {
+                    $('#user_name').text(response.name); 
+                },
+                error: function(xhr, status, error) {
+                    $('#user_name').text(error);
+                }
+            });
+        });
+    });
+</script>
 @endsection

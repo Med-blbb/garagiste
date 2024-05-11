@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Repair;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
@@ -103,6 +104,25 @@ class VehicleController extends Controller
             (request()->input('page', 1) - 1) * 5
         );
     }
-    
+    public function getOwner(Request $request)
+    {
+        $userId = $request->input('user_id');
+        $user = User::find($userId);
+
+        if ($user) {
+            return response()->json(['name' => $user->name]);
+        } else {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+    }
+    public function searchUser(Request $request)
+    {
+        $userName = $request->input('user_name');
+
+        // Perform the search query
+        $users = User::where('name', 'like', '%' . $userName . '%')->get(['id', 'name']);
+
+        return response()->json($users);
+    }
 }
 

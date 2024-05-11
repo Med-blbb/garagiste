@@ -47,7 +47,10 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/vehicles/{vehicle}', [VehicleController::class, 'destroy'])->name('admin.vehicles.delete');
     Route::get('/vehicles', [VehicleController::class, 'index'])->name('admin.vehicles');
     Route::get('/vehicles/search', [VehicleController::class, 'searchVehicle'])->name('admin.vehicles.searchVehicle');
-    
+    Route::get('admin/vehicles/getOwner', [VehicleController::class, 'getOwner'])->name('admin.vehicles.getOwner');
+    Route::get('admin/vehicles/search', [VehicleController::class, 'searchUser'])->name('admin.vehicles.searchUser');
+
+
     //import and export users  
     Route::post('/users/import', [AdminController::class, 'import'])->name('admin.users.import');
     Route::get('/users/export', [AdminController::class, 'export'])->name('admin.users.export');
