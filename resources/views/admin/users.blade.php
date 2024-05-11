@@ -4,6 +4,7 @@
 @include('layouts.modals.show-user-modal')
 @include('layouts.modals.edit-user-modal')
 @include('layouts.modals.add-user-modal')
+@include('layouts.modals.import-users')
 
 
 <!-- Button trigger modal -->
@@ -42,7 +43,14 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
                                         <th scope="col">Actions</th>
-                                        <th scope="col"><a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none"><button class="btn btn-primary btn-sm">Export</button></a></th>
+                                        <th scope="col">
+                                            <a href="{{ route('admin.users.export') }}" class="text-white" style="text-decoration: none">
+                                                <button class="btn btn-primary btn-sm">Export</button>
+                                            </a>
+                                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importModal">
+                                                Import
+                                            </button>
+                                        </th>
 
                                     </tr>
                                 </thead>

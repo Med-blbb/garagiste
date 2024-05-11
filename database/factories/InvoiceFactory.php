@@ -3,6 +3,7 @@
 namespace Database\Factories;
 use App\Models\Invoice;
 use App\Models\Repair;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class InvoiceFactory extends Factory
@@ -17,6 +18,10 @@ class InvoiceFactory extends Factory
             'repair_id' => function () {
                 return Repair::factory()->create()->id;
             },
+            'client_id' => function () {
+                return User::factory()->create(['role' => 'client'])->id;
+            },
         ];
     }
+
 }

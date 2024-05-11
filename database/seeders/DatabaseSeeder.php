@@ -34,7 +34,7 @@ class DatabaseSeeder extends Seeder
         // Create invoices
         Invoice::factory()->count(15)->create();
 
-        User::create([
+         User::create([
             'name' => 'Mohamed Bl',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin123'),

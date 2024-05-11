@@ -57,8 +57,6 @@
                         {{ $vehicles->links() }}
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>

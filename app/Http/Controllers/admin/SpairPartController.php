@@ -11,7 +11,7 @@ class SpairPartController extends Controller
 {
     public function index()
     {
-        $spairParts = SpairPart::all();
+        $spairParts = SpairPart::simplepaginate(7);
         return view('admin.part.show-parts', compact('spairParts'));
     }
 

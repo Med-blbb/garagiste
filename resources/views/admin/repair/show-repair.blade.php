@@ -73,25 +73,30 @@
 
                             </table>
                         </div>
+                        <div class="pagination justify-content-center">
+                            <style>
+                                .pagination .page-link {
+                                    font-size: 2px;
+                                    /* Adjust the font size as needed */
+                                }
+                                
+                            </style>
+                
+                            {{ $repairs->links() }}
+                
+                        </div>
                         <!-- /.card-body -->
                     </div>
+                    
                     <!-- /.card -->
                 </div>
+                
                 <!-- /.col -->
             </div>
             <!-- /.row -->
+            
+    
         </div>
-
-        <div class="pagination justify-content-center">
-            <style>
-                .pagination .page-link {
-                    font-size: 2px;
-                    /* Adjust the font size as needed */
-                }
-            </style>
-
-        </div>
-
     </section>
 </div>
 <script>

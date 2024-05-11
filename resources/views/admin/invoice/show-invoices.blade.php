@@ -73,6 +73,8 @@
                 }
             </style>
 
+            {{ $invoices->links() }}
+
         </div>
 
     </section>

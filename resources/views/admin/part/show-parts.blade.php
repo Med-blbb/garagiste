@@ -26,8 +26,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    
                                         @foreach($spairParts as $part)
+                                        <tr>
                                         <td>{{ $part->id }}</td>
                                         <td>{{ $part->part_name }}</td>
                                         <td>{{ $part->part_reference }}</td>
@@ -43,9 +44,9 @@
                                                 </button>
                                                 </form>
                                         </td>
-                            
+                                        </tr>
                                         @endforeach
-                                    </tr>
+                                    
                                   
 
                                 </tbody>
@@ -68,6 +69,8 @@
                     /* Adjust the font size as needed */
                 }
             </style>
+
+            {{ $spairParts->links() }}
 
         </div>
 

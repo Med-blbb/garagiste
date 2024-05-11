@@ -10,7 +10,7 @@ class RepairController extends Controller
 {
     public function index()
     {
-        $repairs = Repair::all();
+        $repairs = Repair::simplepaginate(5);
         return view('admin.repair.show-repair', ['repairs' => $repairs]);
     }
     public function store(Request $request)

@@ -10,7 +10,7 @@ class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::all();
+        $invoices = Invoice::simplepaginate(10);
         return view('admin.invoice.show-invoices', compact('invoices'));
     }
 

@@ -14,6 +14,14 @@ class UsersImport implements ToModel
      */
     public function model(array $row)
     {
-        return new User([]);
+        return new User([
+            // 'id' => $row[0],
+            'name' => $row[1],
+            'email' => $row[2],
+            'role' => $row[3],
+            'address' => $row[4],
+            'phoneNumber' => $row[5],
+            
+        ]);
     }
 }
