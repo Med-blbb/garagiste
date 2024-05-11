@@ -23,10 +23,11 @@ class AdminController extends Controller
     {
         $clients = User::where('role', 'client');
         $mechanics = User::where('role', 'mechanic');
+        $admins = User::where('role', 'admin');
         $repairs =Repair::all();
         $parts = SpairPart::all();
         $invoices = Invoice::all();
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics , 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices]);
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics ,'admins' => $admins, 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices]);
     }
     public function showAllUsers()
     {

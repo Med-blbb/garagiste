@@ -139,20 +139,67 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            
+                                <div class="card card-danger">
+                                    <div class="card-header">
+                                      <h3 class="card-title">Pie Chart</h3>
+                      
+                                      <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                          <i class="fas fa-minus"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                          <i class="fas fa-times"></i>
+                                        </button>
+                                      </div>
+                                    </div>
+                                    <div class="card-body">
+                                      <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                   
+                                </div>
+                                <!-- /.card-body -->
+                            
+                            <!-- /.card -->
+                        </div>
+                    </div>
                     
                 </div><!-- /.container-fluid -->
             </section>
-            <!-- /.content -->
-        </div>
-        <!-- /.content-wrapper -->
-
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
-        </aside>
-        <!-- /.control-sidebar -->
+            
+        {{-- <aside class="control-sidebar control-sidebar-dark">
+           
+        </aside> --}}
+        
     </div>
     <!-- ./wrapper -->
+    <script>
+        // Get counts of clients and mechanics from PHP variables
+        var clientCount = {{ $clients->count() }};
+        var mechanicCount = {{ $mechanics->count() }};
+        var adminCount = {{ $admins->count() }};
+    
+        // Access the canvas element
+        var ctx = document.getElementById('pieChart').getContext('2d');
+    
+        // Create pie chart
+        var myPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Clients', 'Mechanics', 'Admins'],
+                datasets: [{
+                    label: 'User Types',
+                    data: [clientCount, mechanicCount, adminCount],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                // Add any chart options here
+            }
+        });
+    </script>
     
 
 @endsection 
