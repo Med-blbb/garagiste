@@ -20,7 +20,18 @@ class AdminSeeder extends Seeder
             'role' => 'admin'
 
         ]);
-        
+        User::create([
+            'name' => 'client Bl',
+            'email' => 'test@test.com',
+            'password' => bcrypt('test123'),
+            'role' => 'client'
+        ]);
+        User::create([
+            'name' => 'mechanic Bl',
+            'email' => 'mechanic@mechanic.com',
+            'password' => bcrypt('mechanic123'),
+            'role' => 'mechanic'
+        ]);
 
 
     }

@@ -32,6 +32,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    
                                     @foreach($clients as $client)
                                     <tr>
                                         <td>{{ $client->id }}</td>
@@ -61,6 +62,11 @@
 
                                     </tr>
                                     @endforeach
+                                    @if(count($clients) == 0)
+                                    <tr>
+                                        <td colspan="8" class="text-center">No clients found</td>
+                                    </tr>
+                                    @endif
 
                                 </tbody>
 

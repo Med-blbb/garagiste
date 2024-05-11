@@ -143,14 +143,19 @@
                                     <tr>
                                         <th>#</th>
                                         <th class="text-left">DESCRIPTION</th>
-                                        <th class="text-right">HOUR PRICE</th>
-                                        <th class="text-right">HOURS</th>
-                                        <th class="text-right">TOTAL</th>
+                                        <th class="text-right">Mechanic Notes</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                  
-
+                                    @if(!empty($invoice->repairs))
+                                    @foreach($invoice->repairs as $repair) 
+                                    <tr>
+                                        
+                                        <td class="text-left">{{ $repair->description }}</td>
+                                        <td class="text-right">{{ $repair->mechanic_notes }}</td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
                                 </tbody>
                                 <tfoot>
                                     <tr>

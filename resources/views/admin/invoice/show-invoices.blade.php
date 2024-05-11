@@ -20,6 +20,7 @@
                                         <th scope="col">ID</th>
                                         <th scope="col">Additional Charges</th>
                                         <th scope="col">Total Amount</th>
+                                        <th scope="col">Repair Description</th>
                                         <th scope="col">Repair ID</th>
                                         <th scope="col">Client ID</th>
                                         <th scope="col">Actions</th>
@@ -32,6 +33,7 @@
                                         <td>{{ $invoice->id }}</td>
                                         <td>{{ $invoice->additional_charges }}</td>
                                         <td>{{ $invoice->total_amount }}</td>
+                                        <td>{{ $invoice->repair_description }}</td>
                                         <td>{{ $invoice->repair_id }}</td>
                                         <td>{{ $invoice->client_id }}</td>
                                         <td>

@@ -164,19 +164,36 @@ class AdminController extends Controller
     {
         // Find the user by ID and delete it
         $user = User::find($id);
-        
+        if (!$user) {
+            return redirect()->back()->with('error', 'User not found.');
+        }
+
         $vehicle = Vehicle::where('user_id', $id)->first();
         if ($vehicle) {
-            $vehicle->delete();
+            $repair = Repair::where('vehicle_id', $vehicle->id)->get();
+            if ($repair) {
+                foreach ($repair as $rep) {
+                    $invoices = Invoice::where('repair_id', $rep->id)->get();
+                    if ($invoices) {
+                        foreach ($invoices as $invoice) {
+                            $invoice->delete();
+                        }
+                    }
+                    $rep->delete();
+                }
+                DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+                $vehicle->delete();
+                DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+            }
         }
-      
 
         $user->delete();
 
         // Redirect back with a success message
         return redirect()->back()->with('success', 'User deleted successfully.');
     }
-    
+
+
     
     public function export()
     {

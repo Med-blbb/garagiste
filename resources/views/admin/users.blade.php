@@ -9,7 +9,9 @@
 
 <!-- Button trigger modal -->
 <div class=" row justify-content-center mt-5">
+    
     <div class="col-md-2">
+        
         <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#addUserModal">
             Add User
         </button>

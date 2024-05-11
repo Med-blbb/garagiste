@@ -5,14 +5,22 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Invoice;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
     public function index()
     {
-        $invoices = Invoice::simplepaginate(10);
+        $invoices = Invoice::simplePaginate(10);
+        $invoices->transform(function ($invoice) {
+            $repair = DB::table('repairs')->find($invoice->repair_id);
+            $invoice->repair_description = $repair?->description;
+            return $invoice;
+        });
         return view('admin.invoice.show-invoices', compact('invoices'));
     }
+
+
 
     public function create()
     {

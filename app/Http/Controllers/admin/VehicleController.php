@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Repair;
 use Illuminate\Http\Request;
 use App\Models\Vehicle;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Session;
 class VehicleController extends Controller
@@ -65,17 +67,25 @@ class VehicleController extends Controller
 }
 
 
-    public function destroy(Request $request, Vehicle $vehicle)
+    public function destroy(Vehicle $vehicle)
     {
+        $repair = Repair::where('vehicle_id', $vehicle->id)->first();
+        if ($repair) {
+            DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+            $repair->delete();
+            DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+        }
         // Delete the vehicle
         $vehicle->delete();
 
         // Flash success message to session
-        Session::flash('success', 'Vehicle deleted successfully.');
+        session()->flash('success', 'Vehicle deleted successfully.');
 
         // Redirect back to the previous page
         return redirect()->back();
     }
+
+
     public function searchVehicle()
     {
         $vehicles = Vehicle::where(

@@ -42,7 +42,7 @@
                 </div>
                     <div class="mb-3">
                         <label for="role">Password</label>
-                        <input type="password" class="form-control" name="password" required>
+                        <input type="password" class="form-control" name="password" placeholder="Enter Password 8 characters" required>
                     </div>
                 </div>
                 <div class="modal-footer">
