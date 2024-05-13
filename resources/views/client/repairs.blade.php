@@ -37,7 +37,7 @@
                                             <span class="client-note">{{ $repair->client_notes ?? 'No Client Notes Set' }}</span>
                                             <button type="button" class="btn btn-primary btn-sm edit-note" data-toggle="modal" data-target="#editClientNoteModal" data-note="{{ $repair->client_notes }}" data-id="{{ $repair->id }}">Edit</button>
                                         </td>
-                                        <td>{{ $repair->client_name }}</td>
+                                        <td>{{ $repair->mechanic_name }}</td>
                                         <td>{{ $repair->make }}</td>
                                         
                                     </tr>

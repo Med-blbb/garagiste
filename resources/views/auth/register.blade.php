@@ -29,8 +29,8 @@
                     <select class="form-control" name="role" id="floatingRole" required autofocus>
                         <option value="">Select Role</option>
                         <option value="admin">Administrator</option>
-                        <option value="editor">Mechanician</option>
-                        <option value="user">User</option>
+                        <option value="mechanic">Mechanician</option>
+                        <option value="client">Client</option>
                     </select>
                     <label for="floatingRole">Role</label>
                     @if ($errors->has('role'))

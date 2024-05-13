@@ -45,9 +45,10 @@ class ClientProfileController extends Controller
     {
         $repairs = DB::table('repairs')
         ->join('vehicles', 'repairs.vehicle_id', '=', 'vehicles.id')
-        ->join('users', 'repairs.mechanic_id', '=', 'users.id')
-        
-        ->select('repairs.*', 'vehicles.make', 'vehicles.model', 'users.name as client_name', 'users.email', 'users.address', 'users.phoneNumber')
+        ->join('users as mechanics', 'repairs.mechanic_id', '=', 'mechanics.id')
+        ->join('users as clients', 'vehicles.user_id', '=', 'clients.id')
+        ->where('clients.id', '=', auth()->user()->id)
+        ->select('repairs.*', 'mechanics.name as mechanic_name','vehicles.make', 'vehicles.model', 'clients.name as client_name', 'clients.email', 'clients.address', 'clients.phoneNumber')
         ->simplePaginate(5);
         return view('client.repairs', compact('repairs'));
     }
