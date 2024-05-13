@@ -23,7 +23,14 @@ class ClientProfileController extends Controller
         ->where('users.id', '=', auth()->user()->id)
         ->select('repairs.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email', 'users.address', 'users.phoneNumber')
         ->simplePaginate(5);
-        return view('client.dashboard', compact(['vehicle', 'repair']));
+        $invoice= DB::table('invoices')
+        ->join('repairs', 'invoices.repair_id', '=', 'repairs.id')
+        ->join('vehicles', 'repairs.vehicle_id', '=', 'vehicles.id')
+        ->join('users', 'vehicles.user_id', '=', 'users.id')
+        ->where('users.id', '=', auth()->user()->id)
+        ->select('invoices.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email', 'users.address', 'users.phoneNumber')
+        ->simplePaginate(5);
+        return view('client.dashboard', compact(['vehicle', 'repair', 'invoice']));
     }
     public function vehicle()
     {
@@ -59,5 +66,20 @@ class ClientProfileController extends Controller
     $repair->save();
     return response()->json(['success' => 'Client note updated successfully.']);
 }
-
+    public function invoice()
+    {
+        $invoices = DB::table('invoices')
+        ->join('repairs', 'invoices.repair_id', '=', 'repairs.id')
+        ->join('vehicles', 'repairs.vehicle_id', '=', 'vehicles.id')
+        ->join('users as mechanics', 'repairs.mechanic_id', '=', 'mechanics.id')
+        ->join('users as clients', 'vehicles.user_id', '=', 'clients.id')
+        ->where('clients.id', '=', auth()->user()->id)
+        ->select('invoices.*', 'vehicles.make', 'vehicles.model',
+             'clients.name as client_name', 
+             'clients.email', 'clients.address', 'clients.phoneNumber',
+             'repairs.description as repair_description',
+             'mechanics.name as mechanic_name', 'mechanics.email as mechanic_email', 'mechanics.address as mechanic_address', 'mechanics.phoneNumber as mechanic_phoneNumber')
+        ->simplePaginate(5);
+        return view('client.invoice', compact('invoices'));
+    }
 }

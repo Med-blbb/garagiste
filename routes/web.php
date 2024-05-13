@@ -115,7 +115,10 @@ Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
     Route::get('/vehicles', [ClientProfileController::class, 'vehicle'])->name('client.vehicles');
     Route::get('/repair', [ClientProfileController::class, 'repair'])->name('client.repairs');
     Route::put('/update/client/note/{id}', [ClientProfileController::class, 'updateClientNote'])->name('client.update-client-note');
-    
+    Route::get('/invoices', [ClientProfileController::class, 'invoice'])->name('client.invoices');
+    Route::get('/pdf/invoice/{id}',[PDFController::class,'generatePDF'])->name('client.pdf-invoice');
+
+
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
