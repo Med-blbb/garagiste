@@ -22,6 +22,7 @@
       <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <!-- Dashboard -->
+              @if (Auth::user()->role == 'admin')
               <li class="nav-item">
                   <a href="#" class="nav-link active">
                       <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -81,6 +82,33 @@
                       </li>
                   </ul>
               </li>
+              @endif
+              @if (Auth::user()->role == 'client' || Auth::user()->role == 'admin')
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Client Dashboard
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('client.dashboard')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                </ul>
+              <li class="nav-item">
+                  <a href="{{route('logout.perform')}}" class="nav-link">
+                      <i class="nav-icon fas fa-sign-out-alt"></i>
+                      <p>
+                        Logout
+                      </p>
+                  </a>
+              </li>
+              @endif
           </ul>
       </nav>
       <!-- /.sidebar-menu -->

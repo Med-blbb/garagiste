@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LocalizationController;
 use App\Http\Controllers\admin\MechanicController;
 use App\Http\Controllers\admin\RepairController;
+use App\Http\Controllers\client\ClientProfileController;
 use App\Http\Controllers\PDFController;
 use App\Models\SpairPart;
 use App\Models\User;
@@ -107,6 +108,14 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::delete('/delete/invoice/{id}',[InvoiceController::class,'destroy'])->name('admin.delete-invoice');
     //pdf invoice
     Route::get('/pdf/invoice/{id}',[PDFController::class,'generatePDF'])->name('admin.pdf-invoice');
+});
+
+Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
+    Route::get('/dashboard', [ClientProfileController::class, 'dashboard'])->name('client.dashboard');
+    Route::get('/vehicles', [ClientProfileController::class, 'vehicle'])->name('client.vehicles');
+    Route::get('/repair', [ClientProfileController::class, 'repair'])->name('client.repairs');
+    Route::put('/update/client/note/{id}', [ClientProfileController::class, 'updateClientNote'])->name('client.update-client-note');
+    
 });
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
