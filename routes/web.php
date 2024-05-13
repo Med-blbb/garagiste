@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\VehicleController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\LocalizationController;
+use App\Http\Controllers\mechanic\MechanicProfileController;
 use App\Http\Controllers\admin\MechanicController;
 use App\Http\Controllers\admin\RepairController;
 use App\Http\Controllers\client\ClientProfileController;
@@ -15,6 +16,7 @@ use App\Models\SpairPart;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\SpairPartsController;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -120,6 +122,11 @@ Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
 
 
 });
+
+Route::prefix('mechanic')->middleware(['auth', 'mechanic'])->group(function () {
+    Route::get('/dashboard', [MechanicProfileController::class, 'dashboard'])->name('mechanic.dashboard');
+    Route::get('/repairs',[MechanicProfileController::class,'repair'])->name('mechanics.repairs');
+});
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
     $user = User::where('email_verification_token', $token)->first();
@@ -173,3 +180,33 @@ Route::get('/changeLocale/{locale}',function($locale){
     session()->put('locale',$locale);
     return redirect()->back();
 })->name('pages.changeLocale');
+
+
+
+Route::get('/{any?}', function () {
+    // Check if user is authenticated
+    if (Auth::check()) {
+        $role = Auth::user()->role;
+        // Log the user's role for debugging
+        logger('User Role: ' . $role);
+        
+        // Check user's role and redirect accordingly
+        switch ($role) {
+            case 'admin':
+                return Redirect::route('admin.dashboard');
+                break;
+            case 'mechanic':
+                return Redirect::route('mechanic.dashboard');
+                break;
+            case 'client':
+                return Redirect::route('client.dashboard');
+                break;
+            default:
+                // Redirect to a default route or show an error
+                return redirect('/');
+        }
+    } else {
+        // Redirect unauthenticated users to login page
+        return redirect('/login');
+    }
+});

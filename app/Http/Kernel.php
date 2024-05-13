@@ -72,6 +72,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'client' => \App\Http\Middleware\ClientMiddlware::class,
+        'mechanic' => \App\Http\Middleware\MechanicMiddleware::class,
         
     ];
 }

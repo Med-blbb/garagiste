@@ -147,29 +147,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(!empty($invoice->repairs))
-                                    @foreach($invoice->repairs as $repair) 
+                                    
+                                    
                                     <tr>
-                                        
-                                        <td class="text-left">{{ $repair->description }}</td>
-                                        <td class="text-right">{{ $repair->mechanic_notes }}</td>
+                                        <td></td>
+                                        <td class="text-left">{{ $invoice->repair->description }}</td>
+                                        <td class="text-right">{{ $invoice->repair->mechanic_notes }}</td>
                                     </tr>
-                                    @endforeach
-                                    @endif
+                                   
+                                    
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="2"></td>
+                                        
                                         <td colspan="2">SUBTOTAL</td>
                                         <td>{{ $invoice->total_amount }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"></td>
+                                      
                                         <td colspan="2">TAX 25%</td>
                                         <td>{{ $invoice->additional_charges }}</td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2"></td>
+                                        
                                         <td colspan="2">GRAND TOTAL</td>
                                         <td>{{ $invoice->additional_charges + $invoice->total_amount }}</td>
                                     </tr>

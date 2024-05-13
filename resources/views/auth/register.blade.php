@@ -37,6 +37,20 @@
                         <span class="text-danger text-left">{{ $errors->first('role') }}</span>
                     @endif
                 </div>
+                <div class="form-group form-floating mb-3">
+                    <input type="text" class="form-control" name="phoneNumber" value="{{ old('phoneNumber') }}" placeholder="Phone" required>
+                    <label for="floatingPhone">Phone</label>
+                    @if ($errors->has('phone'))
+                        <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
+                    @endif
+                </div>
+                <div class="form-group form-floating mb-3">
+                    <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Address" required>
+                    <label for="floatingAddress">Address</label>
+                    @if ($errors->has('address'))
+                        <span class="text-danger text-left">{{ $errors->first('address') }}</span>
+                    @endif
+                </div>
 
                 <div class="form-group form-floating mb-3">
                     <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required>

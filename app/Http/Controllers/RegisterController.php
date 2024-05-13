@@ -20,12 +20,23 @@ class RegisterController extends Controller
     {
         // Generate a token for email verification
         $verificationToken = Str::random(64);
+        $validate=$request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|string|max:255',
+            'address' => 'required|string|max:255',
+            'phoneNumber' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required'
 
+        ]);
         // Create the user with validated data and email verification token
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
+            'address' => $request->address,
+            'phoneNumber' => $request->phoneNumber,
             'password' => Hash::make($request->password),
             'email_verification_token' => $verificationToken,
         ]);

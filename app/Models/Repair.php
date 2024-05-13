@@ -27,7 +27,7 @@ class Repair extends Model
 
     public function invoice()
     {
-        return $this->hasOne(Invoice::class);
+        return $this->hasMany(Invoice::class);
     }
     public function spairParts()
     {
