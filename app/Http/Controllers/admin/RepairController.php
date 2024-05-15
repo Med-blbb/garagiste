@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 use App\Models\Repair;
+use App\Models\SpairPart;
 
 class RepairController extends Controller
 {
@@ -64,6 +66,9 @@ class RepairController extends Controller
         $repair->client_notes = $request->client_notes;
         $repair->vehicle_id = $request->vehicle_id;
         $repair->mechanic_id = $request->mechanic_id;
+        if($request->spair_id){
+        $repair->spair_id = $request->spair_id;
+        }
         
         
         $repair->save();
@@ -82,8 +87,18 @@ class RepairController extends Controller
     public function destroy($id)
     {
         $repair = Repair::find($id);
+        $invoice=Invoice::where('repair_id',$id)->first();
+        $parts=SpairPart::where('repair_id',$id)->get();
         if(!$repair){
             return redirect()->back()->whith('error','Repair not found');
+        }
+        if($invoice){
+            $invoice->delete();
+        }
+        if($parts){
+            foreach($parts as $part){
+                $part->delete();
+            }
         }
         $repair->delete();
         return redirect()->back()->with('success',"Repair deleted successfully");

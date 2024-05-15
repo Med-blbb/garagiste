@@ -83,7 +83,7 @@
                   </ul>
               </li>
               @endif
-              @if (Auth::user()->role == 'client' || Auth::user()->role == 'admin')
+              @if (Auth::user()->role == 'client')
               <li class="nav-item">
                 <a href="#" class="nav-link active">
                     <i class="nav-icon fas fa-tachometer-alt"></i>

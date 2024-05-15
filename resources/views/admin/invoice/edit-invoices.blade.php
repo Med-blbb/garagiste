@@ -25,18 +25,26 @@
     @csrf
     @method('PUT')
     <div class="mb-3">
+        <label for="additional_charges">Additional Charges</label>
         <input type="text" class="form-control" name="additional_charges" value="{{$invoice->additional_charges}}" placeholder="Additional Charges" required>
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" name="total_amount" value="{{$invoice->total_amount}}" placeholder="Total Amount" required>
+        <label for="amount">Amount</label>
+        <input type="text" class="form-control" name="amount" value="{{$invoice->amount}}" placeholder="Amount" required>
     </div>
+<div class="mb-3">
+    <label for="total_amount">Total Amount</label>
+    <input type="text" class="form-control" name="total_amount" value="{{$invoice->total_amount}}" placeholder="Total Amount" required readonly>
+</div>
     <div class="mb-3">
+        <label for="repair_id">Repair ID</label>
         <input type="text" class="form-control" name="repair_id" value="{{$invoice->repair_id}}" placeholder="Repair ID">
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" name="id" value="{{$invoice->id}}" placeholder="id">
+        <label for="client_id">Client ID</label>
+        <input type="text" class="form-control" name="client_id" value="{{$invoice->client_id}}" placeholder="client_id">
     </div>
     <button type="submit" class="btn btn-primary">Edit Invoice</button>
-    <a href="{{ route('admin.show-parts') }}" class="btn btn-secondary">Invoices list</a>
+    <a href="{{ route('admin.show-invoices') }}" class="btn btn-secondary">Invoices list</a>
 </form>
 @endsection

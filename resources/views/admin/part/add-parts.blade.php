@@ -37,13 +37,21 @@
         <div class="form-group form-floating mb-3">
         <label for="supplier">Supplier</label>
         <input type="text" class="form-control" name="supplier" id="supplier" required >
-        
-        
+        </div>
+        <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="text" class="form-control" name="quantity" id="quantity" required>
+        </div>
+        <div class="form-group">
+        <label for="repair_id">Repair ID</label>
+        <input type="text" class="form-control" name="repair_id" id="repair_id" required>
+        </div>
+        <div class ="form-group">
+            <label for="price">Price</label>
+            <input type="text" class="form-control" name="price" required>
+        </div>
     </div>
-    <div class ="form-group">
-        <label for="price">Price</label>
-        <input type="text" class="form-control" name="price" required>
-    </div>
+    
     
         <a href="{{ route('admin.show-parts') }}" class="btn btn-secondary">Spair Parts list</a>
         <button type="submit" class="btn btn-primary">Add Spair Part</button>

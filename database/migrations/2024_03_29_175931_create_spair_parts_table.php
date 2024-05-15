@@ -14,6 +14,8 @@ class CreateSpairPartsTable extends Migration
             $table->string('part_reference')->unique();
             $table->string('supplier');
             $table->decimal('price', 8, 2);
+            $table->integer('quantity');
+            $table->foreignId('repair_id')->nullable()->constrained('repairs');
             $table->timestamps();
         });
     }

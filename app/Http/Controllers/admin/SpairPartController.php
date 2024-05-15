@@ -36,6 +36,8 @@ class SpairPartController extends Controller
         $sparePart->part_reference = $request->input('part_reference');
         $sparePart->supplier = $request->input('supplier');
         $sparePart->price = $request->input('price');
+        $sparePart->quantity = $request->input('quantity');
+        $sparePart->repair_id = $request->input('repair_id');
         $sparePart->save();
 
         return redirect()->route('admin.show-parts')->with('success', 'Spare part created successfully.');
@@ -56,6 +58,8 @@ class SpairPartController extends Controller
             'part_reference' => 'required',
             'supplier' => 'required',
             'price' => 'required|numeric',
+            'quantity' => 'required|numeric',
+            'repair_id' => 'required',
         ]);
 
         $sparePart = SpairPart::findOrFail($id);
@@ -63,6 +67,8 @@ class SpairPartController extends Controller
         $sparePart->part_reference = $request->input('part_reference');
         $sparePart->supplier = $request->input('supplier');
         $sparePart->price = $request->input('price');
+        $sparePart->quantity = $request->input('quantity');
+        $sparePart->repair_id = $request->input('repair_id');
         $sparePart->save();
 
         return redirect()->route('admin.show-parts')->with('success', 'Spare part updated successfully.');

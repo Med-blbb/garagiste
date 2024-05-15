@@ -13,10 +13,14 @@ class SpairPart extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['part_name', 'part_reference', 'supplier', 'price'];
-    public function repairs()
+    protected $fillable = ['part_name', 'part_reference', 'supplier', 'price', 'quantity','repair_id'];
+    public function repair()
+{
+    return $this->belongsTo(Repair::class);
+}
+public function invoices()
     {
-        return $this->belongsToMany(Repair::class, 'repair_spare_part', 'spare_part_id', 'repair_id')
-        ->withPivot('quantity');
+        return $this->belongsToMany(Invoice::class, 'invoice_spare_parts', 'spair_part_id', 'invoice_id');
     }
+
 }

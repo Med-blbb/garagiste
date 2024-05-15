@@ -87,7 +87,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/edit/repair/{id}',[RepairController::class,'update'])->name('admin.update-repair');
     Route::put('/edit/repair/status/{id}',[RepairController::class,'statusUpdateRepair'])->name('admin.update-repair-status');
     //delete repair
-    Route::delete('/delete/repair/{id}',[RepairController::class,'deleteRepair'])->name('admin.delete-repair');
+    Route::delete('/delete/repair/{id}',[RepairController::class,'destroy'])->name('admin.delete-repair');
     //show spairs Parts
     Route::get('/spair-parts/',[SpairPartController::class,'index'])->name('admin.show-parts');
     //add spair part
@@ -126,7 +126,15 @@ Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
 Route::prefix('mechanic')->middleware(['auth', 'mechanic'])->group(function () {
     Route::get('/dashboard', [MechanicProfileController::class, 'dashboard'])->name('mechanic.dashboard');
     Route::get('/repairs',[MechanicProfileController::class,'repair'])->name('mechanics.repairs');
-});
+    Route::post('/add/spare/part/{id}', [MechanicProfileController::class, 'storeSpare'])->name('mechanic.add-spare-part');
+    Route::delete('/delete/repair/{id}', [MechanicProfileController::class, 'deleteRepair'])->name('mechanic.delete-repair');
+    Route::get('/update/repair/{id}', [MechanicProfileController::class, 'editRepair'])->name('mechanic.update-repair');
+    Route::put('/update/repair/{id}', [MechanicProfileController::class, 'updateRepair'])->name('mechanic.update-repair');
+    Route::put('/edit/repair/status/{id}',[MechanicProfileController::class,'statusUpdateRepair'])->name('mechanic.update-repair-status');
+    Route::get('/add/spair-parts',[SpairPartController::class,'create'])->name('mechanic.add-parts');
+    Route::post('/add/spair-parts',[MechanicProfileController::class,'storePart'])->name('mechanic.add-parts');
+
+}); 
 Route::get('/verify-email/{token}', function ($token) {
     // Find the user by email verification token
     $user = User::where('email_verification_token', $token)->first();

@@ -21,13 +21,13 @@ class AdminSeeder extends Seeder
 
         ]);
         User::create([
-            'name' => 'client Bl',
+            'name' => 'Zayd Client',
             'email' => 'test@test.com',
             'password' => bcrypt('test123'),
             'role' => 'client'
         ]);
         User::create([
-            'name' => 'mechanic Bl',
+            'name' => 'reda mechanic',
             'email' => 'mechanic@mechanic.com',
             'password' => bcrypt('mechanic123'),
             'role' => 'mechanic'

@@ -19,7 +19,8 @@
                                     <tr>
                                         <th scope="col">ID</th>
                                         <th scope="col">Additional Charges</th>
-                                        <th scope="col">Total Amount</th>
+                                        <th scope="col">Amount</th>
+                                        <th scope="col">Total Amount</th> <!-- Added -->
                                         <th scope="col">Repair Description</th>
                                         <th scope="col">Repair ID</th>
                                         <th scope="col">Client ID</th>
@@ -28,11 +29,12 @@
                                 </thead>
                                 <tbody>
                                     
-                                        @foreach($invoices as $invoice)
-                                        <tr>
+                                    @foreach($invoices as $invoice)
+                                    <tr>
                                         <td>{{ $invoice->id }}</td>
                                         <td>{{ $invoice->additional_charges }}</td>
-                                        <td>{{ $invoice->total_amount }}</td>
+                                        <td>{{ $invoice->amount }}</td>
+                                        <td>{{ $invoice->total_amount }}</td> <!-- Modified -->
                                         <td>{{ $invoice->repair_description }}</td>
                                         <td>{{ $invoice->repair_id }}</td>
                                         <td>{{ $invoice->client_id }}</td>
@@ -44,18 +46,15 @@
                                                 <button type="submit" class="btn btn-danger btn-sm" title="Remove Invoice" >
                                                     <i class="bi bi-trash h5"></i>
                                                 </button>
-                                                </form>
-                                                <a href="{{route('admin.pdf-invoice', ['id' => $invoice->id])}}" 
-                                                    class="btn btn-success btn-sm" title="Download Invoice" style="margin-left: 5px;" target="_blank" download="{{ $invoice->repair_id }}">
-                                                    <i class="bi bi-filetype-pdf"></i></a>
+                                            </form>
+                                            <a href="{{route('admin.pdf-invoice', ['id' => $invoice->id])}}" 
+                                                class="btn btn-success btn-sm" title="Download Invoice" style="margin-left: 5px;" target="_blank" download="{{ $invoice->repair_id }}">
+                                                <i class="bi bi-filetype-pdf"></i></a>
                                         </td>
-                                        </tr>
-                                        @endforeach
+                                    </tr>
+                                    @endforeach
                                     
-                                  
-
                                 </tbody>
-
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -81,7 +80,4 @@
 
     </section>
 </div>
-
-
-
 @endsection

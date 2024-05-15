@@ -28,7 +28,7 @@
                             <strong>{{ $vehicle->make }} - {{ $vehicle->model }} - {{ $vehicle->registration }}</strong>
                             
                             <h2>The Owner : {{ $vehicle->name}}</h2>
-                        
+                            <h2>ID : {{ $vehicle->id}}</h2>
 
                             <br>
 

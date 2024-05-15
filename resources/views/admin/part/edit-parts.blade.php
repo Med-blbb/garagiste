@@ -25,20 +25,30 @@
     @csrf
     @method('PUT')
     <div class="mb-3">
+        <label for="part_name">Part Name</label>
         <input type="text" class="form-control" name="part_name" value="{{$sparePart->part_name}}" placeholder="Part Name" required>
     </div>
     <div class="mb-3">
+        <label for="part_reference">Part Reference</label>
         <input type="text" class="form-control" name="part_reference" value="{{$sparePart->part_reference}}" placeholder="Part Reference" required>
     </div>
     <div class="mb-3">
+        <label for="supplier">Supplier</label>
         <input type="text" class="form-control" name="supplier" value="{{$sparePart->supplier}}" placeholder="Supplier">
     </div>
     <div class="mb-3">
+        <label for="price">Price</label>
         <input type="text" class="form-control" name="price" value="{{$sparePart->price}}" placeholder="Price">
     </div>
     <div class="mb-3">
-        <input type="text" class="form-control" name="id" value="{{$sparePart->id}}" placeholder="id">
+        <label for="quantity">Quantity</label>
+        <input type="text" class="form-control" name="quantity" value="{{$sparePart->quantity}}" placeholder="Quantity">
     </div>
+    <div class="mb-3">
+        <label for="repair_id">Repair ID</label>
+        <input type="text" class="form-control" name="repair_id" value="{{$sparePart->repair_id}}" placeholder="Repair ID">
+    </div>
+    
     <button type="submit" class="btn btn-primary">Edit Spair Part</button>
     <a href="{{ route('admin.show-parts') }}" class="btn btn-secondary">Spair Parts list</a>
 </form>

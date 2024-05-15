@@ -2,6 +2,25 @@
 
 @section('content')
 @include('layouts.modals.edit-repair-modal')
+@if (session('success'))
+<div class="alert alert-success container col-md-6 mx-auto mt-5">
+    {{ session('success') }}
+</div>
+@endif
+@if (session('error'))
+<div class="alert alert-danger container col-md-6 mx-auto mt-5">
+    {{ session('error') }}
+</div>
+@endif
+@if ($errors->any())
+<div class="alert alert-danger container col-md-6 mx-auto mt-5">
+    <ul>
+        @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+        @endforeach
+    </ul>
+</div>
+@endif
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -22,6 +41,8 @@
                                         <th scope="col">Part Reference</th>
                                         <th scope="col">Supplier</th>
                                         <th scope="col">Price</th>
+                                        <th scope="col">Quantity</th>
+                                        <th scope="col">Repair ID</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -34,6 +55,8 @@
                                         <td>{{ $part->part_reference }}</td>
                                         <td>{{ $part->supplier }}</td>
                                         <td>{{ $part->price }} DH</td>
+                                        <td>{{ $part->quantity }}</td>
+                                        <td>{{ $part->repair_id }}</td>
                                         <td>
                                             <a href="{{route('admin.edit-parts', ['id' => $part->id])}}" class="btn btn-primary btn-sm">Edit</a>
                                             <form action="{{route('admin.delete-parts', ['id' => $part->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this spair part?')">

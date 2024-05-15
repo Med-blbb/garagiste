@@ -31,6 +31,9 @@
             <input type="text" class="form-control" id="additional_charges" name="additional_charges" required>
         </div>
         <div class="form-group">
+            <label for="Amount">Amount</label>
+            <input type="text" class="form-control" id="amount" name="amount" required>
+        <div class="form-group">
             <label for="Total Amount">Total Amount</label>
             <input type="text" class="form-control" id="total_amount" name="total_amount" required>
         </div>
