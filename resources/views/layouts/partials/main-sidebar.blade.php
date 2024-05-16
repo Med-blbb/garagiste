@@ -100,6 +100,26 @@
                         </a>
                     </li>
                 </ul>
+              
+              @endif
+              @if(Auth::user()->role == 'mechanic')
+              <li class="nav-item">
+                <a href="#" class="nav-link active">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Client Dashboard
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('mechanic.dashboard')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                </ul>
+                @endif
               <li class="nav-item">
                   <a href="{{route('logout.perform')}}" class="nav-link">
                       <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -108,7 +128,6 @@
                       </p>
                   </a>
               </li>
-              @endif
           </ul>
       </nav>
       <!-- /.sidebar-menu -->

@@ -125,7 +125,8 @@ Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
 
 Route::prefix('mechanic')->middleware(['auth', 'mechanic'])->group(function () {
     Route::get('/dashboard', [MechanicProfileController::class, 'dashboard'])->name('mechanic.dashboard');
-    Route::get('/repairs',[MechanicProfileController::class,'repair'])->name('mechanics.repairs');
+    Route::get('/repairs',[MechanicProfileController::class,'repair'])->name('mechanic.repairs');
+    Route::get('/vehicles',[MechanicProfileController::class,'vehicle'])->name('mechanic.vehicles');
     Route::post('/add/spare/part/{id}', [MechanicProfileController::class, 'storeSpare'])->name('mechanic.add-spare-part');
     Route::delete('/delete/repair/{id}', [MechanicProfileController::class, 'deleteRepair'])->name('mechanic.delete-repair');
     Route::get('/update/repair/{id}', [MechanicProfileController::class, 'editRepair'])->name('mechanic.update-repair');
@@ -133,6 +134,8 @@ Route::prefix('mechanic')->middleware(['auth', 'mechanic'])->group(function () {
     Route::put('/edit/repair/status/{id}',[MechanicProfileController::class,'statusUpdateRepair'])->name('mechanic.update-repair-status');
     Route::get('/add/spair-parts',[SpairPartController::class,'create'])->name('mechanic.add-parts');
     Route::post('/add/spair-parts',[MechanicProfileController::class,'storePart'])->name('mechanic.add-parts');
+    Route::post('/add-invoice',[MechanicProfileController::class,'storeInvoice'])->name('mechanic.add-invoice');
+    Route::get('/vehicle/{id}',[MechanicProfileController::class,'showVehicle'])->name('mechanic.show.vehicle');
 
 }); 
 Route::get('/verify-email/{token}', function ($token) {

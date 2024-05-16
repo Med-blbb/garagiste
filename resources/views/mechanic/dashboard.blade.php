@@ -22,20 +22,20 @@
                 <div class="row">
                     <!-- ./col -->
                     <!-- ./col -->
-                    {{-- <div class="col-lg-3 col-6">
+                    <div class="col-lg-3 col-6">
                         <!-- small box -->
                         <div class="small-box bg-warning">
                             <div class="inner">
-                                <h3>{{ $vehicle->count() }}</h3>
+                                <h3>{{ $vehicles->count() }}</h3>
 
                                 <p>{{__('Vehicles')}}</p>
                             </div>
                             <div class="icon">
                                 <i class="bi bi-car-front-fill"></i>
                             </div>
-                            <a href="{{ route('client.vehicles') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ route('mechanic.vehicles') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                    </div> --}}
+                    </div>
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
@@ -48,7 +48,7 @@
                             <div class="icon">
                                 <i class="bi bi-tools"></i>
                             </div>
-                            <a href="{{ route('mechanics.repairs') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="{{ route('mechanic.repairs') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     

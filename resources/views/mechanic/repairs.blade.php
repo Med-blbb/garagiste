@@ -24,8 +24,8 @@
                                         <th scope="col">End Date</th>
                                         <th scope="col">Mechanic Notes</th>
                                         <th scope="col">Client Notes</th>
-                                        <th scope="col">Mechanic ID</th>
-                                        <th scope="col">Vehicle ID</th>
+                                        <th scope="col">Mechanic Name</th>
+                                        <th scope="col">Vehicle Make</th>
                                         <th scope="col">Spare Parts</th> <!-- Corrected typo here -->
                                         <th scope="col">Actions</th>
                                     </tr>
@@ -51,14 +51,15 @@
                                         <td>{{ $repair->client_notes }}</td>
                                         <td>{{ $repair->mechanic_name }}</td>
                                         <td>{{ $repair->make }}</td>
+                                        <td class="d-none client-id">{{$repair->client_id}}
                                         <td>
                                             @if($repair->spairParts->count() > 0)
                                                 @foreach($repair->spairParts as $spairPart)
                                                     <p>{{ $spairPart->part_name }}</p>
                                                 @endforeach
-                                            @else
-                                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPartModal"><i class="bi bi-plus"></i></button>
                                             @endif
+                                            
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPartModal"><i class="bi bi-plus"></i></button>
                                         </td>
                                         <td>
                                             <a href="{{route('mechanic.update-repair', ['id' => $repair->id])}}" data-id="{{ $repair->id }}" data-status="{{ $repair->status }}" class="btn btn-primary edit-repair btn-sm">Edit</a>
@@ -98,7 +99,8 @@
     $(document).ready(function(){
         $('.status').on('change', function(){
             var selectedValue = $(this).val();
-            var repairId = $(this).closest('tr').find('.repair-id').text(); // Retrieve repair ID from the closest row
+            var repairId = $(this).closest('tr').find('.repair-id').text();
+            var clientId = $(this).closest('tr').find('.client-id').text();
             var token = $('meta[name="csrf-token"]').attr('content');
             console.log(repairId + ' ' + selectedValue);
             if (selectedValue === 'Completed') {
@@ -123,6 +125,7 @@
                         // Show add invoice modal and set repair_id after confirmation
                         $('#addInvoiceModal').modal('show');
                         $('#addInvoiceModal').find('input[name="repair_id"]').val(repairId);
+                        $('#addInvoiceModal').find('input[name="client_id"]').val(clientId);
                     }
                 },
                 error: function(xhr, status, error) {

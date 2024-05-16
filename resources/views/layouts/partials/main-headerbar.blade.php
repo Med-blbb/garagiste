@@ -1,5 +1,4 @@
-<!-- Navbar -->
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -13,14 +12,17 @@
         </li>
     </ul>
 
-
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
+        <!-- Language dropdown -->
         <li class="nav-item dropdown">
+            <!-- Language dropdown toggle -->
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownLanguage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="{{ asset('assets/flags/' . app()->getLocale() . '.png') }}" alt="{{ app()->getLocale() }}"> <!-- Default language flag -->
+                <img src="{{ asset('assets/flags/' . app()->getLocale() . '.png') }}" alt="{{ app()->getLocale() }}">
             </a>
+            <!-- Language dropdown menu -->
             <div class="dropdown-menu" aria-labelledby="navbarDropdownLanguage">
+                <!-- Language options -->
                 @foreach(['en', 'fr', 'es', 'ar'] as $locale)
                     <a class="dropdown-item" href="{{ route('pages.changeLocale', ['locale' => $locale]) }}">
                         <img src="{{ asset('assets/flags/' . $locale . '.png') }}" alt="{{ $locale }}"> {{ ucfirst($locale) }}
@@ -28,8 +30,8 @@
                 @endforeach
             </div>
         </li>
-        
-        <!-- Navbar Search -->
+
+        <!-- Navbar search -->
         <li class="nav-item">
             <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                 <i class="fas fa-search"></i>
@@ -42,7 +44,6 @@
                             <button class="btn btn-navbar" type="submit">
                                 <i class="fas fa-search"></i>
                             </button>
-                            
                             <button class="btn btn-navbar" type="button" data-widget="navbar-search">
                                 <i class="fas fa-times"></i>
                             </button>
@@ -52,9 +53,9 @@
             </div>
         </li>
 
-        <!-- Messages Dropdown Menu -->
+        <!-- User authentication -->
         <li class="nav-item dropdown">
-
+            <!-- Guest view -->
             @guest
             <div class="text-end">
                 <a href="{{ route('login.perform') }}" class="btn btn-outline-light me-2">{{__('Login')}}</a>
@@ -62,17 +63,16 @@
             </div>
             @endguest
 
-        </li>
-        <li class="nav-item dropdown">
+            <!-- Authenticated view -->
             @auth
-            {{auth()->user()->name}}
             <div class="nav-link text-end">
-            <a href="{{ route('logout.perform') }}" class="btn btn-outline-dark me-2">{{__('Logout')}}</a>
+                {{auth()->user()->name}}
+                <a href="{{ route('logout.perform') }}" class="btn btn-outline-dark me-2">{{__('Logout')}}</a>
             </div>
             @endauth
         </li>
-        
-        <!-- Notifications Dropdown Menu -->
+
+        <!-- Notifications dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
@@ -99,19 +99,19 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
+
+        <!-- Fullscreen button -->
         <li class="nav-item">
             <a class="nav-link" data-widget="fullscreen" href="#" role="button">
                 <i class="fas fa-expand-arrows-alt"></i>
             </a>
         </li>
+
+        <!-- Control sidebar button -->
         <li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
     </ul>
-    <ul>
-
-    </ul>
 </nav>
-<!-- /.navbar -->

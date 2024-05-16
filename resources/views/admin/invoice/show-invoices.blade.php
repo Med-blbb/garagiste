@@ -23,7 +23,7 @@
                                         <th scope="col">Total Amount</th> <!-- Added -->
                                         <th scope="col">Repair Description</th>
                                         <th scope="col">Repair ID</th>
-                                        <th scope="col">Client ID</th>
+                                        <th scope="col">Client Name</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -37,7 +37,7 @@
                                         <td>{{ $invoice->total_amount }}</td> <!-- Modified -->
                                         <td>{{ $invoice->repair_description }}</td>
                                         <td>{{ $invoice->repair_id }}</td>
-                                        <td>{{ $invoice->client_id }}</td>
+                                        <td>{{ $invoice->client_name }}</td>
                                         <td>
                                             <a href="{{route('admin.edit-invoice', ['id' => $invoice->id])}}" class="btn btn-primary btn-sm">Edit</a>
                                             <form action="{{route('admin.delete-invoice', ['id' => $invoice->id])}}" method="POST" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this invoice?')">

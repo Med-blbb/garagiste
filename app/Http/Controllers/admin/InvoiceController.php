@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Invoice;
 use App\Models\Repair;
 use App\Models\SpairPart;
+use App\Models\User;
+use App\Models\Vehicle;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
@@ -21,9 +23,16 @@ class InvoiceController extends Controller
             $repair = Repair::find($invoice->repair_id);
             
             $invoice->repair_description = $repair ? $repair->description : null;
+            if($repair){
+                $vehicle = Vehicle::find($repair->vehicle_id);
+                $users = User::find($vehicle->user_id);
+                $invoice->client_name = $users ? $users->name : null;
+                 
+            }
         }
+        
     
-        return view('admin.invoice.show-invoices', compact('invoices'));
+        return view('admin.invoice.show-invoices', compact(['invoices','users']));
     }
     
 

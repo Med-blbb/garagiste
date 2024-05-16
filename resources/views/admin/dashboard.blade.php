@@ -133,13 +133,14 @@
                                     <p>{{__('Invoices')}}</p>
                                 </div>
                                 <div class="icon">
-                                <i class="bi bi-tools"></i>
+                                <i class="bi bi-receipt"></i>
                                 </div>
                                 <a href="{{ route('admin.show-invoices') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="row">
+                        <div class="col-lg-3 mt-3"></div>
                         <div class="col-lg-6">
                             
                                 <div class="card card-danger">
