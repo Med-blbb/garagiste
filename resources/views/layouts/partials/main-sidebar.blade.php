@@ -80,6 +80,12 @@
                               <p>Invoices</p>
                           </a>
                       </li>
+                      <li class="nav-item">
+                          <a href="{{route('admin.show-appointments')}}" class="nav-link">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Appointments</p>
+                          </a>
+                      </li>
                   </ul>
               </li>
               @endif

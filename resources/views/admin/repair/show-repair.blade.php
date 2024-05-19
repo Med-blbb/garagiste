@@ -54,14 +54,14 @@
                                         <td>{{ $repair->mechanic_id }}</td>
                                         <td>{{ $repair->vehicle_id }}</td>
                                         <td>
-                                            @if($repair->spairParts->count() > 0)
+                                            
                                                 
                                                 @foreach($repair->spairParts as $spairPart)
                                                     <p>{{ $spairPart->part_name }}</p>
                                                 @endforeach
-                                            @else
+                                            
                                                 <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addPartModal"><i class="bi bi-plus"></i></button>
-                                            @endif
+                                            
                                         </td>
                                         <td>
                                             <a href="{{route('admin.update-repair', ['id' => $repair->id])}}" data-id="{{ $repair->id }}" data-status="{{ $repair->status }}" class="btn btn-primary edit-repair btn-sm">Edit</a>

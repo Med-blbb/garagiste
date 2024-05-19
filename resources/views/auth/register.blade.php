@@ -1,71 +1,73 @@
 @extends('layouts.auth-master')
 
 @section('content')
-<div class="container h-100 d-flex justify-content-center align-items-center vh-100">
-    <div class="card card-register shadow-sm border-primary rounded-lg mw-100">
-        <div class="card-body py-5">
+<div class="container h-100 d-flex justify-content-center align-items-center">
+    <div class="card card-register shadow-sm border-0 rounded-lg p-4" style="width: 500px;">
+        <div class="card-body">
             <form method="post" action="{{ route('register.perform') }}">
                 @csrf
 
-                <h1 class="h3 mb-3 fw-normal text-center" style="font-size: 2rem;">Register</h1>
+                <h1 class="h3 mb-4 fw-normal text-center">Register</h1>
 
-                <div class="form-group form-floating mb-3">
-                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Your name" required autofocus>
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg" name="name" value="{{ old('name') }}" placeholder="Your name" required autofocus>
                     <label for="floatingname">Name</label>
-                    @if ($errors->has('name'))
-                        <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                    @endif
+                    @error('name')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group form-floating mb-3">
-                    <input type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="name@example.com" required autofocus>
+                <div class="form-floating mb-4">
+                    <input type="email" class="form-control form-control-lg" name="email" value="{{ old('email') }}" placeholder="name@example.com" required autofocus>
                     <label for="floatingEmail">Email address</label>
-                    @if ($errors->has('email'))
-                        <span class="text-danger text-left">{{ $errors->first('email') }}</span>
-                    @endif
+                    @error('email')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group form-floating mb-3">
-                    <select class="form-control" name="role" id="floatingRole" required autofocus>
-                        <option value="">Select Role</option>
+                <div class="form-floating mb-4">
+                    <select class="form-control form-control-lg" name="role" id="floatingRole" required autofocus>
+                        <option value="" selected disabled>Select Role</option>
                         <option value="admin">Administrator</option>
-                        <option value="mechanic">Mechanician</option>
+                        <option value="mechanic">Mechanic</option>
                         <option value="client">Client</option>
                     </select>
                     <label for="floatingRole">Role</label>
-                    @if ($errors->has('role'))
-                        <span class="text-danger text-left">{{ $errors->first('role') }}</span>
-                    @endif
+                    @error('role')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group form-floating mb-3">
-                    <input type="text" class="form-control" name="phoneNumber" value="{{ old('phoneNumber') }}" placeholder="Phone" required>
+
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg" name="phoneNumber" value="{{ old('phoneNumber') }}" placeholder="Phone" required>
                     <label for="floatingPhone">Phone</label>
-                    @if ($errors->has('phone'))
-                        <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
-                    @endif
+                    @error('phoneNumber')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group form-floating mb-3">
-                    <input type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Address" required>
+
+                <div class="form-floating mb-4">
+                    <input type="text" class="form-control form-control-lg" name="address" value="{{ old('address') }}" placeholder="Address" required>
                     <label for="floatingAddress">Address</label>
-                    @if ($errors->has('address'))
-                        <span class="text-danger text-left">{{ $errors->first('address') }}</span>
-                    @endif
+                    @error('address')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group form-floating mb-3">
-                    <input type="password" class="form-control" name="password" value="{{ old('password') }}" placeholder="Password" required>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control form-control-lg" name="password" value="{{ old('password') }}" placeholder="Password" required>
                     <label for="floatingPassword">Password</label>
-                    @if ($errors->has('password'))
-                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-                    @endif
+                    @error('password')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
-                <div class="form-group form-floating mb-3">
-                    <input type="password" class="form-control" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password" required>
+                <div class="form-floating mb-4">
+                    <input type="password" class="form-control form-control-lg" name="password_confirmation" value="{{ old('password_confirmation') }}" placeholder="Confirm Password" required>
                     <label for="floatingConfirmPassword">Confirm Password</label>
-                    @if ($errors->has('password_confirmation'))
-                        <span class="text-danger text-left">{{ $errors->first('password_confirmation') }}</span>
-                    @endif
+                    @error('password_confirmation')
+                        <div class="invalid-feedback d-block">{{ $message }}</div>
+                    @enderror
                 </div>
 
                 <button class="w-100 btn btn-lg btn-primary rounded-pill" type="submit">Register</button>

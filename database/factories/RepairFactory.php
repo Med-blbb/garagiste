@@ -20,10 +20,11 @@ class RepairFactory extends Factory
             'mechanic_notes' => $this->faker->paragraph,
             'client_notes' => $this->faker->paragraph,
             'mechanic_id' => function () {
-                return User::factory()->create(['role' => 'mechanic'])->id;
+                $mechanics = User::where('role', 'mechanic')->pluck('id');
+                return $mechanics->random();
             },
             'vehicle_id' => function () {
-                return Vehicle::factory()->create()->id;
+                return Vehicle::all()->random()->id;
             },
             
         ];

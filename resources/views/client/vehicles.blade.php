@@ -51,6 +51,12 @@
             </div>
         </div>
     </div>
+
+    @if ($vehicles->hasPages())
+    <div class="d-flex justify-content-center">
+        {{ $vehicles->links() }}
+    </div>
+    @endif
 </div>
 @endsection
 

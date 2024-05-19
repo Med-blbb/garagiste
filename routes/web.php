@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\AppointmentController;
 use App\Http\Controllers\admin\ClientController;
 use App\Http\Controllers\admin\InvoiceController;
 use App\Http\Controllers\admin\SpairPartController;
@@ -108,6 +109,17 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::put('/edit/invoice/{id}',[InvoiceController::class,'update'])->name('admin.edit-invoice');
     //delete invoice
     Route::delete('/delete/invoice/{id}',[InvoiceController::class,'destroy'])->name('admin.delete-invoice');
+    //show appointments
+    Route::get('/appointments',[AppointmentController::class,'index'])->name('admin.show-appointments');
+    //add appointment
+    Route::get('/add/appointment',[AppointmentController::class,'create'])->name('admin.add-appointment');
+    Route::post('/add/appointment',[AppointmentController::class,'store'])->name('admin.add-appointment');
+    //edit appointment
+    Route::get('/edit/appointment/{id}',[AppointmentController::class,'edit'])->name('admin.edit-appointment');
+    Route::put('/edit/appointment/{id}',[AppointmentController::class,'update'])->name('admin.edit-appointment');
+    //delete appointment
+    Route::delete('/delete/appointment/{id}',[AppointmentController::class,'destroy'])->name('admin.delete-appointment');
+    
     //pdf invoice
     Route::get('/pdf/invoice/{id}',[PDFController::class,'generatePDF'])->name('admin.pdf-invoice');
 });
@@ -194,7 +206,7 @@ Route::get('/changeLocale/{locale}',function($locale){
 
 
 
-Route::get('/{any?}', function () {
+Route::get('/', function () {
     // Check if user is authenticated
     if (Auth::check()) {
         $role = Auth::user()->role;

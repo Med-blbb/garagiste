@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Exports\UsersExport;
 use App\Imports\UsersImport;
+use App\Models\Appointment;
 use App\Models\Client;
 use App\Models\Invoice;
 use App\Models\Repair;
@@ -27,7 +28,8 @@ class AdminController extends Controller
         $repairs =Repair::all();
         $parts = SpairPart::all();
         $invoices = Invoice::all();
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics ,'admins' => $admins, 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices]);
+        $appointments = Appointment::all();
+        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics ,'admins' => $admins, 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices , 'appointments' => $appointments ]);
     }
     public function showAllUsers()
     {

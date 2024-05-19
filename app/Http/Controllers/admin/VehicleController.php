@@ -15,12 +15,10 @@ class VehicleController extends Controller
     public function index()
     {
         // Fetch all vehicles
-        $vehicles = Vehicle::latest()
-                            ->join('users', 'vehicles.user_id', '=', 'users.id')
-                            ->select('vehicles.*','users.name', 'users.email')
-                            ->simplepaginate(2);
-
-        
+        $vehicles = db::table('vehicles')
+            ->join('users', 'vehicles.user_id', '=', 'users.id')
+            ->simplePaginate(2);
+            
         // Pass vehicles data to the view
         return view('admin.vehicle.show-vehicle', compact('vehicles'));
     }
@@ -89,14 +87,14 @@ class VehicleController extends Controller
 
     public function searchVehicle()
     {
-        $vehicles = Vehicle::where(
-            'model',
-            'like',
-            '%' . request('search') . '%'
-        )
-            ->orwhere('fuel_type', 'like', '%' . request('search') . '%')
-            ->orwhere('registration', 'like', '%' . request('search') . '%')
-            ->orwhere('make', 'like', '%' . request('search') . '%')
+        $vehicles = db::table('vehicles')
+            ->join('users', 'vehicles.user_id', '=', 'users.id')
+            ->where('users.name', 'like', '%' . request('search') . '%')
+            ->orwhere('vehicles.model', 'like', '%' . request('search') . '%')
+            ->orwhere('vehicles.fuel_type', 'like', '%' . request('search') . '%')
+            ->orwhere('vehicles.registration', 'like', '%' . request('search') . '%')
+            ->orwhere('vehicles.make', 'like', '%' . request('search') . '%')
+            ->select('vehicles.*', 'users.name')
             ->simplePaginate(5);
 
         return view('admin.vehicle.show-vehicle', compact('vehicles'))->with(

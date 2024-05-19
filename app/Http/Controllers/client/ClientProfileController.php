@@ -38,7 +38,7 @@ class ClientProfileController extends Controller
         ->join('users', 'vehicles.user_id', '=', 'users.id')
         ->where('users.id', '=', auth()->user()->id)
         ->select('vehicles.*', 'vehicles.make', 'vehicles.model', 'users.name', 'users.email', 'users.address', 'users.phoneNumber')
-        ->simplePaginate(5);
+        ->Paginate(1);
         return view('client.vehicles', compact('vehicles'));
     }
     public function repair()

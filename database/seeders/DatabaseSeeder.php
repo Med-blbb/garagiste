@@ -26,13 +26,13 @@ class DatabaseSeeder extends Seeder
         Vehicle::factory()->count(1)->create();
 
         // Create repairs
-        Repair::factory()->count(30)->create();
+        Repair::factory()->count(10)->create();
 
         // Create spare parts
-        SpairPart::factory()->count(50)->create();
+        SpairPart::factory()->count(10)->create();
 
         // Create invoices
-        Invoice::factory()->count(15)->create();
+        Invoice::factory()->count(10)->create();
 
          User::create([
             'name' => 'Mohamed Bl',

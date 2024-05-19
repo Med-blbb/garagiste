@@ -91,12 +91,7 @@
         </div>
 
         <div class="pagination justify-content-center">
-        <style>
-        .pagination .page-link {
-            font-size: 2px;
-            /* Adjust the font size as needed */
-        }
-        </style>
+       
         {{ $users->links() }}
         </div>
         <!-- /.container-fluid -->
