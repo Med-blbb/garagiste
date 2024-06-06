@@ -131,8 +131,12 @@ Route::prefix('client')->middleware(['auth', 'client'])->group(function () {
     Route::put('/update/client/note/{id}', [ClientProfileController::class, 'updateClientNote'])->name('client.update-client-note');
     Route::get('/invoices', [ClientProfileController::class, 'invoice'])->name('client.invoices');
     Route::get('/pdf/invoice/{id}',[PDFController::class,'generatePDF'])->name('client.pdf-invoice');
-
-
+    Route::get('/appointments', [ClientProfileController::class, 'appointment'])->name('client.appointments');
+    Route::get('/add/appointment',[ClientProfileController::class,'createAppointment'])->name('client.add-appointment');
+    Route::post('/add/appointment',[ClientProfileController::class,'storeAppointment'])->name('client.add-appointment');
+    Route::get('/edit/appointment/{id}',[ClientProfileController::class,'editAppointment'])->name('client.edit-appointment');
+    Route::put('/edit/appointment/{id}',[ClientProfileController::class,'updateAppointment'])->name('client.edit-appointment');
+    Route::delete('/delete/appointment/{id}',[ClientProfileController::class,'destroyAppointment'])->name('client.delete-appointment');
 });
 
 Route::prefix('mechanic')->middleware(['auth', 'mechanic'])->group(function () {

@@ -24,7 +24,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-warning">
+                        <div class="small-box bg-gray-400">
                             <div class="inner">
                                 <h3>{{ $vehicle->count() }}</h3>
 
@@ -39,7 +39,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-danger">
+                        <div class="small-box bg-gray-400">
                             <div class="inner">
                                 <h3> {{ $repair->count() }} </h3>
 
@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-info">
+                        <div class="small-box bg-gray-400">
                             <div class="inner">
                                 <h3>{{ $invoice->count() }}</h3>
 
@@ -65,6 +65,22 @@
                             <a href="{{ route('client.invoices') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
+                    <!-- ./col -->
+                    <div class="col-lg-3 col-6">
+                        <!-- small box -->
+                        <div class="small-box bg-gray-400">
+                            <div class="inner">
+                                <h3>{{ $appointments->count() }}</h3>
+
+                                <p>{{__('Appointments')}}</p>
+                            </div>
+                            <div class="icon">
+                                <i class="bi bi-calendar""></i>
+                            </div>
+                            <a href="{{ route('client.appointments') }}" class="small-box-footer">{{__('More info')}} <i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

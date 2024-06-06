@@ -26,7 +26,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $users->count() }}</h3>
 
@@ -41,7 +41,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3> {{ $vehicles->count() }} </h3>
 
@@ -56,9 +56,10 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
-                                <h3>{{ $clients->count() }}</h3>
+                                <h3>{{ $
+                                s->count() }}</h3>
 
                                 <p>{{__('Clients')}}</p>
                             </div>
@@ -70,7 +71,7 @@
                     </div>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $mechanics->count() }}</h3>
 
@@ -90,7 +91,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $repairs->count() }}</h3>
 
@@ -105,7 +106,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $parts->count() }}</h3>
 
@@ -121,7 +122,7 @@
                     <!-- ./col -->
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $invoices->count() }}</h3>
 
@@ -135,7 +136,7 @@
                     </div>
                     <div class="col-lg-3 col-6">
                         <!-- small box -->
-                        <div class="small-box bg-gray-400">
+                        <div class="small-box bg-gray-200">
                             <div class="inner">
                                 <h3>{{ $appointments->count() }}</h3>
 
@@ -148,6 +149,7 @@
                         </div>
                     </div>
                 </div>
+                @if($repairInProg->count() > 0 || $repairPend->count() > 0 || $repairComp->count() > 0)
                 <div class="row">
                     <div class="col-lg-3 mt-3"></div>
                     <div class="col-lg-6">
@@ -158,6 +160,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
                     
 
             </div><!-- /.container-fluid -->
@@ -171,9 +174,9 @@
     <!-- ./wrapper -->
     <script>
         // Get counts of clients and mechanics from PHP variables
-        var clientCount = {{ $clients->count() }};
-        var mechanicCount = {{ $mechanics->count() }};
-        var adminCount = {{ $admins->count() }};
+        var repairInProg = {{ $repairInProg->count() }};
+        var repairPend = {{ $repairPend->count() }};
+        var repairComp = {{ $repairComp->count() }};
 
         // Access the canvas element
         var ctx = document.getElementById('pieChart').getContext('2d');
@@ -182,10 +185,10 @@
         var myPieChart = new Chart(ctx, {
             type: 'pie',
             data: {
-                labels: ['Clients', 'Mechanics', 'Admins'],
+                labels: ['Pending', 'In Progress', 'Completed'],
                 datasets: [{
                     label: 'User Types',
-                    data: [clientCount, mechanicCount, adminCount],
+                    data: [repairPend, repairInProg, repairComp],
                     borderWidth: 1
                 }]
             },

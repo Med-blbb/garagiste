@@ -22,14 +22,29 @@ class AdminController extends Controller
 {
     public function dashboard()
     {
-        $clients = User::where('role', 'client');
-        $mechanics = User::where('role', 'mechanic');
-        $admins = User::where('role', 'admin');
-        $repairs =Repair::all();
+        $repairPend = Repair::where('status', 'pending')->get();
+        $repairInProg = Repair::where('status', 'in_progress')->get();
+        $repairComp = Repair::where('status', 'completed')->get();
+        $repairs = Repair::all();
         $parts = SpairPart::all();
+        $mechanics = User::where('role', 'mechanic')->get();
         $invoices = Invoice::all();
+        $clients = User::where('role', 'client')->get();
         $appointments = Appointment::all();
-        return view('admin.dashboard', ['users' => User::all(), 'clients' => $clients, 'vehicles' => Vehicle::all(), 'mechanics' => $mechanics ,'admins' => $admins, 'repairs' => $repairs, 'parts' => $parts, 'invoices' => $invoices , 'appointments' => $appointments ]);
+
+        return view('admin.dashboard', [
+            'users' => User::all(),
+            'repairPend' => $repairPend,
+            'repairInProg' => $repairInProg,
+            'repairComp' => $repairComp,
+            'vehicles' => Vehicle::all(),
+            'repairs' => $repairs,
+            'parts' => $parts,
+            'mechanics' => $mechanics,
+            'clients' => $clients,
+            'invoices' => $invoices,
+            'appointments' => $appointments
+        ]);
     }
     public function showAllUsers()
     {

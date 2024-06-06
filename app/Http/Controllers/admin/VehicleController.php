@@ -17,6 +17,7 @@ class VehicleController extends Controller
         // Fetch all vehicles
         $vehicles = db::table('vehicles')
             ->join('users', 'vehicles.user_id', '=', 'users.id')
+            ->orderBy('vehicles.created_at', 'desc')
             ->simplePaginate(2);
             
         // Pass vehicles data to the view

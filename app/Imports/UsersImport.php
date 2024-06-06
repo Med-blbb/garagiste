@@ -1,11 +1,12 @@
 <?php
-
 namespace App\Imports;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class UsersImport implements ToModel
+class UsersImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -14,14 +15,18 @@ class UsersImport implements ToModel
      */
     public function model(array $row)
     {
+        // Debugging to check the row content
+        // dd($row);
+
         return new User([
-            // 'id' => $row[0],
-            'name' => $row[1],
-            'email' => $row[2],
-            'role' => $row[3],
-            'address' => $row[4],
-            'phoneNumber' => $row[5],
-            
+            // Assuming 'id' is not part of the model
+            'name' => $row['name'],
+            'email' => $row['email'],
+            'password' => Hash::make($row['password']),
+            'role' => $row['role'],
+            'address' => $row['address'],
+            'phoneNumber' => $row['phonenumber'],
         ]);
     }
 }
+
